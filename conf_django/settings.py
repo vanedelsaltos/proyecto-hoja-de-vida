@@ -30,7 +30,11 @@ DEBUG = 'RENDER' not in os.environ
 #   'ALLOWED_HOSTS',
 #    '127.0.0.1,localhost'
 #).split(',')
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "proyecto-hoja-de-vida-8y8w.onrender.com"]
+ALLOWED_HOSTS = []
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
 
 
 
