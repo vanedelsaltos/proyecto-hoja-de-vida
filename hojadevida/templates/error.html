@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<div class="inicio-section fluid-design">
+    <div class="content-wrapper">
+        
+        <h2 class="inicio-title-login" style="color: #b00020;">¡Ups! Algo salió mal</h2>
+
+        <div class="section-box login-card" style="text-align: center; border-color: #b00020;">
+            
+            <div style="font-size: 5rem; margin-bottom: 20px;">🚫</div>
+            
+            <h3 style="font-family: var(--font-body); font-size: 1.8rem; margin-bottom: 15px;">
+                Acción no permitida
+            </h3>
+
+            <p style="font-size: 1.2rem; color: #555; margin-bottom: 30px;">
+                {{ mensaje }}
+            </p>
+
+            <div class="menu-principal" style="justify-content: center;">
+                <a href="{% url 'lista_perfiles' %}" class="btn btn-neutral" style="text-decoration: none;">
+                    ↩ Volver a la lista
+                </a>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}

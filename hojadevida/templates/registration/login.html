@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<div class="inicio-section fluid-design">
+    <div class="content-wrapper">
+        <h2 class="inicio-title-login">Iniciar Sesión</h2>
+
+        <div class="section-box login-card">
+            {% if form.errors %}
+                <div class="error-msg">
+                    ❌ Usuario o contraseña incorrectos
+                </div>
+            {% endif %}
+
+            <form method="post" class="login-form">
+                {% csrf_token %}
+
+                <div class="input-group">
+                    <label><strong>Usuario</strong></label>
+                    {{ form.username }}
+                </div>
+
+                <div class="input-group">
+                    <label><strong>Contraseña</strong></label>
+                    {{ form.password }}
+                </div>
+
+                <div class="menu-principal">
+                    <button type="submit" class="btn btn-mint">
+                        🔐 Ingresar
+                    </button>
+
+                    <a href="{% url 'home' %}" class="btn btn-neutral">
+                        ⬅ Volver
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

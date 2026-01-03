@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<h2 class="decorative">Lista de perfiles</h2>
+
+<a href="{% url 'crear_perfil' %}" class="btn neutral">✚ Crear nuevo perfil</a>
+<br><br>
+
+<div class="bento-grid">
+
+    {% for perfil in perfiles %}
+
+        <div class="card {% if perfil.es_activo %}mint{% else %}vanilla{% endif %} double-border">
+            <h3>{{ perfil.nombres }} {{ perfil.apellidos }}</h3>
+            <p><strong>Tipo:</strong> {{ perfil.get_perfilactivo_display }}</p>
+            <p>
+                <strong>Activo:</strong>
+                {% if perfil.es_activo %}
+                    <span class="activo-texto">𖤐 Sí</span>
+                {% else %}
+                    —
+                {% endif %}
+            </p>
+
+            <p class="menu-principal">
+                <a href="{% url 'editar_perfil' perfil.id %}" class="btn neutral">
+                    ✎ Editar
+                </a>
+                <a href="{% url 'activar_perfil' perfil.id %}" class="btn neutral">
+                    𖤐 Activar
+                </a>
+                <a href="{% url 'eliminar_perfil' perfil.id %}" class="btn neutral">
+                    🗑 Eliminar
+                </a>
+            </p>
+        </div>
+
+    {% empty %}
+        <p>No hay perfiles creados.</p>
+    {% endfor %}
+
+</div>
+
+<br>
+<a href="{% url 'inicio_admin' %}" class="btn neutral">↩  Volver a inicio</a>
+
+{% endblock %}

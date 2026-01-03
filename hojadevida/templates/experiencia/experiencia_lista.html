@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<h2 class="decorative">Experiencia laboral – {{ perfil.nombre_completo }}</h2>
+
+<div class="section-box">
+
+    <div class="menu-principal">
+        <a href="{% url 'crear_experiencia' %}" class="btn mint">✚ Agregar experiencia</a>
+    </div>
+
+    <br>
+
+    {% if experiencias %}
+    <div class="bento-grid">
+        {% for exp in experiencias %}
+        {% if exp.activar_para_front %}  {# Solo mostrar si el campo está activado #}
+        <div class="card vanilla">
+            <h3>{{ exp.cargo_desempenado }}</h3>
+
+            {% if exp.nombre_empresa %}
+                <p><strong>Empresa:</strong> {{ exp.nombre_empresa }}</p>
+            {% endif %}
+
+            {% if exp.lugar_empresa %}
+                <p><strong>Lugar:</strong> {{ exp.lugar_empresa }}</p>
+            {% endif %}
+
+            {% if exp.email_empresa %}
+                <p><strong>Email:</strong> {{ exp.email_empresa }}</p>
+            {% endif %}
+
+            {% if exp.sitio_web_empresa %}
+                <p><strong>Sitio web:</strong> <a href="{{ exp.sitio_web_empresa }}" target="_blank">{{ exp.sitio_web_empresa }}</a></p>
+            {% endif %}
+
+            {% if exp.nombre_contacto_empresarial %}
+                <p><strong>Contacto:</strong> {{ exp.nombre_contacto_empresarial }}</p>
+            {% endif %}
+
+            {% if exp.telefono_contacto_empresarial %}
+                <p><strong>Teléfono contacto:</strong> {{ exp.telefono_contacto_empresarial }}</p>
+            {% endif %}
+
+            {% if exp.fecha_inicio_gestion or exp.fecha_fin_gestion %}
+                <p><strong>Periodo:</strong> 
+                    {% if exp.fecha_inicio_gestion %}{{ exp.fecha_inicio_gestion }}{% endif %}
+                    {% if exp.fecha_fin_gestion %} - {{ exp.fecha_fin_gestion }}{% else %} - Actual{% endif %}
+                </p>
+            {% endif %}
+
+            {% if exp.descripcion_funciones %}
+                <p><strong>Funciones:</strong> {{ exp.descripcion_funciones }}</p>
+            {% endif %}
+
+            {% if exp.ruta_certificado %}
+                <p><strong>Certificado:</strong> {{ exp.ruta_certificado }}</p>
+            {% endif %}
+
+            <div class="menu-principal">
+                <a href="{% url 'editar_experiencia' exp.id %}" class="btn mint">✎ Editar</a>
+                <a href="{% url 'eliminar_experiencia' exp.id %}" class="btn pink">🗑 Eliminar</a>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% else %}
+        <p>No hay experiencias registradas</p>
+    {% endif %}
+
+    <br>
+    <a href="{% url 'inicio_admin' %}" class="btn mint">↩ Volver al inicio</a>
+
+</div>
+
+{% endblock %}

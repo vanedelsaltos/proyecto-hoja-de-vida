@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<h2 class="decorative">Inicio</h2>
+
+<div class="section-box">
+
+    {% if perfil.texto_inicio %}
+        <p>{{ perfil.texto_inicio|linebreaks }}</p>
+    {% else %}
+        <p>No has definido el texto de inicio.</p>
+    {% endif %}
+
+    <p>
+        <a href="{% url 'editar_perfil' perfil.id %}" class="btn">
+            ✎ Editar texto de inicio
+        </a>
+    </p>
+
+</div>
+
+{% endblock %}

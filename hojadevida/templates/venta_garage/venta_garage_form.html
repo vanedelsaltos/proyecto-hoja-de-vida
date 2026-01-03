@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<h2 class="decorative">
+    Formulario de producto en venta – {{ perfil.nombre_completo }}
+</h2>
+
+<div class="section-box">
+
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Fondo de color para los campos -->
+        <div class="card mint">
+            {{ form.as_p }}
+        </div>
+
+        <div class="menu-principal">
+            <!-- Guardar en rosa -->
+            <button type="submit" class="btn pink">
+                ✔ Guardar
+            </button>
+
+            <!-- Volver neutral -->
+            <a href="{% url 'venta_garage' %}" class="btn pinkl">
+                ↩ Volver
+            </a>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

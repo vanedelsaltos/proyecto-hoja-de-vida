@@ -1,0 +1,1473 @@
+/* ===============================
+   VARIABLES (PALETA SCRAPBOOK)
+================================ */
+:root {
+    --crema: #fdf8ed;
+    --rosa: #f8c8dc;
+    --amarillo: #f9e1a1;
+    --menta: #d1e9cf;
+    --negro: #000;
+}
+
+/* ===============================
+   RESET BÁSICO
+================================ */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: var(--crema);
+    font-family: 'Plus Jakarta Sans', sans-serif; /* cuerpo y botones */
+    color: #111;
+    animation: fadeInPage 0.8s ease forwards; /* animación al ingresar a la página */
+}
+
+/* ===============================
+   ANIMACIONES
+================================ */
+@keyframes fadeInPage {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInTab {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ===============================
+   HEADER
+================================ */
+.header {
+    background-color: var(--rosa);
+    border: 3px solid var(--negro);
+    margin: 30px;
+    padding: 20px 30px;
+    border-radius: 25px;
+    box-shadow: 6px 6px 0 var(--amarillo);
+}
+
+.titulo-principal {
+    font-family: 'Pacifico', cursive; /* ⚡ Cambiado a Pacifico */
+    font-weight: 400; /* hace que no se vea tan gruesa */
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+/* ===============================
+   LAYOUT
+================================ */
+.layout {
+    margin: 30px;
+}
+
+/* ===============================
+   TABS → BOTONES PÍLDORA
+================================ */
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+/* ===============================
+   TABS → BOTONES PÍLDORA
+================================ */
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.tab-button {
+    background: #fff;
+    border: 3px solid var(--negro);
+    padding: 16px 28px;       
+    border-radius: 999px;
+    font-weight: 700;          
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--menta);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    font-family: 'Plus Jakarta Sans', sans-serif; /* Botones: Sans-Serif moderno */
+    font-size: 1.2rem;
+    
+    /* Animación de entrada */
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInButton 0.5s ease forwards;
+}
+
+.tab-button:nth-child(1) { animation-delay: 0.1s; }
+.tab-button:nth-child(2) { animation-delay: 0.2s; }
+.tab-button:nth-child(3) { animation-delay: 0.3s; }
+.tab-button:nth-child(4) { animation-delay: 0.4s; }
+.tab-button:nth-child(5) { animation-delay: 0.5s; }
+.tab-button:nth-child(6) { animation-delay: 0.6s; }
+.tab-button:nth-child(7) { animation-delay: 0.7s; }
+.tab-button:nth-child(8) { animation-delay: 0.8s; }
+
+.tab-button:hover {
+    transform: translate(-2px, -2px) scale(1.05);
+    box-shadow: 6px 6px 0 var(--menta);
+}
+
+.tab-button.active {
+    background-color: var(--amarillo);
+}
+
+/* ===============================
+   ANIMACIÓN BOTONES
+================================ */
+@keyframes fadeInButton {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ===============================
+   CANVAS PRINCIPAL
+================================ */
+.tab-content {
+    display: none;
+    opacity: 0;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeInTab 0.4s ease forwards; /* animación al mostrar pestaña */
+}
+
+.tab-content {
+    background-color: #fff;
+    border: 3px solid var(--negro);
+    border-radius: 30px;
+    padding: 30px;
+    box-shadow: 8px 8px 0 var(--rosa);
+    margin-bottom: 40px;
+}
+
+/* ===============================
+   BLOQUES TIPO RECORTE
+================================ */
+.tab-content > div {
+    background-color: var(--menta);
+    border: 2px solid var(--negro);
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* ===============================
+   TEXTOS
+================================ */
+
+/* 🔥 Títulos de sección */
+.tab-content h2 {
+    font-family: 'Pacifico', cursive; /* ⚡ Cambiado a Pacifico */
+    font-weight: 400; /* idem */
+    margin-top: 0;
+}
+
+p {
+    font-family: 'Plus Jakarta Sans', sans-serif; /* cuerpo del texto limpio */
+    font-weight: 400;
+    margin: 6px 0;
+}
+
+a {
+    color: #000;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+
+/* ===============================
+   INICIO / INTRO
+================================ */
+.intro-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 300px; /* altura mínima para que destaque */
+    gap: 20px;
+    animation: fadeInPage 1s ease forwards; /* animación al cargar inicio */
+}
+
+.intro-title {
+    font-family: 'Pacifico', cursive;
+    font-size: 3rem;
+    font-weight: 400;
+    margin: 0;
+}
+
+.intro-subtitle {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #333;
+    max-width: 700px;
+}
+
+/* Botón Ver más */
+.btn-vermas {
+    display: inline-block;
+    background-color: var(--amarillo);
+    color: #000;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 999px;
+    border: 3px solid var(--negro);
+    box-shadow: 4px 4px 0 var(--menta);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    animation: fadeInButton 0.6s ease forwards;
+}
+
+.btn-vermas:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 6px 6px 0 var(--menta);
+    background-color: var(--menta);
+}
+
+/* ===============================
+   ESTILO TIMELINE (EXPERIENCIA)
+================================ */
+
+/* Contenedor principal con la línea vertical */
+.timeline-container {
+    position: relative;
+    padding-left: 40px;
+    margin-top: 20px;
+}
+
+/* La línea vertical */
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--rosa);
+    border: 2px solid var(--negro);
+    border-radius: 10px;
+}
+
+/* Cada bloque de experiencia */
+.timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+/* El círculo (dot) de la línea de tiempo */
+.timeline-dot {
+    position: absolute;
+    left: -42px;
+    top: 5px;
+    width: 18px;
+    height: 18px;
+    background-color: var(--crema);
+    border: 3px solid var(--negro);
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 2px 2px 0 var(--negro);
+}
+
+/* El cuadro de texto */
+.timeline-content {
+    background: #fff;
+    border: 3px solid var(--negro);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 5px 5px 0 var(--menta);
+    transition: transform 0.2s ease;
+}
+
+.timeline-content:hover {
+    transform: scale(1.01);
+}
+
+/* Estilos de texto internos */
+.timeline-date {
+    display: inline-block;
+    background-color: var(--amarillo);
+    padding: 4px 12px;
+    border: 2px solid var(--negro);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.timeline-cargo {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.4rem;
+    margin: 5px 0;
+    text-transform: uppercase;
+    color: var(--negro);
+}
+
+.timeline-empresa {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.funciones-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #333;
+    padding: 10px;
+    background: rgba(0,0,0,0.03);
+    border-radius: 10px;
+}
+
+/* Enlaces y Footer */
+.timeline-footer {
+    margin-top: 15px;
+    border-top: 1px dashed var(--negro);
+    padding-top: 10px;
+}
+
+.timeline-links {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.timeline-links a {
+    text-decoration: none;
+    font-size: 0.85rem;
+    padding: 5px 10px;
+    background: var(--crema);
+    border: 2px solid var(--negro);
+    border-radius: 5px;
+    transition: all 0.2s;
+}
+
+.timeline-links a:hover {
+    background: var(--rosa);
+    transform: translateY(-2px);
+}
+
+
+/* ===============================
+   NUEVOS ESTILOS PARA COLUMNAS Y TIMELINE
+================================ */
+
+/* Layout de Dos Columnas en Datos */
+.resume-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+.resume-sidebar {
+    background-color: var(--rosa);
+    border: 3px solid var(--negro);
+    border-radius: 25px;
+    padding: 25px;
+    box-shadow: 6px 6px 0 var(--negro);
+}
+
+.section-title-sm {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--negro);
+    padding-bottom: 5px;
+}
+
+.contact-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.contact-item .icon { font-size: 1.3rem; }
+.contact-item p { margin: 0; font-size: 0.9rem; line-height: 1.2; }
+
+/* Columna Derecha */
+.perfil-tag {
+    display: inline-block;
+    background: var(--amarillo);
+    padding: 6px 15px;
+    border: 2px solid var(--negro);
+    border-radius: 8px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.resume-section h3 {
+    font-family: 'Pacifico', cursive;
+    color: var(--negro);
+    border-bottom: 3px solid var(--menta);
+    display: inline-block;
+}
+
+.resume-section-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.info-box {
+    background: var(--crema);
+    border: 2px solid var(--negro);
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+/* Timeline (Experiencia) */
+.timeline-container {
+    position: relative;
+    padding-left: 35px;
+    border-left: 4px solid var(--rosa);
+    margin-left: 15px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -46px;
+    top: 5px;
+    width: 18px;
+    height: 18px;
+    background: var(--amarillo);
+    border: 3px solid var(--negro);
+    border-radius: 50%;
+}
+
+.timeline-content {
+    background: #fff;
+    border: 3px solid var(--negro);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 5px 5px 0 var(--menta);
+}
+
+.timeline-date {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #666;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+    .resume-grid { grid-template-columns: 1fr; }
+}
+
+
+/* ===============================
+   ESTILO RECONOCIMIENTOS
+================================ */
+.exp-block {
+    background: #fff;
+    border: 3px solid var(--negro);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 6px 6px 0 var(--menta);
+}
+
+.exp-header p {
+    margin: 5px 0;
+}
+
+.exp-body {
+    display: flex;
+    gap: 20px; /* separación entre funciones y contacto */
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.exp-funciones {
+    flex: 1; /* lado derecho */
+    background: var(--crema);
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px dashed var(--negro);
+}
+
+.exp-contacto {
+    flex: 1; /* lado izquierdo */
+    padding: 12px 15px;
+    border-radius: 12px;
+    background: #f8f8f8; /* fondo suave */
+    border: 2px solid var(--negro); /* borde para diferenciar */
+}
+
+.contact-subtitle {
+    font-weight: 700;
+    margin-bottom: 8px;
+
+}
+
+.exp-contacto p {
+    margin: 5px 0;
+}
+
+.exp-contacto a {
+    color: var(--negro);
+    text-decoration: underline;
+}
+
+.exp-links {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn-link, .btn-cert {
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 2px solid var(--negro);
+    transition: background 0.2s ease;
+}
+
+.btn-link { background: var(--amarillo); color: #000; }
+.btn-cert { background: var(--amarillo); color: #000; }
+
+.btn-link:hover, .btn-cert:hover { background: #f8c8dc; }
+
+
+
+
+/* ===============================
+   EXPERIENCIA LABORAL 
+================================ */
+
+/* Cargo / título dentro de la cabecera */
+.exp-cargo-title {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.8rem;
+    margin: 0 0 5px 0;
+    color: var(--negro);
+}
+
+/* Contenedor de las funciones */
+.funciones-content {
+    margin-top: 8px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #333;
+}
+
+/* Botón de certificado debajo de funciones */
+.funciones-certificado {
+    margin-top: 12px;
+}
+
+/* Contenedor general del contacto (lado derecho) */
+.exp-contacto-box {
+    flex: 1;
+    background: #f8f8f8;
+    padding: 12px;
+    border-radius: 12px;
+    border: 2px solid var(--negro);
+}
+
+/* Div interno de contacto */
+.contact-data p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+/* Botón para visitar sitio web dentro del contacto */
+.contact-web-wrapper {
+    margin-top: 15px;
+}
+
+.btn-link-inside {
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: bold;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 2px solid var(--negro);
+    background: var(--amarillo);
+    color: #000;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-link-inside:hover {
+    background: #f8c8dc;
+    transform: translateY(-2px);
+}
+
+/* ===============================
+   ESTILO EXPERIENCIA LABORAL AJUSTADO
+================================ */
+
+
+/* Cargo / título dentro de la cabecera: tipografía normal */
+.exp-cargo-title {
+    font-family: 'Plus Jakarta Sans', sans-serif; /* ⚡ Sans-serif como el resto */
+    font-size: 1.4rem;
+    margin: 0 0 5px 0;
+    color: var(--negro);
+}
+
+/* Contenedor de las funciones */
+.funciones-content {
+    margin-top: 10px;  /* un poco más de separación */
+    font-size: 0.95rem;
+    line-height: 1.6;  /* aumenta separación entre líneas */
+    color: #333;
+}
+
+/* Botón de certificado debajo de funciones */
+.funciones-certificado {
+    margin-top: 15px;  /* un poco más de separación del contenido */
+    margin-top: 30px;
+}
+
+/* Contenedor general del contacto (lado derecho) */
+.exp-contacto-box {
+    flex: 1;
+    background: #f8f8f8;
+    padding: 15px;  /* más espacio interno */
+    border-radius: 12px;
+    border: 2px solid var(--negro);
+}
+
+/* Agregar separación visual con línea horizontal debajo del título del contacto */
+.exp-contacto-box .contact-subtitle {
+    font-weight: 700;
+    margin-bottom: 12px; /* espacio antes de la línea */
+    padding-bottom: 4px;
+    border-bottom: 2px solid var(--negro); /* línea de separación */
+    display: block;
+}
+
+/* Espaciado entre los elementos de contacto */
+.contact-data p {
+    margin: 8px 0; /* más separación */
+    font-size: 0.9rem;
+}
+
+/* Botón para visitar sitio web dentro del contacto */
+.contact-web-wrapper {
+    margin-top: 15px;
+    margin-top: 28px;
+}
+
+.btn-link-inside {
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: bold;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 2px solid var(--negro);
+    background: var(--amarillo);
+    color: #000;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-link-inside:hover {
+    background: #f8c8dc;
+    transform: translateY(-2px);
+}
+
+/* Agregar separación interna para las funciones y contacto (exp-body) */
+.exp-body {
+    display: flex;
+    gap: 25px; /* un poco más de espacio entre columnas */
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.exp-funciones, .exp-contacto-box {
+    padding: 15px; /* más aire dentro de cada recuadro */
+}
+
+/* Línea separadora completa en Funciones y Responsabilidades */
+.exp-funciones .body-title {
+    font-weight: 800;               /* más grueso */
+    margin-bottom: 12px;            /* espacio entre título y contenido */
+    padding-bottom: 6px;            /* espacio entre texto y línea */
+    border-bottom: 2px solid var(--negro); /* línea que abarca todo el recuadro */
+    display: block;                 /* línea ocupa todo el ancho del contenedor */
+}
+
+
+
+
+/* ===============================
+   CURSOS REALIZADOS
+================================ */
+
+#cursos .curso-block {
+    background: var(--menta);
+    border: 3px solid var(--negro);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 6px 6px 0 var(--menta);
+}
+
+/* Cabecera del curso */
+#cursos .curso-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 12px;  /* espacio debajo */
+    margin-top: 0;        /* ← nuevo: quita el espacio superior */
+}
+
+#cursos .curso-body-vertical {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    flex-wrap: wrap;  /* se acomoda en móvil */
+    margin-top: 15px;
+}
+
+/* Subtítulos solo para cursos */
+#cursos .body-title, 
+#cursos .contact-subtitle {
+    font-weight: 800;
+    margin-bottom: 10px;
+    display: inline-block;
+    background: #fdfdfd;
+    padding: 6px 12px;
+    border: 2px solid var(--negro);
+    border-radius: 20px;
+}
+
+/* Descripción */
+#cursos .curso-descripcion {
+    flex: 1;
+    min-width: 250px;
+}
+
+#cursos .descripcion-content {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 20px; /* espacio más grande antes del botón */
+}
+
+/* Línea divisoria vertical punteada */
+#cursos .info-divider-vertical {
+    width: 2px;
+    border-left: 2px dashed #333;
+    opacity: 0.6;
+    margin: 0 10px;
+}
+
+/* Información de la entidad */
+#cursos .curso-contacto {
+    flex: 1;
+    min-width: 250px;
+}
+
+#cursos .contact-data p {
+    margin: 6px 0;
+    font-size: 0.95rem;
+}
+
+#cursos .contact-data a {
+    color: var(--negro);
+    text-decoration: underline;
+}
+
+/* Botón certificado debajo de descripción */
+#cursos .curso-certificado {
+    margin-top: 20px;
+}
+
+#cursos .btn-cert {
+    background: var(--amarillo);
+    border: 2px solid var(--negro);
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+#cursos .btn-cert:hover {
+    background: #f8c8dc;
+    transform: translateY(-2px);
+}
+
+
+/* ===============================
+   RECONOCIMIENTOS
+================================ */
+
+
+/* Contenedor general */
+.tab-content {
+    padding: 20px;
+    background-color: var(--crema);
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+/* Título */
+.tab-content h2 {
+    font-size: 1.8rem;
+    color: var(--negro);
+    margin-bottom: 20px;
+}
+
+/* Bloque de reconocimiento */
+.recon-block {
+    background-color: var(--menta);
+    border-left: 4px solid var(--rosa); /* raya lateral */
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* Cabecera tipo y fecha */
+.recon-header p {
+    margin: 0 0 5px 0;
+    color: var(--negro);
+}
+.recon-header p strong {
+    font-weight: bold; /* solo los nombres de los campos en negrita */
+}
+
+/* Sección descripción */
+.recon-desc {
+    margin-top: 15px;
+}
+
+/* Recuadro circular descripción */
+.recon-subtitle.circular.descripcion {
+    font-weight: bold;
+    color: var(--negro);
+    margin-bottom: 5px;
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 50px;
+    background-color: var(--rosa); /* color para Descripción */
+    border: 2px solid var(--negro); /* borde negro */
+}
+
+/* Recuadro circular entidad */
+.recon-subtitle.circular.entidad {
+    font-weight: bold;
+    color: var(--negro);
+    margin-bottom: 5px;
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 50px;
+    background-color: var(--rosa); /* color para Información de la entidad */
+    border: 2px solid var(--negro); /* borde negro */
+}
+
+/* Texto de descripción */
+.recon-text {
+    margin: 0;
+}
+
+/* Sección información de la entidad */
+.recon-info {
+    margin-top: 15px;
+}
+.recon-info p {
+    margin: 2px 0;
+    color: var(--negro);
+}
+.recon-info p strong {
+    font-weight: bold; /* solo nombres en negrita */
+}
+
+/* Botón de certificado */
+.recon-certificado {
+    margin-top: 15px;
+}
+.btn-cert {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: var(--amarillo);
+    color: var(--negro);
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+.btn-cert:hover {
+    background-color: var(--rosa);
+}
+
+/* Mensaje de no datos */
+.no-data {
+    color: #555;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+
+
+
+/* ===============================
+   PRODUCTOS ACADÉMICOS 
+================================ */
+
+/* Contenedor general */
+#prod_acad {
+    padding: 20px;
+    background-color: var(--crema);
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+/* Título */
+#prod_acad h2 {
+    font-size: 1.8rem;
+    color: var(--negro);
+    margin-bottom: 20px;
+}
+
+/* Bloque de cada producto académico */
+.prod-acad-block {
+    display: flex;
+    gap: 20px; /* espacio entre columnas */
+    background-color: var(--menta);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    flex-wrap: wrap; /* se ajusta en pantallas pequeñas */
+    border: 1px solid var(--rosa); /* separador externo */
+}
+
+/* Cada columna */
+.prod-col {
+    flex: 1;
+    min-width: 150px;
+    padding: 0 10px;
+    border-right: 1px solid var(--negro); /* separador vertical */
+}
+
+/* Quitar borde a la última columna */
+.prod-col:last-child {
+    border-right: none;
+}
+
+/* Título de cada columna con fondo amarillo y borde redondeado */
+.prod-title.rounded {
+    display: inline-block;
+    background-color: var(--amarillo);    /* fondo amarillo */
+    padding: 5px 10px;
+    border-radius: 15px;                  /* borde redondeado */
+    border: 2px solid var(--negro);       /* borde negro agregado */
+    font-weight: bold;
+    color: var(--negro);
+    margin-bottom: 5px;
+}
+
+/* Contenido de la columna */
+.prod-text {
+    color: var(--negro);
+    margin: 0;
+}
+
+/* Mensaje de no datos */
+.no-data {
+    color: #555;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+
+
+
+/* ===============================
+   PRODUCTOS LABORALES
+================================ */
+
+/* Bloque general de cada producto laboral (recuadro grande) */
+.prod-lab-block {
+    background-color: var(--menta);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border: 2px solid var(--negro);   /* borde negro del bloque grande */
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Información principal (lado izquierdo) */
+.prod-lab-info {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Subtítulos compactos de información principal */
+.prod-title.rounded.small.pink {
+    display: inline-block;
+    background-color: var(--rosa);
+    border-radius: 15px;
+    border: 2px solid var(--negro);
+    padding: 3px 8px;
+    font-weight: bold;
+    color: var(--negro);
+    margin-bottom: 5px;
+    width: fit-content;
+}
+
+/* Recuadro de descripción completo */
+.prod-lab-desc-box {
+    flex: 2;
+    min-width: 200px;
+    background-color: var(--crema);  /* recuadro amarillo */
+    border-radius: 10px;
+    border: 2px solid var(--negro);     /* borde negro */
+    padding: 10px 15px;
+}
+
+/* Subtítulo de descripción sin recuadro */
+.desc-subtitle {
+    font-weight: bold;
+    color: var(--negro);
+    margin-bottom: 8px;
+}
+
+/* Línea divisoria entre subtítulo y contenido */
+.desc-divider {
+    border: none;
+    border-top: 2px solid var(--negro);
+    margin: 5px 0 10px 0;
+}
+
+/* Texto de la descripción */
+.prod-lab-desc-box .prod-text {
+    margin: 0;
+    color: var(--negro);
+}
+
+/* Texto de cada campo */
+.prod-text {
+    margin: 0 0 5px 0;
+    color: var(--negro);
+}
+
+/* Mensaje de no datos */
+.no-data {
+    color: #555;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+
+
+/* ===============================
+   VENTA DE GARAGE
+================================ */
+/* Bloque general de cada producto en venta */
+.venta-block {
+    background-color: var(--crema);  /* fondo verde menta */
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 2px solid var(--negro);  /* borde negro del bloque */
+    display: flex;
+    flex-direction: column;  /* apila información y descripción verticalmente */
+    gap: 15px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.venta-block:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Lista de información principal como viñetas */
+.venta-info {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+    color: var(--negro);
+}
+
+/* Recuadro de descripción debajo */
+.venta-desc-box {
+    background-color: var(--rosa );  /* color claro */
+    border-radius: 10px;
+    border: 2px solid var(--negro);
+    padding: 10px 15px;
+}
+
+/* Subtítulo de descripción */
+.desc-subtitle {
+    font-weight: bold;
+    color: var(--negro);
+    margin-bottom: 8px;
+}
+
+/* Línea divisoria */
+.desc-divider {
+    border: none;
+    border-top: 2px solid var(--negro);
+    margin: 5px 0 10px 0;
+}
+
+/* Texto de la descripción */
+.venta-desc-box .venta-text {
+    margin: 0;
+    color: var(--negro);
+}
+
+/* Mensaje de no datos */
+.no-data {
+    color: #555;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+
+.venta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+@media (max-width: 768px) {
+    .venta-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+
+
+
+/* ===============================
+   HOME
+================================ */
+/* ===============================
+   DISEÑO HOME FLUIDO (GRAPE STYLE) - COMPLETO Y CORREGIDO
+   =============================== */
+
+/* Contenedor Principal del Home */
+.inicio-section.fluid-design {
+    position: relative;
+    background-color: var(--rosa);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 85vh;
+    border-radius: 40px;
+    margin: 20px;
+    border: 4px solid var(--negro);
+    z-index: 1;
+}
+
+/* Contenedor de Manchas (Blobs) */
+.blob-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+/* Estilo Base de las Manchas */
+.blob {
+    position: absolute;
+    background-color: #7a5ba7; /* Uva fuerte */
+    z-index: 0;
+    transition: all 0.5s ease;
+}
+
+.blob-1 {
+    width: 400px;
+    height: 400px;
+    top: -120px;
+    left: -120px;
+    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+    animation: blobMorph 8s infinite alternate ease-in-out;
+}
+
+.blob-2 {
+    width: 500px;
+    height: 500px;
+    bottom: -180px;
+    right: -120px;
+    background-color: #9273c2; /* Uva medio */
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    animation: blobMorph 10s infinite alternate-reverse ease-in-out;
+}
+
+.blob-3 {
+    width: 120%;
+    height: 180px;
+    bottom: -40px;
+    left: -10%;
+    background-color: var(--menta);
+    border-top: 4px solid var(--negro);
+    border-radius: 50% 50% 0 0;
+    opacity: 0.95;
+    z-index: 1;
+}
+
+/* Título Principal */
+.fluid-design .inicio-title {
+    font-family: 'Pacifico', cursive;
+    color: #402522;
+    font-size: 3.5rem;
+    text-shadow: 5px 5px 0px var(--crema);
+    margin-bottom: 30px;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+/* ===============================
+   CAJA DE INFORMACIÓN (CENTRADOS)
+   =============================== */
+
+.fluid-design .section-box {
+    background-color: #fff;
+    border: 4px solid var(--negro);
+    /* Usamos el amarillo como pediste en la última versión */
+    box-shadow: 12px 12px 0px var(--amarillo); 
+    padding: 45px 40px;
+    border-radius: 35px;
+    max-width: 680px;
+    transform: rotate(-1deg); 
+    position: relative;
+    z-index: 10;
+    
+    /* Centrado total del contenido interno */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.fluid-design .inicio-text {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: #222;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+.fluid-design .section-divider {
+    border: none;
+    border-top: 3px dashed var(--negro);
+    margin: 25px auto;
+    width: 80%;
+    opacity: 0.3;
+}
+
+.fluid-design .section-subtitle {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.8rem;
+    color: var(--negro);
+    margin-bottom: 30px;
+    font-weight: 400;
+}
+
+/* ===============================
+   BOTONES (SIN SUBRAYADO)
+   =============================== */
+
+.fluid-design .menu-principal {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.fluid-design .btn {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    border-radius: 20px;
+    border: 3px solid var(--negro);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 800;
+    /* Eliminar subrayado */
+    text-decoration: none !important;
+    color: var(--negro); 
+}
+
+.fluid-design .btn-mint {
+    background-color: var(--menta);
+    box-shadow: 6px 6px 0px var(--negro);
+}
+
+.fluid-design .btn-neutral {
+    background-color: var(--crema);
+    box-shadow: 6px 6px 0px var(--negro);
+}
+
+.fluid-design .btn:hover {
+    transform: translate(3px, 3px);
+    box-shadow: 2px 2px 0px var(--negro);
+    text-decoration: none; /* Refuerzo para el hover */
+}
+
+/* ===============================
+   ANIMACIONES Y RESPONSIVE
+   =============================== */
+
+@keyframes blobMorph {
+    0% {
+        border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+        transform: translate(0, 0) rotate(0deg);
+    }
+    33% {
+        border-radius: 70% 30% 46% 54% / 30% 29% 71% 70%;
+    }
+    66% {
+        border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
+        transform: translate(20px, -20px) rotate(10deg);
+    }
+    100% {
+        border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+        transform: translate(0, 0) rotate(0deg);
+    }
+}
+
+@media (max-width: 600px) {
+    .fluid-design .inicio-title {
+        font-size: 2.2rem;
+    }
+    .blob-1, .blob-2 {
+        width: 250px;
+        height: 250px;
+    }
+    .fluid-design .section-box {
+        padding: 30px 20px;
+        margin: 10px;
+    }
+}
+
+
+
+/* ===============================
+   RESPONSIVE GLOBAL – PUBLICO
+================================ */
+
+/* Tablets */
+@media (max-width: 1024px) {
+
+    .layout,
+    .header,
+    .inicio-section.fluid-design {
+        margin: 15px;
+    }
+
+    .resume-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .resume-sidebar {
+        box-shadow: none;
+    }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+
+    /* Tabs */
+    .tabs {
+        justify-content: center;
+    }
+
+    .tab-button {
+        font-size: 1rem;
+        padding: 12px 20px;
+    }
+
+    /* Contenido general */
+    .tab-content {
+        padding: 20px;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    /* Experiencia */
+    .exp-body {
+        flex-direction: column;
+    }
+
+    /* Cursos */
+    .curso-body-vertical {
+        flex-direction: column;
+    }
+
+    .info-divider-vertical {
+        display: none;
+    }
+
+    /* Productos académicos */
+    .prod-acad-block {
+        flex-direction: column;
+    }
+}
+
+/* Teléfonos pequeños */
+@media (max-width: 480px) {
+
+    body {
+        font-size: 14px;
+    }
+
+    .tab-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .intro-title,
+    .fluid-design .inicio-title {
+        font-size: 2rem;
+    }
+
+    .fluid-design .menu-principal {
+        flex-direction: column;
+    }
+
+    .fluid-design .btn {
+        width: 100%;
+    }
+
+    .venta-grid {
+        grid-template-columns: 1fr;
+    }
+}

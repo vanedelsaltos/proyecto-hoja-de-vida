@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<h2 class="decorative">Datos personales</h2>
+
+{% if perfil %}
+
+<div class="section-box">
+
+    <!-- ================= DATOS PRINCIPALES ================= -->
+    <div class="card vanilla">
+        <h3>{{ perfil.nombres }} {{ perfil.apellidos }}</h3>
+
+        <p><strong>Tipo de perfil:</strong> {{ perfil.get_perfilactivo_display }}</p>
+
+        {% if perfil.descripcionperfil %}
+            <p>{{ perfil.descripcionperfil }}</p>
+        {% endif %}
+    </div>
+
+    <br>
+
+    <!-- ================= GRID DE INFORMACIÓN ================= -->
+    <div class="bento-grid">
+
+        <!-- DATOS PERSONALES -->
+        <div class="card mint">
+            <h4>Información personal</h4>
+
+            {% if perfil.nacionalidad %}
+                <p><strong>Nacionalidad:</strong> {{ perfil.nacionalidad }}</p>
+            {% endif %}
+
+            {% if perfil.lugarnacimiento %}
+                <p><strong>Lugar de nacimiento:</strong> {{ perfil.lugarnacimiento }}</p>
+            {% endif %}
+
+            {% if perfil.fechanacimiento %}
+                <p><strong>Fecha de nacimiento:</strong> {{ perfil.fechanacimiento }}</p>
+            {% endif %}
+
+            <p><strong>Sexo:</strong> {{ perfil.get_sexo_display }}</p>
+
+            {% if perfil.estadocivil %}
+                <p><strong>Estado civil:</strong> {{ perfil.estadocivil }}</p>
+            {% endif %}
+
+            {% if perfil.licenciaconducir %}
+                <p><strong>Licencia de conducir:</strong> {{ perfil.licenciaconducir }}</p>
+            {% endif %}
+        </div>
+
+        <!-- CONTACTO -->
+        <div class="card pink">
+            <h4>Contacto</h4>
+
+            {% if perfil.telefonoconvencional %}
+                <p><strong>Teléfono:</strong> {{ perfil.telefonoconvencional }}</p>
+            {% endif %}
+
+            {% if perfil.telefonofijo %}
+                <p><strong>Teléfono fijo:</strong> {{ perfil.telefonofijo }}</p>
+            {% endif %}
+
+            {% if perfil.direcciondomiciliaria %}
+                <p><strong>Dirección:</strong> {{ perfil.direcciondomiciliaria }}</p>
+            {% endif %}
+
+            {% if perfil.direcciontrabajo %}
+                <p><strong>Dirección trabajo:</strong> {{ perfil.direcciontrabajo }}</p>
+            {% endif %}
+
+            {% if perfil.sitioweb %}
+                <p>
+                    <strong>Sitio web:</strong><br>
+                    <a href="{{ perfil.sitioweb }}" target="_blank">
+                        {{ perfil.sitioweb }}
+                    </a>
+                </p>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <br>
+
+    <!-- ================= ACCIONES ================= -->
+    <a href="{% url 'editar_perfil' perfil.id %}" class="btn mint">
+        ✎ Editar datos personales
+    </a>
+
+</div>
+
+{% else %}
+    <p>No hay un perfil activo.</p>
+{% endif %}
+
+{% endblock %}

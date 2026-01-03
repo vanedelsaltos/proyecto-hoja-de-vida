@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<h2 class="decorative">Reconocimientos – {{ perfil.nombre_completo }}</h2>
+
+<div class="section-box">
+
+    <!-- Botón agregar -->
+    <div class="menu-principal">
+        <a href="{% url 'crear_reconocimiento' %}" class="btn mint">
+            ✚ Agregar reconocimiento
+        </a>
+    </div>
+
+    <br>
+
+    {% if reconocimientos %}
+        <div class="bento-grid">
+            {% for rec in reconocimientos %}
+                <div class="card vanilla">
+                    <h3>{{ rec.tiporeconocimiento }}</h3>
+
+                    <p>
+                        <strong>Fecha:</strong>
+                        {{ rec.fechareconocimiento }}
+                    </p>
+
+                    <p>
+                        <strong>Descripción:</strong>
+                        {{ rec.descripcionreconocimiento }}
+                    </p>
+
+                    <div class="menu-principal">
+                        <a href="{% url 'editar_reconocimiento' rec.id %}" class="btn mint">
+                            ✎ Editar
+                        </a>
+                        <a href="{% url 'eliminar_reconocimiento' rec.id %}" class="btn pink">
+                            🗑 Eliminar
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No hay reconocimientos registrados</p>
+    {% endif %}
+
+    <br>
+    <a href="{% url 'inicio_admin' %}" class="btn mint">
+        ↩ Volver al inicio
+    </a>
+
+</div>
+
+{% endblock %}

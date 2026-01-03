@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<h2 class="decorative">{{ accion }} perfil</h2>
+
+<div class="section-box">
+
+    <!-- Caja con fondo para el formulario -->
+    <div class="card vanilla">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div class="menu-principal">
+                <!-- Botón guardar / actualizar -->
+                <button type="submit" class="btn mint">
+                    ✔ {{ accion }}
+                </button>
+
+                <!-- Botón volver -->
+                <a href="{% url 'lista_perfiles' %}" class="btn pink">
+                    ↩ Volver
+                </a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

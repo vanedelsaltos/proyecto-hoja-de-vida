@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<h2 class="decorative">Cursos realizados – {{ perfil.nombre_completo }}</h2>
+
+<div class="section-box">
+
+    <div class="menu-principal">
+        <a href="{% url 'crear_curso' %}" class="btn mint">
+            ✚ Agregar curso
+        </a>
+    </div>
+
+    <br>
+
+    {% if cursos %}
+        <div class="bento-grid">
+            {% for curso in cursos %}
+                <div class="card vanilla">
+                    <h3>{{ curso.nombrecurso }}</h3>
+
+                    <p>
+                        <strong>Fechas:</strong>
+                        {{ curso.fechainicio }} - {{ curso.fechafin|default:"Actual" }}
+                    </p>
+
+                    <p>
+                        <strong>Total de horas:</strong>
+                        {{ curso.totalhoras }}
+                    </p>
+
+                    <div class="menu-principal">
+                        <a href="{% url 'editar_curso' curso.id %}" class="btn mint">
+                            ✎ Editar
+                        </a>
+                        <a href="{% url 'eliminar_curso' curso.id %}" class="btn pink">
+                            🗑 Eliminar
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No hay cursos registrados</p>
+    {% endif %}
+
+    <br>
+    <a href="{% url 'inicio_admin' %}" class="btn mint">
+        ↩ Volver al inicio
+    </a>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<h2 class="decorative">Formulario de producto académico – {{ perfil.nombre_completo }}</h2>
+
+<div class="section-box">
+
+    <!-- Fondo interno del formulario -->
+    <div class="card mint">
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div class="menu-principal">
+                <!-- Guardar en ROSA -->
+                <button type="submit" class="btn pink">
+                    ✔ Guardar
+                </button>
+
+                <!-- Volver (se mantiene igual) -->
+                <a href="{% url 'productos_academicos' %}" class="btn pink">
+                    ↩ Volver
+                </a>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

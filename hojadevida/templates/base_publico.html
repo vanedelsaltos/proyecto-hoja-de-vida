@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Hoja de Vida{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    {% load static %}
+
+    <!-- Fuentes desde Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Público -->
+    <link rel="stylesheet" href="{% static 'css/publico.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<header class="header">
+    <h1 class="titulo-principal">
+        {% if perfil %}
+            Hoja de vida - 
+            {{ perfil.nombres }} {{ perfil.apellidos }}
+        {% else %}
+            Hoja de Vida
+        {% endif %}
+    </h1>
+</header>
+
+<div class="layout">
+    {% block contenido %}
+    {% endblock %}
+</div>
+
+<script>
+    function mostrarTab(id) {
+        const contenidos = document.querySelectorAll('.tab-content');
+        const botones = document.querySelectorAll('.tab-button');
+
+        contenidos.forEach(c => c.classList.remove('active'));
+        botones.forEach(b => b.classList.remove('active'));
+
+        document.getElementById(id).classList.add('active');
+        document.getElementById('btn-' + id).classList.add('active');
+    }
+</script>
+
+{% block extra_js %}{% endblock %}
+
+</body>
+</html>

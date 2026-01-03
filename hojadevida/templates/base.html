@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Hoja de Vida</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+
+<!-- ================== HEADER ================== -->
+<header class="header">
+
+    <!-- TÍTULO -->
+    <div class="header-title">
+        <h1>Hoja de Vida</h1>
+    </div>
+
+    <!-- MENÚ PRINCIPAL (SOLO LOGUEADO) -->
+    {% if user.is_authenticated %}
+
+    <nav class="menu-principal">
+        <a href="{% url 'inicio_admin' %}">Inicio</a>
+        <a href="{% url 'lista_perfiles' %}">Perfiles</a>
+        <a href="{% url 'experiencia' %}">Experiencia</a>
+        <a href="{% url 'reconocimientos_lista' %}">Reconocimientos</a>
+        <a href="{% url 'cursos_realizados' %}">Cursos</a>
+        <a href="{% url 'productos_academicos' %}">Productos académicos</a>
+        <a href="{% url 'productos_laborales' %}">Productos laborales</a>
+        <a href="{% url 'venta_garage' %}">Venta garage</a>
+    </nav>
+
+    {% endif %}
+
+</header>
+
+<hr>
+
+<!-- ================== CONTENIDO ================== -->
+<main class="contenido">
+    {% block contenido %}
+    {% endblock %}
+</main>
+
+<hr>
+
+<!-- ================== FOOTER / SESIÓN ================== -->
+<footer class="footer-sesion">
+    {% if user.is_authenticated %}
+        <div class="sesion-box">
+            <p> 👤 Sesión iniciada como <strong>{{ user.username }}</strong></p>
+
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="menu-btn logout-btn">
+                    Cerrar sesión
+                </button>
+            </form>
+        </div>
+    {% else %}
+        <a href="{% url 'login' %}" class="menu-btn">Iniciar sesión</a>
+    {% endif %}
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<h2 class="decorative">
+    Venta de Garage – {{ perfil.nombre_completo }}
+</h2>
+
+<div class="section-box">
+
+    <div class="menu-principal">
+        <a href="{% url 'crear_venta_garage' %}" class="btn mint">
+            ✚ Agregar producto
+        </a>
+    </div>
+
+    <br>
+
+    {% if ventas %}
+        <div class="bento-grid">
+            {% for venta in ventas %}
+                <div class="card vanilla">
+                    <h3>{{ venta.nombreproducto }}</h3>
+
+                    <p>
+                        <strong>Estado:</strong>
+                        {{ venta.estadoproducto }}
+                    </p>
+
+                    <p>
+                        <strong>Valor:</strong>
+                        ${{ venta.valordelbien }}
+                    </p>
+
+                    <div class="menu-principal">
+                        <a href="{% url 'editar_venta_garage' venta.id %}" class="btn mint">
+                            ✎ Editar
+                        </a>
+                        <a href="{% url 'eliminar_venta_garage' venta.id %}" class="btn pink">
+                            🗑 Eliminar
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No hay productos registrados</p>
+    {% endif %}
+
+    <br>
+    <a href="{% url 'inicio_admin' %}" class="btn mint">
+        ↩ Volver al inicio
+    </a>
+
+</div>
+
+{% endblock %}

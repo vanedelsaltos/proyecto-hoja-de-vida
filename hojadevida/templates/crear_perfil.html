@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<h2 class="decorative">✚ Crear nuevo perfil</h2>
+
+<div class="section-box">
+
+    <div class="card vanilla">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit" class="btn neutral">✔ Guardar perfil</button>
+        </form>
+    </div>
+
+    <br>
+    <a href="{% url 'lista_perfiles' %}" class="btn neutral">↩ Volver</a>
+
+</div>
+
+{% endblock %}
