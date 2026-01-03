@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url  # <<--- Agregado para Render
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,11 +27,16 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-((@29rz=^^ap3kv^0t2af
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.environ.get(
-    'ALLOWED_HOSTS',
-    '127.0.0.1,localhost'
-).split(',')
-
+# ==============================
+# ALLOWED_HOSTS
+# ==============================
+# Original comentado:
+#ALLOWED_HOSTS = os.environ.get(
+#   'ALLOWED_HOSTS',
+#    '127.0.0.1,localhost'
+#).split(',')
+# Modificado para Render:
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "proyecto-hoja-de-vida-8y8w.onrender.com"]
 
 
 # Application definition
@@ -75,21 +81,25 @@ TEMPLATES = [
 WSGI_APPLICATION = 'conf_django.wsgi.application'
 
 
+# ==============================
 # Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-
-
+# ==============================
+# Original local Postgres:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'BDHOJADEVIDA'),
-        'USER': os.environ.get('DB_USER', 'postgres'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', '123456'),
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
+        'NAME': 'BDHOJADEVIDA',
+        'USER': 'postgres',
+        'PASSWORD': '123456',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
+# Para Render usando DATABASE_URL (si existe, toma automáticamente)
+DATABASES = {
+    'default': dj_database_url.config(default='postgres://postgres:123456@localhost:5432/BDHOJADEVIDA')
+}
 
 
 # Password validation
@@ -127,6 +137,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# ==============================
+# STATIC_ROOT
+# ==============================
+# Necesario para Render
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 
 LOGIN_REDIRECT_URL = '/inicio/'
 LOGOUT_REDIRECT_URL = '/'
