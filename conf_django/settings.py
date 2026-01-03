@@ -30,7 +30,7 @@ DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 #   'ALLOWED_HOSTS',
 #    '127.0.0.1,localhost'
 #).split(',')
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "proyecto-hoja-de-vida-8y8w.onrender.com"]
 
 
 
