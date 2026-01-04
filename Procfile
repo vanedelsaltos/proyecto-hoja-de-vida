@@ -1,1 +1,0 @@
-web: gunicorn conf_django.wsgi
