@@ -12,9 +12,9 @@ class HojadevidaConfig(AppConfig):
         from django.contrib.auth.models import User
 
         # Cambia estos datos por los que quieras
-        SUPERUSER_USERNAME = 'admin'
-        SUPERUSER_EMAIL = 'admin@ejemplo.com'
-        SUPERUSER_PASSWORD = 'TuContraseña123'
+        SUPERUSER_USERNAME = 'vane'
+        SUPERUSER_EMAIL = 'vanedelsaltos@gmail.com'
+        SUPERUSER_PASSWORD = 'vane1971'
 
         # Crear superusuario solo si no existe
         if not User.objects.filter(username=SUPERUSER_USERNAME).exists():
