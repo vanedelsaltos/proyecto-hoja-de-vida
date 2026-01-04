@@ -89,13 +89,21 @@ WSGI_APPLICATION = 'conf_django.wsgi.application'
 
 
 
-DATABASES = {
-    'default': dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        default='postgresql://hojadevida_user:TWCAziHvU2GGnE095VEEEeObhOuLYLTZ@dpg-d5cp20ur433s739v98kg-a/hojadevida_v2nh',
-        conn_max_age=600
-    )
-}
+if os.environ.get("DATABASE_URL"):
+    DATABASES = {
+        "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    }
+else:
+    DATABASES = {
+        "default": {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'BDHOJADEVIDA',
+            'USER': 'postgres',
+            'PASSWORD': '123456',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 
 
 
