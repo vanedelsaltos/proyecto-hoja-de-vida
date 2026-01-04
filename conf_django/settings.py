@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url 
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -84,29 +86,14 @@ WSGI_APPLICATION = 'conf_django.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'BDHOJADEVIDA',
-        'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default='postgresql://hojadevida_user:TWCAziHvU2GGnE095VEEEeObhOuLYLTZ@dpg-d5cp20ur433s739v98kg-a/hojadevida_v2nh',
+        conn_max_age=600
+    )
 }
-
-
-if os.getenv("DATABASE_URL"):
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.getenv("PGDATABASE"),
-            'USER': os.getenv("PGUSER"),
-            'PASSWORD': os.getenv("PGPASSWORD"),
-            'HOST': os.getenv("PGHOST"),
-            'PORT': os.getenv("PGPORT"),
-        }
-    }
 
 
 
