@@ -50,7 +50,12 @@ def home(request):
 @login_required
 def inicio(request):
     perfil = obtener_perfil_activo()
+
+    if perfil is None:
+        return redirect('crear_perfil')
+
     return render(request, 'inicio.html', {'perfil': perfil})
+
 
 
 # --------------------------------------------------------------------------------------------------
