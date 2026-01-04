@@ -1260,7 +1260,7 @@ a {
     padding: 45px 40px;
     border-radius: 35px;
     max-width: 680px;
-    transform: rotate(-1deg); 
+    /*transform: rotate(-1deg); */
     position: relative;
     z-index: 10;
     
