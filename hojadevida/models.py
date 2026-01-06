@@ -405,6 +405,7 @@ class CursosRealizados(models.Model):
         blank=True,
         verbose_name="Ruta del certificado"
     )
+    
 
         # ================= VISIBILIDAD =================
     activar_para_front = models.BooleanField(
