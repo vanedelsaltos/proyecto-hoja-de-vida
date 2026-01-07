@@ -221,16 +221,13 @@ class ExperienciaLaboral(models.Model):
     )
 
     # ================= CERTIFICADO =================
-
     certificado = CloudinaryField(
         'certificado',
         resource_type='raw',
         folder='certificados/experiencia',
-        access_mode='public',
         blank=True,
         null=True
     )
-
 
 
 
@@ -315,7 +312,6 @@ class Reconocimientos(models.Model):
         'certificado',
         resource_type='raw',
         folder='certificados/reconocimientos',
-        access_mode='public',
         blank=True,
         null=True
     )
@@ -415,7 +411,6 @@ class CursosRealizados(models.Model):
         'certificado',
         resource_type='raw',
         folder='certificados/cursos',
-        access_mode='public',
         blank=True,
         null=True
     )
