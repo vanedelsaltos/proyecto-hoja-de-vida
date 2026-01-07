@@ -3,6 +3,7 @@ from django.core.validators import MinValueValidator
 from cloudinary.models import CloudinaryField
 
 
+
 # ------------------------------------------------------------------------------------------------------------------------------------
 #TABLA DE DATOS PERSONALES 
 
@@ -51,6 +52,14 @@ class DatosPersonales(models.Model):
         max_length=60,
         verbose_name="Nombres"
     )
+
+    #PARTE PARA AGREGAR UNA FOTO DE PERFIL
+    foto_perfil = CloudinaryField(
+        'foto_perfil',
+        blank=True,
+        null=True
+    )
+
 
     nacionalidad = models.CharField(
         max_length=50,

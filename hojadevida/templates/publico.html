@@ -37,6 +37,11 @@
         
         <!-- ===== SIDEBAR: Contacto / Identificación ===== -->
         <aside class="resume-sidebar">
+            {% if perfil.foto_perfil %}
+                <div class="perfil-foto-container">
+                    <img src="{{ perfil.foto_perfil.url }}" alt="Foto de perfil" class="perfil-foto">
+                </div>
+            {% endif %}
             <h2 class="section-title-sm">Contacto</h2>
             
             {% if perfil.lugarnacimiento %}
