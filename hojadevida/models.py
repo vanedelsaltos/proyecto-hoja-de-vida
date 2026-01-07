@@ -221,13 +221,16 @@ class ExperienciaLaboral(models.Model):
     )
 
     # ================= CERTIFICADO =================
+
     certificado = CloudinaryField(
         'certificado',
         resource_type='raw',
         folder='certificados/experiencia',
+        access_mode='public',
         blank=True,
         null=True
     )
+
 
 
 
@@ -308,7 +311,14 @@ class Reconocimientos(models.Model):
     )
 
     # ================= CERTIFICADO =================
-    certificado = CloudinaryField('certificado', blank=True, null=True)
+    certificado = CloudinaryField(
+        'certificado',
+        resource_type='raw',
+        folder='certificados/reconocimientos',
+        access_mode='public',
+        blank=True,
+        null=True
+    )
 
 
         # ================= VISIBILIDAD =================
@@ -401,7 +411,15 @@ class CursosRealizados(models.Model):
     )
 
     # ================= CERTIFICADO =================
-    certificado = CloudinaryField('certificado', blank=True, null=True)
+    certificado = CloudinaryField(
+        'certificado',
+        resource_type='raw',
+        folder='certificados/cursos',
+        access_mode='public',
+        blank=True,
+        null=True
+    )
+
 
     
         # ================= VISIBILIDAD =================
