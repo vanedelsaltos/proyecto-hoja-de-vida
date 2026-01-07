@@ -157,10 +157,13 @@
 
                         <!-- BOTÓN DE CERTIFICADO debajo de funciones -->
                         {% if e.certificado %}
-                            <p><strong>Certificado:</strong> 
-                                <a href="{{ e.certificado.url }}" target="_blank">Ver certificado</a>
-                            </p>
+                            <div class="curso-certificado">
+                                <a href="{{ e.certificado.url }}" target="_blank" class="btn-cert">
+                                    📄 Ver Certificado
+                                </a>
+                            </div>
                         {% endif %}
+
 
                     </div>
                 {% endif %}
