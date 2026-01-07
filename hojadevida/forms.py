@@ -18,6 +18,7 @@ class DatosPersonalesForm(forms.ModelForm):
             'texto_inicio',
             'apellidos',
             'nombres',
+            'foto_perfil',
             'nacionalidad',
             'lugarnacimiento',
             'fechanacimiento',
@@ -31,6 +32,7 @@ class DatosPersonalesForm(forms.ModelForm):
             'direcciondomiciliaria',
             'sitioweb',
             'es_activo',
+
         ]
         widgets = {
             'fechanacimiento': forms.DateInput(
