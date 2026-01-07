@@ -101,7 +101,8 @@ def crear_experiencia(request):
     perfil = obtener_perfil_activo()
 
     if request.method == 'POST':
-        form = ExperienciaLaboralForm(request.POST)
+        form = ExperienciaLaboralForm(request.POST, request.FILES)
+
         if form.is_valid():
             experiencia = form.save(commit=False)
             experiencia.idperfilconqueestaactivo = perfil
@@ -122,7 +123,7 @@ def editar_experiencia(request, experiencia_id):
     experiencia = get_object_or_404(ExperienciaLaboral, pk=experiencia_id)
 
     if request.method == 'POST':
-        form = ExperienciaLaboralForm(request.POST, instance=experiencia)
+        form = ExperienciaLaboralForm(request.POST, request.FILES, instance=experiencia)
         if form.is_valid():
             form.save()
             return redirect('experiencia')
@@ -162,7 +163,7 @@ def reconocimientos_lista(request):
 def crear_reconocimiento(request):
     perfil = obtener_perfil_activo()
     if request.method == 'POST':
-        form = ReconocimientosForm(request.POST)
+        form = ReconocimientosForm(request.POST, request.FILES)
         if form.is_valid():
             reconocimiento = form.save(commit=False)
             reconocimiento.idperfilconqueestaactivo = perfil
@@ -180,7 +181,7 @@ def crear_reconocimiento(request):
 def editar_reconocimiento(request, reconocimiento_id):
     reconocimiento = get_object_or_404(Reconocimientos, pk=reconocimiento_id)
     if request.method == 'POST':
-        form = ReconocimientosForm(request.POST, instance=reconocimiento)
+        form = ReconocimientosForm(request.POST, request.FILES, instance=reconocimiento)
         if form.is_valid():
             form.save()
             return redirect('reconocimientos_lista')
@@ -220,7 +221,7 @@ def cursos_realizados(request):
 def crear_curso(request):
     perfil = obtener_perfil_activo()
     if request.method == 'POST':
-        form = CursosRealizadosForm(request.POST)
+        form = CursosRealizadosForm(request.POST, request.FILES)
         if form.is_valid():
             curso = form.save(commit=False)
             curso.idperfilconqueestaactivo = perfil
@@ -239,7 +240,7 @@ def crear_curso(request):
 def editar_curso(request, curso_id):
     curso = get_object_or_404(CursosRealizados, pk=curso_id)
     if request.method == 'POST':
-        form = CursosRealizadosForm(request.POST, instance=curso)
+        form = CursosRealizadosForm(request.POST, request.FILES, instance=curso)
         if form.is_valid():
             form.save()
             return redirect('cursos_realizados')

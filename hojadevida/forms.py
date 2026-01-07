@@ -55,7 +55,7 @@ class ExperienciaLaboralForm(forms.ModelForm):
             'fecha_inicio_gestion',
             'fecha_fin_gestion',
             'descripcion_funciones',
-            'ruta_certificado',
+            'certificado',
             'activar_para_front',
         ]
         widgets = {
@@ -78,7 +78,7 @@ class CursosRealizadosForm(forms.ModelForm):
             'nombrecontactoauspicia',
             'telefonocontactoauspicia',
             'emailempresapatrocinadora',
-            'rutacertificado',
+            'certificado',
             'activar_para_front',
         ]
         widgets = {
@@ -98,7 +98,7 @@ class ReconocimientosForm(forms.ModelForm):
             'entidadpatrocinadora',
             'nombrecontactoauspicia',
             'telefonocontactoauspicia',
-            'rutacertificado',
+            'certificado',
             'activar_para_front',
         ]
         widgets = {

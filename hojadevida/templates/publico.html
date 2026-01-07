@@ -156,11 +156,12 @@
                         </div>
 
                         <!-- BOTÓN DE CERTIFICADO debajo de funciones -->
-                        {% if e.ruta_certificado %}
-                            <div class="funciones-certificado">
-                                <a href="{{ e.ruta_certificado }}" target="_blank" class="btn-cert">📄 Ver Certificado</a>
-                            </div>
+                        {% if exp.certificado %}
+                            <p><strong>Certificado:</strong> 
+                                <a href="{{ exp.certificado.url }}" target="_blank">Ver certificado</a>
+                            </p>
                         {% endif %}
+
                     </div>
                 {% endif %}
 
@@ -229,11 +230,15 @@
                     {{ c.descripcioncurso|linebreaksbr }}
                 </div>
 
-                {% if c.rutacertificado %}
+    
+                {% if c.certificado %}
                 <div class="curso-certificado">
-                    <a href="{{ c.rutacertificado }}" target="_blank" class="btn-cert">📄 Ver Certificado</a>
+                    <a href="{{ c.certificado.url }}" target="_blank" class="btn-cert">
+                        📄 Ver Certificado
+                    </a>
                 </div>
                 {% endif %}
+
             </div>
 
             <!-- Línea divisoria vertical -->
@@ -319,11 +324,14 @@
                 
 
                 <!-- Botón de certificado -->
-                {% if r.rutacertificado %}
+                {% if r.certificado %}
                     <div class="recon-certificado">
-                        <a href="{{ r.rutacertificado }}" target="_blank" class="btn-cert">📄 Ver Certificado</a>
+                        <a href="{{ r.certificado.url }}" target="_blank" class="btn-cert">
+                            📄 Ver Certificado
+                        </a>
                     </div>
                 {% endif %}
+
 
             </div>
         {% endfor %}

@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+from cloudinary.models import CloudinaryField
+
 
 # ------------------------------------------------------------------------------------------------------------------------------------
 #TABLA DE DATOS PERSONALES 
@@ -219,12 +221,9 @@ class ExperienciaLaboral(models.Model):
     )
 
     # ================= CERTIFICADO =================
-    ruta_certificado = models.CharField(
-        max_length=100,
-        blank=True,
-        null=True,
-        verbose_name="Ruta del certificado"
-    )
+    certificado = CloudinaryField('certificado', blank=True, null=True)
+
+
 
     # ================= VISIBILIDAD =================
     activar_para_front = models.BooleanField(
@@ -303,12 +302,8 @@ class Reconocimientos(models.Model):
     )
 
     # ================= CERTIFICADO =================
-    rutacertificado = models.CharField(
-        max_length=100,
-        blank=True,
-        null=True,
-        verbose_name="Ruta del certificado"
-    )
+    certificado = CloudinaryField('certificado', blank=True, null=True)
+
 
         # ================= VISIBILIDAD =================
     activar_para_front = models.BooleanField(
@@ -400,13 +395,9 @@ class CursosRealizados(models.Model):
     )
 
     # ================= CERTIFICADO =================
-    rutacertificado = models.CharField(
-        max_length=100,
-        blank=True,
-        verbose_name="Ruta del certificado"
-    )
-    
+    certificado = CloudinaryField('certificado', blank=True, null=True)
 
+    
         # ================= VISIBILIDAD =================
     activar_para_front = models.BooleanField(
         default=True,

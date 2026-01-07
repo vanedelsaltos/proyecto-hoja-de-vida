@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 
 {% block contenido %}
@@ -8,17 +9,17 @@
 
     <!-- Fondo de color para la sección del formulario -->
     <div style="background-color: #f8c8dc; padding: 20px; border-radius: 24px; box-shadow: var(--shadow-soft);">
-        <form method="post">
+        
+        <!-- 🔴 CAMBIO CLAVE AQUÍ -->
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
 
             <div class="menu-principal">
-                <!-- Botón guardar con fondo mint sólido -->
                 <button type="submit" class="btn" style="background-color: #d1e9cf; color: #000; border: var(--border-dark);">
                     ✔ Guardar
                 </button>
                 
-                <!-- Botón volver con fondo vanilla sólido -->
                 <a href="{% url 'experiencia' %}" class="btn" style="background-color: #f9e1a1; color: #000; border: var(--border-dark);">
                     ↩ Volver
                 </a>
