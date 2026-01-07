@@ -76,6 +76,81 @@ def datos_personales(request):
         'perfil': perfil
     })
 
+
+#ESTO ES PARA VER TODOS los perfiles creados, se puede editar, borrar etc
+@login_required
+def lista_perfiles(request):
+    perfiles = DatosPersonales.objects.all().order_by('-es_activo')
+    return render(request, 'lista_perfiles.html', {
+        'perfiles': perfiles
+    })
+
+
+#PARA ACTIVAR UN PERFIL
+@login_required
+def activar_perfil(request, perfil_id):
+    perfil = get_object_or_404(DatosPersonales, id=perfil_id)
+    perfil.es_activo = True
+    perfil.save()
+    return redirect('lista_perfiles')
+
+
+#PARA CREAR EL PERFIL
+@login_required
+def crear_perfil(request):
+    if request.method == 'POST':
+        form = DatosPersonalesForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_perfiles')
+    else:
+        form = DatosPersonalesForm()
+
+    return render(request, 'form_datos_personales.html', {
+        'form': form,
+        'accion': 'Crear'
+    })
+
+
+
+#PARA ELIMINAR UN PERFIL
+@login_required
+def eliminar_perfil(request, perfil_id):
+    perfil = get_object_or_404(DatosPersonales, id=perfil_id)
+
+    # Regla: no permitir eliminar el perfil activo
+    if perfil.es_activo:
+        return render(request, 'error.html', {
+            'mensaje': 'No se puede eliminar el perfil activo.'
+        })
+
+    if request.method == 'POST':
+        perfil.delete()
+        return redirect('lista_perfiles')
+
+    return render(request, 'confirmar_eliminar.html', {
+        'perfil': perfil
+    })
+
+
+#PARA EDITAR UN PERFIL
+@login_required
+def editar_perfil(request, perfil_id):
+    perfil = get_object_or_404(DatosPersonales, id=perfil_id)
+
+    if request.method == 'POST':
+        form = DatosPersonalesForm(request.POST, request.FILES, instance=perfil)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_perfiles')
+    else:
+        form = DatosPersonalesForm(instance=perfil)
+
+    return render(request, 'form_datos_personales.html', {
+        'form': form,
+        'accion': 'Guardar cambios'
+    })
+
 # -------------------------------------------------
 # EXPERIENCIA LABORAL
 # -------------------------------------------------
@@ -479,79 +554,6 @@ def publico(request):
 
 
 
-#ESTO ES PARA VER TODOS los perfiles creados, se puede editar, borrar etc
-@login_required
-def lista_perfiles(request):
-    perfiles = DatosPersonales.objects.all().order_by('-es_activo')
-    return render(request, 'lista_perfiles.html', {
-        'perfiles': perfiles
-    })
-
-
-#PARA CREAR EL PERFIL
-@login_required
-def crear_perfil(request):
-    if request.method == 'POST':
-        form = DatosPersonalesForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('lista_perfiles')
-    else:
-        form = DatosPersonalesForm()
-
-    return render(request, 'form_datos_personales.html', {
-        'form': form,
-        'accion': 'Crear'
-    })
-
-
-
-#PARA EDITAR UN PERFIL
-@login_required
-def editar_perfil(request, perfil_id):
-    perfil = get_object_or_404(DatosPersonales, id=perfil_id)
-
-    if request.method == 'POST':
-        form = DatosPersonalesForm(request.POST, instance=perfil)
-        if form.is_valid():
-            form.save()
-            return redirect('lista_perfiles')
-    else:
-        form = DatosPersonalesForm(instance=perfil)
-
-    return render(request, 'form_datos_personales.html', {
-        'form': form,
-        'accion': 'Guardar cambios'
-    })
-
-
-
-#PARA ACTIVAR UN PERFIL
-@login_required
-def activar_perfil(request, perfil_id):
-    perfil = get_object_or_404(DatosPersonales, id=perfil_id)
-    perfil.es_activo = True
-    perfil.save()
-    return redirect('lista_perfiles')
-
-#PARA ELIMINAR UN PERFIL
-@login_required
-def eliminar_perfil(request, perfil_id):
-    perfil = get_object_or_404(DatosPersonales, id=perfil_id)
-
-    # Regla: no permitir eliminar el perfil activo
-    if perfil.es_activo:
-        return render(request, 'error.html', {
-            'mensaje': 'No se puede eliminar el perfil activo.'
-        })
-
-    if request.method == 'POST':
-        perfil.delete()
-        return redirect('lista_perfiles')
-
-    return render(request, 'confirmar_eliminar.html', {
-        'perfil': perfil
-    })
 
 
 
