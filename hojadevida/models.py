@@ -56,9 +56,11 @@ class DatosPersonales(models.Model):
     #PARTE PARA AGREGAR UNA FOTO DE PERFIL
     foto_perfil = CloudinaryField(
         'foto_perfil',
+        folder='perfil',
         blank=True,
         null=True
     )
+
 
 
     nacionalidad = models.CharField(
