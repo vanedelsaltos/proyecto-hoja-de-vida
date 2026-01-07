@@ -221,7 +221,13 @@ class ExperienciaLaboral(models.Model):
     )
 
     # ================= CERTIFICADO =================
-    certificado = CloudinaryField('certificado', blank=True, null=True)
+    certificado = CloudinaryField(
+        'certificado',
+        resource_type='raw',
+        folder='certificados/experiencia',
+        blank=True,
+        null=True
+    )
 
 
 
