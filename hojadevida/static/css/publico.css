@@ -1486,3 +1486,19 @@ a {
     object-fit: cover;
     border: 4px solid #000;
 }
+
+/*FOTO PARA DE PRODUCTOS LABORALES*/
+.producto-imagen {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+.producto-imagen-publico {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 5px;
+}

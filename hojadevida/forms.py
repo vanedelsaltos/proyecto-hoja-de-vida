@@ -116,6 +116,7 @@ class ProductosAcademicosForm(forms.ModelForm):
             'nombrerecurso',
             'clasificador',
             'descripcion',
+            'imagen',
             'activar_para_front',
         ]
 

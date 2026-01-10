@@ -352,7 +352,7 @@ def productos_academicos(request):
 def crear_producto_academico(request):
     perfil = obtener_perfil_activo()
     if request.method == 'POST':
-        form = ProductosAcademicosForm(request.POST)
+        form = ProductosAcademicosForm(request.POST, request.FILES)
         if form.is_valid():
             producto = form.save(commit=False)
             producto.idperfilconqueestaactivo = perfil
@@ -371,7 +371,7 @@ def crear_producto_academico(request):
 def editar_producto_academico(request, producto_id):
     producto = get_object_or_404(ProductosAcademicos, pk=producto_id)
     if request.method == 'POST':
-        form = ProductosAcademicosForm(request.POST, instance=producto)
+        form = ProductosAcademicosForm(request.POST, request.FILES, instance=producto)
         if form.is_valid():
             form.save()
             return redirect('productos_academicos')

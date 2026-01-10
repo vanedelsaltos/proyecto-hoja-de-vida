@@ -360,26 +360,32 @@
     <h2>Productos Académicos</h2>
 
     {% if productos_academicos %}
-        {% for p in productos_academicos %}
-            <div class="prod-acad-block">
+    {% for p in productos_academicos %}
+        <div class="prod-acad-block">
+            {% if p.imagen %}
+                <img src="{{ p.imagen.url }}" alt="{{ p.nombrerecurso }}" class="producto-imagen-publico">
+            {% endif %}
 
-                <div class="prod-col">
-                    <p class="prod-title rounded">Nombre del recurso</p>
-                    <p class="prod-text">{{ p.nombrerecurso }}</p>
-                </div>
-
-                <div class="prod-col">
-                    <p class="prod-title rounded">Clasificador</p>
-                    <p class="prod-text">{{ p.clasificador }}</p>
-                </div>
-
-                <div class="prod-col">
-                    <p class="prod-title rounded">Descripción</p>
-                    <p class="prod-text">{{ p.descripcion }}</p>
-                </div>
-
+            <div class="prod-col">
+                <p class="prod-title rounded">Nombre del recurso</p>
+                <p class="prod-text">{{ p.nombrerecurso }}</p>
             </div>
-        {% endfor %}
+
+            <div class="prod-col">
+                <p class="prod-title rounded">Clasificador</p>
+                <p class="prod-text">{{ p.clasificador }}</p>
+            </div>
+
+            <div class="prod-col">
+                <p class="prod-title rounded">Descripción</p>
+                <p class="prod-text">{{ p.descripcion }}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p class="no-data">No hay productos académicos registrados</p>
+{% endif %}
+
     {% else %}
         <p class="no-data">No hay productos académicos registrados</p>
     {% endif %}

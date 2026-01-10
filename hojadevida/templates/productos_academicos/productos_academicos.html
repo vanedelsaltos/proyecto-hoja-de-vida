@@ -19,20 +19,14 @@
         <div class="bento-grid">
             {% for prod in productos %}
                 <div class="card vanilla">
+                    {% if prod.imagen %}
+                        <img src="{{ prod.imagen.url }}" alt="{{ prod.nombrerecurso }}" class="producto-imagen">
+                    {% endif %}
                     <h3>{{ prod.nombrerecurso }}</h3>
-
-                    <p>
-                        <strong>Clasificador:</strong>
-                        {{ prod.clasificador }}
-                    </p>
-
+                    <p><strong>Clasificador:</strong> {{ prod.clasificador }}</p>
                     <div class="menu-principal">
-                        <a href="{% url 'editar_producto_academico' prod.id %}" class="btn mint">
-                            ✎ Editar
-                        </a>
-                        <a href="{% url 'eliminar_producto_academico' prod.id %}" class="btn pink">
-                            🗑 Eliminar
-                        </a>
+                        <a href="{% url 'editar_producto_academico' prod.id %}" class="btn mint">✎ Editar</a>
+                        <a href="{% url 'eliminar_producto_academico' prod.id %}" class="btn pink">🗑 Eliminar</a>
                     </div>
                 </div>
             {% endfor %}

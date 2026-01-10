@@ -478,6 +478,13 @@ class ProductosAcademicos(models.Model):
         verbose_name="Descripción"
     )
 
+        #PARA QIE SE PUEDA AGREGAR UNA FOTO
+    imagen = CloudinaryField(
+        folder='productos_academicos',  
+        null=True,
+        verbose_name="Imagen del producto"
+    )
+
     activar_para_front = models.BooleanField(
         default=True,
         verbose_name="Mostrar en la página"
@@ -528,6 +535,7 @@ class ProductosLaborales(models.Model):
         null=True,
         verbose_name="Descripción"
     )
+
 
     activar_para_front = models.BooleanField(
         default=True,
