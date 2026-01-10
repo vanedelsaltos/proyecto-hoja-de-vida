@@ -362,9 +362,10 @@
     {% if productos_academicos %}
     {% for p in productos_academicos %}
         <div class="prod-acad-block">
-            {% if p.imagen %}
-                <img src="{{ p.imagen.url }}" alt="{{ p.nombrerecurso }}" class="producto-imagen-publico">
+            {% if p.imagen and p.imagen.url %}
+                <img src="{{ p.imagen.url }}" class="producto-imagen-publico">
             {% endif %}
+
 
             <div class="prod-col">
                 <p class="prod-title rounded">Nombre del recurso</p>
