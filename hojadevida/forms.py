@@ -140,7 +140,7 @@ class ProductosAcademicosForm(forms.ModelForm):
     
 
 
-    
+
 
 #----------------FORMULARIO PARA PRODUCTOS LABORALES----------------
 class ProductosLaboralesForm(forms.ModelForm):
@@ -167,5 +167,6 @@ class VentaGarageForm(forms.ModelForm):
             'estadoproducto',
             'descripcion',
             'valordelbien',
+            'imagen',  
             'activar_para_front',
         ]

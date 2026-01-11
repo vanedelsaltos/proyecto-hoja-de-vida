@@ -19,29 +19,27 @@
     {% if ventas %}
         <div class="bento-grid">
             {% for venta in ventas %}
-                <div class="card vanilla">
-                    <h3>{{ venta.nombreproducto }}</h3>
+            <div class="venta-block">
 
-                    <p>
-                        <strong>Estado:</strong>
-                        {{ venta.estadoproducto }}
-                    </p>
+                {% if venta.imagen %}
+                    <img src="{{ venta.imagen.url }}" class="venta-imagen">
+                {% endif %}
 
-                    <p>
-                        <strong>Valor:</strong>
-                        ${{ venta.valordelbien }}
-                    </p>
+                <ul class="venta-info">
+                    <li><strong>Producto:</strong> {{ venta.nombreproducto }}</li>
+                    <li><strong>Estado:</strong> {{ venta.estadoproducto }}</li>
+                    <li><strong>Precio:</strong> ${{ venta.valordelbien }}</li>
+                </ul>
 
-                    <div class="menu-principal">
-                        <a href="{% url 'editar_venta_garage' venta.id %}" class="btn mint">
-                            ✎ Editar
-                        </a>
-                        <a href="{% url 'eliminar_venta_garage' venta.id %}" class="btn pink">
-                            🗑 Eliminar
-                        </a>
-                    </div>
+                <div class="venta-desc-box">
+                    <p class="venta-text">{{ venta.descripcion }}</p>
                 </div>
+
+            </div>
+            {% empty %}
+            <p class="no-data">No hay productos en venta</p>
             {% endfor %}
+
         </div>
     {% else %}
         <p>No hay productos registrados</p>

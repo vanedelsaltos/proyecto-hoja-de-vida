@@ -4,6 +4,7 @@ from cloudinary.models import CloudinaryField
 
 
 
+
 # ------------------------------------------------------------------------------------------------------------------------------------
 #TABLA DE DATOS PERSONALES 
 
@@ -592,6 +593,14 @@ class VentaGarage(models.Model):
         decimal_places=2,
         validators=[MinValueValidator(1)],
         verbose_name="Valor del bien"
+    )
+
+        # 👉 NUEVO CAMPO IMAGEN
+    imagen = models.ImageField(
+        upload_to='venta_garage/',
+        blank=True,
+        null=True,
+        verbose_name="Imagen del producto"
     )
 
 

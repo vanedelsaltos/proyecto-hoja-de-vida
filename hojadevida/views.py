@@ -463,7 +463,7 @@ def venta_garage(request):
 def crear_venta_garage(request):
     perfil = obtener_perfil_activo()
     if request.method == 'POST':
-        form = VentaGarageForm(request.POST)
+        form = VentaGarageForm(request.POST, request.FILES)
         if form.is_valid():
             venta = form.save(commit=False)
             venta.idperfilconqueestaactivo = perfil
@@ -481,7 +481,7 @@ def crear_venta_garage(request):
 def editar_venta_garage(request, venta_id):
     venta = get_object_or_404(VentaGarage, pk=venta_id)
     if request.method == 'POST':
-        form = VentaGarageForm(request.POST, instance=venta)
+        form = VentaGarageForm(request.POST, request.FILES, instance=venta)
         if form.is_valid():
             form.save()
             return redirect('venta_garage')

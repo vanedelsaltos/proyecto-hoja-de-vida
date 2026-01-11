@@ -444,6 +444,9 @@
         <div class="venta-grid">
             {% for v in ventas %}
                 <div class="venta-block">
+                    {% if v.imagen %}
+                        <img src="{{ v.imagen.url }}" class="venta-imagen">
+                    {% endif %}
 
                     <!-- Información principal (viñetas) -->
                     <ul class="venta-info">
