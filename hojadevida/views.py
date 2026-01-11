@@ -553,31 +553,49 @@ def publico(request):
 #-----------------------------------------------------------------------------------------------------------------
 
 #IMPRIMIR HOJA DE VIDA
-@login_required
+# IMPRIMIR HOJA DE VIDA
+# -------------------------------------------------
 def imprimir_hoja_de_vida(request):
     perfil = obtener_perfil_activo()
+
+    experiencias = ExperienciaLaboral.objects.filter(
+        idperfilconqueestaactivo=perfil,
+        activar_para_front=True
+    )
+
+    cursos = CursosRealizados.objects.filter(
+        idperfilconqueestaactivo=perfil,
+        activar_para_front=True
+    )
+
+    reconocimientos = Reconocimientos.objects.filter(
+        idperfilconqueestaactivo=perfil,
+        activar_para_front=True
+    )
+
+    productos_academicos = ProductosAcademicos.objects.filter(
+        idperfilconqueestaactivo=perfil,
+        activar_para_front=True
+    )
+
+    productos_laborales = ProductosLaborales.objects.filter(
+        idperfilconqueestaactivo=perfil,
+        activar_para_front=True
+    )
 
     ventas = VentaGarage.objects.filter(
         idperfilconqueestaactivo=perfil,
         activar_para_front=True
     )
 
-    productos = ProductosAcademicos.objects.filter(
-        idperfilconqueestaactivo=perfil,
-        activar_para_front=True
-    )
+    context = {
+        'perfil': perfil,
+        'experiencias': experiencias,
+        'cursos': cursos,
+        'reconocimientos': reconocimientos,
+        'productos_academicos': productos_academicos,
+        'productos_laborales': productos_laborales,
+        'ventas': ventas,
+    }
 
-    return render(
-        request,
-        'hoja_de_vida/imprimir.html',
-        {
-            'perfil': perfil,
-            'ventas': ventas,
-            'productos': productos,
-        }
-    )
-
-
-
-
-
+    return render(request, 'imprimir.html', context)

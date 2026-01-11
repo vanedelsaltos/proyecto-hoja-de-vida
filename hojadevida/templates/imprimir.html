@@ -14,11 +14,15 @@
 </head>
 <body>
 
-<h1>{{ perfil.nombre_completo }}</h1>
+{% if perfil %}
+<h1>{{ perfil.nombres }} {{ perfil.apellidos }}</h1>
+{% else %}
+<h1>Hoja de Vida</h1>
+{% endif %}
 
 <h2>Productos Académicos</h2>
 <ul>
-    {% for p in productos %}
+    {% for p in productos_academicos %}
         <li>
             <strong>{{ p.nombrerecurso }}</strong><br>
             {{ p.descripcion }}
