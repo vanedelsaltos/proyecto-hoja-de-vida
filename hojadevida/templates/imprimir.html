@@ -7,7 +7,6 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            font-size: 12px;
             margin: 30px;
             color: #000;
         }
@@ -23,193 +22,139 @@
             padding-bottom: 5px;
         }
 
-        p {
-            margin: 4px 0;
-        }
-
-        .foto-perfil {
-            display: block;
-            margin: 0 auto 15px auto;
-            max-width: 140px;
-            border-radius: 6px;
+        .seccion {
+            margin-bottom: 20px;
         }
 
         .item {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
-        .certificado-img {
-            max-width: 90%;
+        img {
+            max-width: 200px;
+            max-height: 200px;
             display: block;
-            margin: 15px auto;
+            margin-top: 10px;
+        }
+
+        .certificado {
+            margin-bottom: 30px;
+            page-break-inside: avoid;
+        }
+
+        embed {
+            width: 100%;
+            height: 500px;
+            margin-top: 10px;
             border: 1px solid #ccc;
         }
 
-        iframe {
-            width: 100%;
-            height: 500px;
-            border: none;
-            margin: 15px 0;
-        }
-
-        .page-break {
-            page-break-before: always;
+        @media print {
+            button {
+                display: none;
+            }
         }
     </style>
 </head>
 
-<body>
+<body onload="window.print()">
 
-<!-- ================= DATOS PERSONALES ================= -->
+<button onclick="window.print()">Imprimir / Descargar</button>
 
-{% if datos_personales %}
-    {% if datos_personales.fotoperfil %}
-        <img src="{{ datos_personales.fotoperfil.url }}" class="foto-perfil">
-    {% endif %}
+<h1>{{ perfil.nombres }} {{ perfil.apellidos }}</h1>
 
-    <h1>{{ datos_personales.nombres }} {{ datos_personales.apellidos }}</h1>
-
-    <p><strong>Cédula:</strong> {{ datos_personales.cedula }}</p>
-    <p><strong>Correo:</strong> {{ datos_personales.correo }}</p>
-    <p><strong>Teléfono:</strong> {{ datos_personales.telefono }}</p>
-    <p><strong>Dirección:</strong> {{ datos_personales.direccion }}</p>
+{% if perfil.foto %}
+    <img src="{{ perfil.foto.url }}">
 {% endif %}
 
-<!-- ================= PERFIL PROFESIONAL ================= -->
+<p><strong>Correo:</strong> {{ perfil.correo }}</p>
+<p><strong>Teléfono:</strong> {{ perfil.telefono }}</p>
+<p><strong>Dirección:</strong> {{ perfil.direccion }}</p>
 
-{% if perfil_profesional %}
-    <h3>Perfil Profesional</h3>
-    <p>{{ perfil_profesional.descripcionperfil }}</p>
-{% endif %}
-
-<!-- ================= EDUCACIÓN ================= -->
-
-{% if educacion %}
-<h3>Educación</h3>
-{% for e in educacion %}
-    <div class="item">
-        <p><strong>{{ e.titulo_obtenido }}</strong></p>
-        <p>{{ e.institucion }}</p>
-        <p>{{ e.fecha_inicio }} – {{ e.fecha_fin }}</p>
-    </div>
-{% endfor %}
-{% endif %}
-
-<!-- ================= EXPERIENCIA LABORAL ================= -->
-
-{% if experiencias %}
+<!-- ================= EXPERIENCIA ================= -->
 <h3>Experiencia Laboral</h3>
 {% for e in experiencias %}
-    <div class="item">
-        <p><strong>{{ e.cargo_desempenado }}</strong></p>
-        <p>{{ e.nombre_empresa }}</p>
-        <p>{{ e.fecha_inicio }} – {{ e.fecha_fin }}</p>
-        <p>{{ e.descripcion }}</p>
-    </div>
+<div class="item">
+    <strong>{{ e.cargo }}</strong><br>
+    {{ e.empresa }}<br>
+    {{ e.descripcion }}
+    {% if e.imagen %}
+        <img src="{{ e.imagen.url }}">
+    {% endif %}
+</div>
 {% endfor %}
-{% endif %}
 
-<!-- ================= CURSOS REALIZADOS ================= -->
-
-{% if cursos %}
+<!-- ================= CURSOS ================= -->
 <h3>Cursos Realizados</h3>
 {% for c in cursos %}
-    <div class="item">
-        <p><strong>{{ c.nombrecurso }}</strong></p>
-        <p>{{ c.institucion }}</p>
-        <p>{{ c.fecha_inicio }} – {{ c.fecha_fin }}</p>
-    </div>
+<div class="item">
+    {{ c.nombre }}
+    {% if c.imagen %}
+        <img src="{{ c.imagen.url }}">
+    {% endif %}
+</div>
 {% endfor %}
-{% endif %}
 
 <!-- ================= RECONOCIMIENTOS ================= -->
-
-{% if reconocimientos %}
 <h3>Reconocimientos</h3>
 {% for r in reconocimientos %}
-    <div class="item">
-        <p><strong>{{ r.tiporeconocimiento }}</strong></p>
-        <p>{{ r.descripcion }}</p>
-        <p>{{ r.fecha }}</p>
-    </div>
+<div class="item">
+    {{ r.titulo }}
+    {% if r.imagen %}
+        <img src="{{ r.imagen.url }}">
+    {% endif %}
+</div>
 {% endfor %}
-{% endif %}
 
 <!-- ================= PRODUCTOS ACADÉMICOS ================= -->
-
-{% if productos_academicos %}
 <h3>Productos Académicos</h3>
 {% for p in productos_academicos %}
-    <div class="item">
-        <p><strong>{{ p.nombre_producto }}</strong></p>
-        <p>{{ p.descripcion }}</p>
-
-        {% if p.imagen %}
-            <img src="{{ p.imagen.url }}" class="certificado-img">
-        {% endif %}
-    </div>
+<div class="item">
+    <strong>{{ p.titulo }}</strong><br>
+    {{ p.descripcion }}
+    {% if p.imagen %}
+        <img src="{{ p.imagen.url }}">
+    {% endif %}
+</div>
 {% endfor %}
-{% endif %}
 
-<!-- ================= VENTA GARAGE ================= -->
-
-{% if ventas_garage %}
-<h3>Venta de Garage</h3>
-{% for v in ventas_garage %}
-    <div class="item">
-        <p><strong>{{ v.nombreproducto }}</strong></p>
-        <p>{{ v.descripcion }}</p>
-        <p><strong>Precio:</strong> ${{ v.precio }}</p>
-
-        {% if v.imagen %}
-            <img src="{{ v.imagen.url }}" class="certificado-img">
-        {% endif %}
-    </div>
+<!-- ================= PRODUCTOS LABORALES ================= -->
+<h3>Productos Laborales</h3>
+{% for p in productos_laborales %}
+<div class="item">
+    <strong>{{ p.titulo }}</strong><br>
+    {{ p.descripcion }}
+</div>
 {% endfor %}
-{% endif %}
 
 <!-- ================= CERTIFICADOS ================= -->
-
-<div class="page-break"></div>
 <h2>CERTIFICADOS</h2>
 
-<!-- ===== Certificados de Experiencia ===== -->
 {% for e in experiencias %}
-{% if e.certificado %}
-    <h4>Experiencia: {{ e.cargo_desempenado }} – {{ e.nombre_empresa }}</h4>
-
-    {% if e.certificado.url|lower|slice:"-4:" == ".pdf" %}
-        <iframe src="{{ e.certificado.url }}"></iframe>
-    {% else %}
-        <img src="{{ e.certificado.url }}" class="certificado-img">
+    {% if e.certificado %}
+    <div class="certificado">
+        <strong>Experiencia: {{ e.cargo }} – {{ e.empresa }}</strong>
+        <embed src="{{ e.certificado.url }}" type="application/pdf">
+    </div>
     {% endif %}
-{% endif %}
 {% endfor %}
 
-<!-- ===== Certificados de Cursos ===== -->
 {% for c in cursos %}
-{% if c.certificado %}
-    <h4>Curso: {{ c.nombrecurso }}</h4>
-
-    {% if c.certificado.url|lower|slice:"-4:" == ".pdf" %}
-        <iframe src="{{ c.certificado.url }}"></iframe>
-    {% else %}
-        <img src="{{ c.certificado.url }}" class="certificado-img">
+    {% if c.certificado %}
+    <div class="certificado">
+        <strong>Curso: {{ c.nombre }}</strong>
+        <embed src="{{ c.certificado.url }}" type="application/pdf">
+    </div>
     {% endif %}
-{% endif %}
 {% endfor %}
 
-<!-- ===== Certificados de Reconocimientos ===== -->
 {% for r in reconocimientos %}
-{% if r.certificado %}
-    <h4>Reconocimiento: {{ r.tiporeconocimiento }}</h4>
-
-    {% if r.certificado.url|lower|slice:"-4:" == ".pdf" %}
-        <iframe src="{{ r.certificado.url }}"></iframe>
-    {% else %}
-        <img src="{{ r.certificado.url }}" class="certificado-img">
+    {% if r.certificado %}
+    <div class="certificado">
+        <strong>Reconocimiento: {{ r.titulo }}</strong>
+        <embed src="{{ r.certificado.url }}" type="application/pdf">
+    </div>
     {% endif %}
-{% endif %}
 {% endfor %}
 
 </body>
