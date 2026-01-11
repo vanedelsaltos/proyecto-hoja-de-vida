@@ -7,155 +7,187 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 30px;
-            color: #000;
+            margin: 40px;
+            color: #333;
         }
 
         h1, h2 {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        h3 {
-            margin-top: 25px;
-            border-bottom: 1px solid #000;
+            border-bottom: 2px solid #444;
             padding-bottom: 5px;
         }
 
+        .perfil {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .perfil img {
+            width: 150px;
+            border-radius: 10px;
+        }
+
         .seccion {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .item {
             margin-bottom: 15px;
         }
 
-        img {
-            max-width: 200px;
-            max-height: 200px;
-            display: block;
+        .imagen-item {
             margin-top: 10px;
+            max-width: 300px;
+            border-radius: 8px;
         }
 
         .certificado {
-            margin-bottom: 30px;
-            page-break-inside: avoid;
+            margin-bottom: 25px;
         }
 
         embed {
             width: 100%;
             height: 500px;
-            margin-top: 10px;
             border: 1px solid #ccc;
         }
 
+        .no-print {
+            margin-bottom: 30px;
+        }
+
         @media print {
-            button {
+            .no-print {
                 display: none;
             }
         }
     </style>
 </head>
 
-<body onload="window.print()">
+<body>
 
-<button onclick="window.print()">Imprimir / Descargar</button>
+<div class="no-print">
+    <button onclick="window.print()">🖨️ Imprimir / Descargar PDF</button>
+</div>
 
-<h1>{{ perfil.nombres }} {{ perfil.apellidos }}</h1>
+<!-- ================= PERFIL ================= -->
+<div class="perfil">
+    {% if perfil.foto_perfil %}
+        <img src="{{ perfil.foto_perfil.url }}">
+    {% endif %}
 
-{% if perfil.foto %}
-    <img src="{{ perfil.foto.url }}">
-{% endif %}
-
-<p><strong>Correo:</strong> {{ perfil.correo }}</p>
-<p><strong>Teléfono:</strong> {{ perfil.telefono }}</p>
-<p><strong>Dirección:</strong> {{ perfil.direccion }}</p>
+    <div>
+        <h1>{{ perfil.nombres }} {{ perfil.apellidos }}</h1>
+        <p><strong>Perfil:</strong> {{ perfil.descripcionperfil }}</p>
+        <p><strong>Nacionalidad:</strong> {{ perfil.nacionalidad }}</p>
+        <p><strong>Estado civil:</strong> {{ perfil.estadocivil }}</p>
+    </div>
+</div>
 
 <!-- ================= EXPERIENCIA ================= -->
-<h3>Experiencia Laboral</h3>
-{% for e in experiencias %}
-<div class="item">
-    <strong>{{ e.cargo }}</strong><br>
-    {{ e.empresa }}<br>
-    {{ e.descripcion }}
-    {% if e.imagen %}
-        <img src="{{ e.imagen.url }}">
-    {% endif %}
+<div class="seccion">
+    <h2>Experiencia Laboral</h2>
+    {% for e in experiencias %}
+        <div class="item">
+            <strong>{{ e.cargo_desempenado }}</strong> – {{ e.nombre_empresa }}
+            <p>{{ e.descripcion_funciones }}</p>
+        </div>
+    {% endfor %}
 </div>
-{% endfor %}
 
 <!-- ================= CURSOS ================= -->
-<h3>Cursos Realizados</h3>
-{% for c in cursos %}
-<div class="item">
-    {{ c.nombre }}
-    {% if c.imagen %}
-        <img src="{{ c.imagen.url }}">
-    {% endif %}
+<div class="seccion">
+    <h2>Cursos Realizados</h2>
+    {% for c in cursos %}
+        <div class="item">
+            <strong>{{ c.nombrecurso }}</strong>
+            <p>{{ c.descripcioncurso }}</p>
+        </div>
+    {% endfor %}
 </div>
-{% endfor %}
 
 <!-- ================= RECONOCIMIENTOS ================= -->
-<h3>Reconocimientos</h3>
-{% for r in reconocimientos %}
-<div class="item">
-    {{ r.titulo }}
-    {% if r.imagen %}
-        <img src="{{ r.imagen.url }}">
-    {% endif %}
+<div class="seccion">
+    <h2>Reconocimientos</h2>
+    {% for r in reconocimientos %}
+        <div class="item">
+            <strong>{{ r.tiporeconocimiento }}</strong> – {{ r.descripcionreconocimiento }}
+        </div>
+    {% endfor %}
 </div>
-{% endfor %}
 
 <!-- ================= PRODUCTOS ACADÉMICOS ================= -->
-<h3>Productos Académicos</h3>
-{% for p in productos_academicos %}
-<div class="item">
-    <strong>{{ p.titulo }}</strong><br>
-    {{ p.descripcion }}
-    {% if p.imagen %}
-        <img src="{{ p.imagen.url }}">
-    {% endif %}
+<div class="seccion">
+    <h2>Productos Académicos</h2>
+    {% for p in productos_academicos %}
+        <div class="item">
+            <strong>{{ p.nombrerecurso }}</strong>
+            <p>{{ p.descripcion }}</p>
+
+            {% if p.imagen %}
+                <img src="{{ p.imagen.url }}" class="imagen-item">
+            {% endif %}
+        </div>
+    {% endfor %}
 </div>
-{% endfor %}
 
 <!-- ================= PRODUCTOS LABORALES ================= -->
-<h3>Productos Laborales</h3>
-{% for p in productos_laborales %}
-<div class="item">
-    <strong>{{ p.titulo }}</strong><br>
-    {{ p.descripcion }}
+<div class="seccion">
+    <h2>Productos Laborales</h2>
+    {% for p in productos_laborales %}
+        <div class="item">
+            <strong>{{ p.nombreproducto }}</strong>
+            <p>{{ p.descripcion }}</p>
+        </div>
+    {% endfor %}
 </div>
-{% endfor %}
+
+<!-- ================= VENTA GARAGE ================= -->
+<div class="seccion">
+    <h2>Venta Garage</h2>
+    {% for v in ventas %}
+        <div class="item">
+            <strong>{{ v.nombreproducto }}</strong> – ${{ v.valordelbien }}
+            <p>{{ v.descripcion }}</p>
+
+            {% if v.imagen %}
+                <img src="{{ v.imagen.url }}" class="imagen-item">
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
 
 <!-- ================= CERTIFICADOS ================= -->
-<h2>CERTIFICADOS</h2>
+<div class="seccion">
+    <h2>Certificados</h2>
 
-{% for e in experiencias %}
-    {% if e.certificado %}
-    <div class="certificado">
-        <strong>Experiencia: {{ e.cargo }} – {{ e.empresa }}</strong>
-        <embed src="{{ e.certificado.url }}" type="application/pdf">
-    </div>
-    {% endif %}
-{% endfor %}
+    {% for e in experiencias %}
+        {% if e.certificado %}
+            <div class="certificado">
+                <p><strong>Experiencia:</strong> {{ e.cargo_desempenado }} – {{ e.nombre_empresa }}</p>
+                <embed src="{{ e.certificado.url }}">
+            </div>
+        {% endif %}
+    {% endfor %}
 
-{% for c in cursos %}
-    {% if c.certificado %}
-    <div class="certificado">
-        <strong>Curso: {{ c.nombre }}</strong>
-        <embed src="{{ c.certificado.url }}" type="application/pdf">
-    </div>
-    {% endif %}
-{% endfor %}
+    {% for c in cursos %}
+        {% if c.certificado %}
+            <div class="certificado">
+                <p><strong>Curso:</strong> {{ c.nombrecurso }}</p>
+                <embed src="{{ c.certificado.url }}">
+            </div>
+        {% endif %}
+    {% endfor %}
 
-{% for r in reconocimientos %}
-    {% if r.certificado %}
-    <div class="certificado">
-        <strong>Reconocimiento: {{ r.titulo }}</strong>
-        <embed src="{{ r.certificado.url }}" type="application/pdf">
-    </div>
-    {% endif %}
-{% endfor %}
+    {% for r in reconocimientos %}
+        {% if r.certificado %}
+            <div class="certificado">
+                <p><strong>Reconocimiento:</strong> {{ r.tiporeconocimiento }}</p>
+                <embed src="{{ r.certificado.url }}">
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
 
 </body>
 </html>
