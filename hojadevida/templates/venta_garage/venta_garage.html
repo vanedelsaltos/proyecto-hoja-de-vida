@@ -21,10 +21,6 @@
             {% for venta in ventas %}
             <div class="venta-block">
 
-                {% if venta.imagen %}
-                    <img src="{{ venta.imagen.url }}" class="venta-imagen">
-                {% endif %}
-
                 <ul class="venta-info">
                     <li><strong>Producto:</strong> {{ venta.nombreproducto }}</li>
                     <li><strong>Estado:</strong> {{ venta.estadoproducto }}</li>
