@@ -393,49 +393,41 @@
 </div>
 
 <!-- =======================
-     PRODUCTOS LABORALES
+     PRODUCTOS ACADÉMICOS
 ======================= -->
+<div id="prod_acad" class="tab-content">
+    <h2>Productos Académicos</h2>
 
-<div id="prod_lab" class="tab-content">
-    <h2 class="section-title">Productos Laborales</h2>
+    {% if productos_academicos %}
+        {% for p in productos_academicos %}
+            <div class="prod-acad-block">
 
-    {% if productos_laborales %}
-        {% for p in productos_laborales %}
-            <div class="prod-lab-block">  <!-- Bloque grande que encierra todo -->
-
-                <!-- Información principal (lado izquierdo) -->
-                <div class="prod-lab-info">
-                    {% if p.nombreproducto %}
-                        <p class="prod-title rounded small pink">Nombre del producto</p>
-                        <p class="prod-text">{{ p.nombreproducto }}</p>
-                    {% endif %}
-
-                    {% if p.fecha_producto %}
-                        <p class="prod-title rounded small pink">Fecha</p>
-                        <p class="prod-text">{{ p.fecha_producto|date:"d/m/Y" }}</p>
-                    {% endif %}
-
-                    {% if p.tipoproducto %}
-                        <p class="prod-title rounded small pink">Tipo</p>
-                        <p class="prod-text">{{ p.tipoproducto }}</p>
-                    {% endif %}
-                </div>
-
-                <!-- Descripción en un recuadro grande -->
-                {% if p.descripcion %}
-                <div class="prod-lab-desc-box">
-                    <p class="desc-subtitle">Descripción</p>  <!-- Subtítulo sin recuadro -->
-                    <hr class="desc-divider">
-                    <p class="prod-text">{{ p.descripcion|linebreaksbr }}</p>
-                </div>
+                {% if p.imagen %}
+                    <img src="{{ p.imagen.url }}" class="producto-imagen-publico">
                 {% endif %}
 
-            </div> <!-- fin bloque grande -->
+                <div class="prod-col">
+                    <p class="prod-title rounded">Nombre del recurso</p>
+                    <p class="prod-text">{{ p.nombrerecurso }}</p>
+                </div>
+
+                <div class="prod-col">
+                    <p class="prod-title rounded">Clasificador</p>
+                    <p class="prod-text">{{ p.clasificador }}</p>
+                </div>
+
+                <div class="prod-col">
+                    <p class="prod-title rounded">Descripción</p>
+                    <p class="prod-text">{{ p.descripcion }}</p>
+                </div>
+
+            </div>
         {% endfor %}
     {% else %}
-        <p class="no-data">No hay productos laborales registrados</p>
+        <p class="no-data">No hay productos académicos registrados</p>
     {% endif %}
 </div>
+
 
 
 <!-- =======================
