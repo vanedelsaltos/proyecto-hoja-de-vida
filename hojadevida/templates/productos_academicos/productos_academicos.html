@@ -20,9 +20,11 @@
             {% for prod in productos %}
                 <div class="card vanilla">
                     {% if prod.imagen and prod.imagen.url %}
-                        <img src="{{ prod.imagen.url }}" class="producto-imagen-admin">
-
+                        <div class="producto-imagen-wrapper">
+                            <img src="{{ prod.imagen.url }}" class="producto-imagen">
+                        </div>
                     {% endif %}
+
 
                     <h3>{{ prod.nombrerecurso }}</h3>
                     <p><strong>Clasificador:</strong> {{ prod.clasificador }}</p>

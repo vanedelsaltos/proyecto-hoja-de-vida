@@ -1488,13 +1488,20 @@ a {
 }
 
 /*FOTO PARA DE PRODUCTOS ACADÉMICOS*/
+/* FOTO PARA PRODUCTOS ACADÉMICOS (ADMIN) */
 .producto-imagen {
-    width: 200px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 10px;
+    max-width: 100%;
+    max-height: 160px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 12px auto;
+    border-radius: 10px;
+    border: 2px solid var(--negro);
+    background-color: var(--crema);
 }
+
 .producto-imagen-publico {
     width: 150px;
     height: 100px;
@@ -1502,11 +1509,12 @@ a {
     border-radius: 6px;
     margin-bottom: 5px;
 }
-.producto-imagen-admin {
-    max-width: 100%;
-    max-height: 180px;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto 10px auto;
-    border-radius: 10px;
+
+.producto-imagen-wrapper {
+    padding: 10px;
+    background-color: var(--amarillo);
+    border: 2px dashed var(--negro);
+    border-radius: 14px;
+    margin-bottom: 12px;
 }
+
