@@ -562,7 +562,7 @@ def imprimir_hoja_de_vida(request):
         activar_para_front=True
     )
 
-    productos = ProductoAcademico.objects.filter(
+    productos = ProductosAcademicos.objects.filter(
         idperfilconqueestaactivo=perfil,
         activar_para_front=True
     )
@@ -576,7 +576,6 @@ def imprimir_hoja_de_vida(request):
             'productos': productos,
         }
     )
-
 
 
 
