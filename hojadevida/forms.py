@@ -110,6 +110,12 @@ class ReconocimientosForm(forms.ModelForm):
 
 #----------------FORMULARIO PARA PRODUCTOS ACADÉMICOS----------------
 class ProductosAcademicosForm(forms.ModelForm):
+
+    eliminar_imagen = forms.BooleanField(
+        required=False,
+        label="Eliminar imagen actual"
+    )
+
     class Meta:
         model = ProductosAcademicos
         fields = [
@@ -120,6 +126,21 @@ class ProductosAcademicosForm(forms.ModelForm):
             'activar_para_front',
         ]
 
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+
+        # Si el usuario marcó "eliminar imagen"
+        if self.cleaned_data.get('eliminar_imagen'):
+            instance.imagen = None
+
+        if commit:
+            instance.save()
+
+        return instance
+    
+
+
+    
 
 #----------------FORMULARIO PARA PRODUCTOS LABORALES----------------
 class ProductosLaboralesForm(forms.ModelForm):
