@@ -2,56 +2,46 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Hoja de Vida - {{ perfil.nombre_completo }}</title>
-
+    <title>Hoja de Vida</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            color: #000;
         }
-
-        .no-print {
-            display: none;
-        }
-
         h1, h2 {
-            border-bottom: 1px solid #000;
-            padding-bottom: 4px;
-        }
-
-        @media print {
-            button {
-                display: none;
-            }
+            border-bottom: 1px solid #ccc;
         }
     </style>
 </head>
-<body onload="window.print()">
+<body>
 
-    <h1>{{ perfil.nombre_completo }}</h1>
-    <p>{{ perfil.descripcionperfil }}</p>
+<h1>{{ perfil.nombre_completo }}</h1>
 
-    <h2>Información personal</h2>
-    <p>Email: {{ perfil.correo }}</p>
-    <p>Teléfono: {{ perfil.telefono }}</p>
-
-    <h2>Productos Académicos</h2>
+<h2>Productos Académicos</h2>
+<ul>
     {% for p in productos %}
-        <p><strong>{{ p.nombre }}</strong> – {{ p.descripcion }}</p>
+        <li>
+            <strong>{{ p.nombrerecurso }}</strong><br>
+            {{ p.descripcion }}
+        </li>
     {% empty %}
-        <p>No hay productos académicos</p>
+        <li>No hay productos académicos</li>
     {% endfor %}
+</ul>
 
-    <h2>Venta de Garage</h2>
+<h2>Venta de Garage</h2>
+<ul>
     {% for v in ventas %}
-        <p>
-            <strong>{{ v.nombreproducto }}</strong> –
-            ${{ v.valordelbien }} –
-            {{ v.descripcion }}
-        </p>
+        <li>
+            <strong>{{ v.nombreproducto }}</strong> – ${{ v.valordelbien }}
+        </li>
     {% empty %}
-        <p>No hay productos en venta</p>
+        <li>No hay productos en venta</li>
     {% endfor %}
+</ul>
+
+<script>
+    window.print();
+</script>
 
 </body>
 </html>
