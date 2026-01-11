@@ -8,11 +8,7 @@
 
     {% if perfil.texto_inicio %}
         <p>{{ perfil.texto_inicio|linebreaks }}</p>
-        <a href="{% url 'imprimir_hoja_de_vida' %}" 
-        class="btn mint"
-        target="_blank">
-        🖨️ Imprimir hoja de vida
-        </a>
+        
     {% else %}
         <p>No has definido el texto de inicio.</p>
     {% endif %}
