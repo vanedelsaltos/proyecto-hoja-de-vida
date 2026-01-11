@@ -552,6 +552,30 @@ def publico(request):
     })
 #-----------------------------------------------------------------------------------------------------------------
 
+#IMPRIMIR HOJA DE VIDA
+@login_required
+def imprimir_hoja_de_vida(request):
+    perfil = obtener_perfil_activo()
+
+    ventas = VentaGarage.objects.filter(
+        idperfilconqueestaactivo=perfil,
+        activar_para_front=True
+    )
+
+    productos = ProductoAcademico.objects.filter(
+        idperfilconqueestaactivo=perfil,
+        activar_para_front=True
+    )
+
+    return render(
+        request,
+        'hoja_de_vida/imprimir.html',
+        {
+            'perfil': perfil,
+            'ventas': ventas,
+            'productos': productos,
+        }
+    )
 
 
 
