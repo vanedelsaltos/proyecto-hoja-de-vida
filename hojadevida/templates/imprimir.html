@@ -13,40 +13,46 @@
 
         h1 {
             text-align: center;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
 
         h2 {
-            margin-top: 25px;
+            margin-top: 30px;
             border-bottom: 1px solid #999;
-            padding-bottom: 3px;
-        }
-
-        h3 {
-            margin-bottom: 3px;
-        }
-
-        p {
-            margin: 2px 0;
+            padding-bottom: 4px;
         }
 
         .section {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
-        .cert-link {
-            font-size: 12px;
+        .foto-perfil {
+            width: 130px;
+            display: block;
+            margin: 10px auto;
+            border-radius: 6px;
         }
 
-        .cert-link a {
-            color: #000;
-            text-decoration: underline;
+        .certificado-img {
+            max-width: 500px;
+            width: 100%;
+            display: block;
+            margin: 10px auto;
+            border: 1px solid #ccc;
         }
 
-        ul {
-            padding-left: 18px;
+        .producto-img {
+            max-width: 300px;
+            display: block;
+            margin: 8px auto;
+            border-radius: 4px;
+        }
+
+        p {
+            margin: 3px 0;
         }
     </style>
+
 </head>
 <body>
 
@@ -55,17 +61,14 @@
 ========================= -->
 <h1>{{ perfil.nombres }} {{ perfil.apellidos }}</h1>
 
-<div class="section">
-    {% if perfil.descripcionperfil %}
-        <p>{{ perfil.descripcionperfil }}</p>
-    {% endif %}
+{% if perfil.foto_perfil %}
+    <img src="{{ perfil.foto_perfil.url }}" class="foto-perfil">
+{% endif %}
 
+<div class="section">
+    <p>{{ perfil.descripcionperfil }}</p>
     <p><strong>Nacionalidad:</strong> {{ perfil.nacionalidad }}</p>
     <p><strong>Fecha de nacimiento:</strong> {{ perfil.fechanacimiento }}</p>
-    <p><strong>Sexo:</strong> {{ perfil.get_sexo_display }}</p>
-    <p><strong>Estado civil:</strong> {{ perfil.estadocivil }}</p>
-    <p><strong>Dirección:</strong> {{ perfil.direcciondomiciliaria }}</p>
-    <p><strong>Teléfono:</strong> {{ perfil.telefonoconvencional }}</p>
     <p><strong>Identificación:</strong> {{ perfil.numerocedula }}</p>
 </div>
 
@@ -76,7 +79,7 @@
 
 {% for e in experiencias %}
 <div class="section">
-    <h3>{{ e.cargo_desempenado }}</h3>
+    <p><strong>Cargo:</strong> {{ e.cargo_desempenado }}</p>
     <p><strong>Empresa:</strong> {{ e.nombre_empresa }}</p>
     <p><strong>Periodo:</strong> {{ e.fecha_inicio_gestion }} -
         {% if e.fecha_fin_gestion %}{{ e.fecha_fin_gestion }}{% else %}Actualidad{% endif %}
@@ -85,17 +88,11 @@
     <p>{{ e.descripcion_funciones }}</p>
 
     {% if e.certificado %}
-        <p class="cert-link">
-            📄 Certificado:
-            <a href="{{ e.certificado.url }}" target="_blank">
-                Ver certificado
-            </a>
-        </p>
+        <img src="{{ e.certificado.url }}" class="certificado-img">
     {% endif %}
 </div>
-{% empty %}
-<p>No hay experiencia registrada</p>
 {% endfor %}
+
 
 <!-- =========================
      CURSOS REALIZADOS
@@ -104,25 +101,15 @@
 
 {% for c in cursos %}
 <div class="section">
-    <h3>{{ c.nombrecurso }}</h3>
-    <p><strong>Entidad:</strong> {{ c.entidadpatrocinadora }}</p>
-    <p><strong>Horas:</strong> {{ c.totalhoras }}</p>
-    <p><strong>Periodo:</strong> {{ c.fechainicio }} - {{ c.fechafin }}</p>
-
+    <p><strong>{{ c.nombrecurso }}</strong></p>
     <p>{{ c.descripcioncurso }}</p>
 
     {% if c.certificado %}
-        <p class="cert-link">
-            📄 Certificado:
-            <a href="{{ c.certificado.url }}" target="_blank">
-                Ver certificado
-            </a>
-        </p>
+        <img src="{{ c.certificado.url }}" class="certificado-img">
     {% endif %}
 </div>
-{% empty %}
-<p>No hay cursos registrados</p>
 {% endfor %}
+
 
 <!-- =========================
      RECONOCIMIENTOS
@@ -131,38 +118,32 @@
 
 {% for r in reconocimientos %}
 <div class="section">
-    <p><strong>Tipo:</strong> {{ r.tiporeconocimiento }}</p>
-    <p><strong>Fecha:</strong> {{ r.fechareconocimiento }}</p>
+    <p><strong>{{ r.tiporeconocimiento }}</strong></p>
     <p>{{ r.descripcionreconocimiento }}</p>
 
     {% if r.certificado %}
-        <p class="cert-link">
-            📄 Certificado:
-            <a href="{{ r.certificado.url }}" target="_blank">
-                Ver certificado
-            </a>
-        </p>
+        <img src="{{ r.certificado.url }}" class="certificado-img">
     {% endif %}
 </div>
-{% empty %}
-<p>No hay reconocimientos registrados</p>
 {% endfor %}
+
 
 <!-- =========================
      PRODUCTOS ACADÉMICOS
 ========================= -->
 <h2>Productos Académicos</h2>
 
-<ul>
 {% for p in productos_academicos %}
-    <li>
-        <strong>{{ p.nombrerecurso }}</strong><br>
-        {{ p.descripcion }}
-    </li>
-{% empty %}
-    <li>No hay productos académicos</li>
+<div class="section">
+    <p><strong>{{ p.nombrerecurso }}</strong></p>
+    <p>{{ p.descripcion }}</p>
+
+    {% if p.imagen %}
+        <img src="{{ p.imagen.url }}" class="producto-img">
+    {% endif %}
+</div>
 {% endfor %}
-</ul>
+
 
 <!-- =========================
      PRODUCTOS LABORALES
