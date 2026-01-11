@@ -35,6 +35,19 @@
                     <p class="venta-text">{{ venta.descripcion }}</p>
                 </div>
 
+                <div class="menu-principal">
+                    <a href="{% url 'editar_venta_garage' venta.id %}" class="btn pink">
+                        ✏️ Editar
+                    </a>
+
+                    <a href="{% url 'eliminar_venta_garage' venta.id %}"
+                    class="btn pinkl"
+                    onclick="return confirm('¿Estás segura de eliminar este producto?');">
+                        🗑 Eliminar
+                    </a>
+                </div>
+
+
             </div>
             {% empty %}
             <p class="no-data">No hay productos en venta</p>

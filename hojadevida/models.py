@@ -479,7 +479,7 @@ class ProductosAcademicos(models.Model):
         verbose_name="Descripción"
     )
 
-        #PARA QIE SE PUEDA AGREGAR UNA FOTO
+        #PARA QUE SE PUEDA AGREGAR UNA FOTO
     imagen = CloudinaryField(
         folder='productos_academicos',  
         null=True,
@@ -595,9 +595,8 @@ class VentaGarage(models.Model):
         verbose_name="Valor del bien"
     )
 
-        # 👉 NUEVO CAMPO IMAGEN
-    imagen = models.ImageField(
-        upload_to='venta_garage/',
+    imagen = CloudinaryField(
+        folder='venta_garage',
         blank=True,
         null=True,
         verbose_name="Imagen del producto"
