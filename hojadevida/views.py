@@ -599,3 +599,41 @@ def imprimir_hoja_de_vida(request):
     }
 
     return render(request, 'imprimir.html', context)
+
+
+def imprimir_hoja_de_vida(request):
+    perfil = obtener_perfil_activo()
+
+    experiencias = ExperienciaLaboral.objects.filter(
+        idperfilconqueestaactivo=perfil
+    )
+
+    cursos = CursosRealizados.objects.filter(
+        idperfilconqueestaactivo=perfil
+    )
+
+    reconocimientos = Reconocimientos.objects.filter(
+        idperfilconqueestaactivo=perfil
+    )
+
+    productos_academicos = ProductosAcademicos.objects.filter(
+        idperfilconqueestaactivo=perfil
+    )
+
+    productos_laborales = ProductosLaborales.objects.filter(
+        idperfilconqueestaactivo=perfil
+    )
+
+    ventas = VentaGarage.objects.filter(
+        idperfilconqueestaactivo=perfil
+    )
+
+    return render(request, 'hoja_de_vida/imprimir.html', {
+        'perfil': perfil,
+        'experiencias': experiencias,
+        'cursos': cursos,
+        'reconocimientos': reconocimientos,
+        'productos_academicos': productos_academicos,
+        'productos_laborales': productos_laborales,
+        'ventas': ventas,
+    })

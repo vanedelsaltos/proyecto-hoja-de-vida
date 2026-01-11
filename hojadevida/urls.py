@@ -72,11 +72,8 @@ urlpatterns = [
     #----------------------------------------------------------------------------------------
 
     #Para imprimir hoja de vida
-    path(
-        'hoja_de_vida/imprimir/',
-        views.imprimir_hoja_de_vida,
-        name='imprimir_hoja_de_vida'
-    ),
+    path('hoja_de_vida/imprimir/', views.imprimir_hoja_de_vida, name='imprimir_hoja_de_vida'),
+
 
 
 ]
