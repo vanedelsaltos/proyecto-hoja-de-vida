@@ -3,44 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <title>Hoja de Vida</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
+            font-size: 13px;
+            color: #000;
         }
-        h1, h2 {
-            border-bottom: 1px solid #ccc;
+
+        h1 {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            margin-top: 25px;
+            border-bottom: 1px solid #999;
+            padding-bottom: 3px;
+        }
+
+        h3 {
+            margin-bottom: 3px;
+        }
+
+        p {
+            margin: 2px 0;
+        }
+
+        .section {
+            margin-bottom: 15px;
+        }
+
+        .cert-link {
+            font-size: 12px;
+        }
+
+        .cert-link a {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        ul {
+            padding-left: 18px;
         }
     </style>
 </head>
 <body>
 
-{% if perfil %}
+<!-- =========================
+     DATOS PERSONALES
+========================= -->
 <h1>{{ perfil.nombres }} {{ perfil.apellidos }}</h1>
-{% else %}
-<h1>Hoja de Vida</h1>
-{% endif %}
 
+<div class="section">
+    {% if perfil.descripcionperfil %}
+        <p>{{ perfil.descripcionperfil }}</p>
+    {% endif %}
+
+    <p><strong>Nacionalidad:</strong> {{ perfil.nacionalidad }}</p>
+    <p><strong>Fecha de nacimiento:</strong> {{ perfil.fechanacimiento }}</p>
+    <p><strong>Sexo:</strong> {{ perfil.get_sexo_display }}</p>
+    <p><strong>Estado civil:</strong> {{ perfil.estadocivil }}</p>
+    <p><strong>Dirección:</strong> {{ perfil.direcciondomiciliaria }}</p>
+    <p><strong>Teléfono:</strong> {{ perfil.telefonoconvencional }}</p>
+    <p><strong>Identificación:</strong> {{ perfil.numerocedula }}</p>
+</div>
+
+<!-- =========================
+     EXPERIENCIA LABORAL
+========================= -->
+<h2>Experiencia Laboral</h2>
+
+{% for e in experiencias %}
+<div class="section">
+    <h3>{{ e.cargo_desempenado }}</h3>
+    <p><strong>Empresa:</strong> {{ e.nombre_empresa }}</p>
+    <p><strong>Periodo:</strong> {{ e.fecha_inicio_gestion }} -
+        {% if e.fecha_fin_gestion %}{{ e.fecha_fin_gestion }}{% else %}Actualidad{% endif %}
+    </p>
+
+    <p>{{ e.descripcion_funciones }}</p>
+
+    {% if e.certificado %}
+        <p class="cert-link">
+            📄 Certificado:
+            <a href="{{ e.certificado.url }}" target="_blank">
+                Ver certificado
+            </a>
+        </p>
+    {% endif %}
+</div>
+{% empty %}
+<p>No hay experiencia registrada</p>
+{% endfor %}
+
+<!-- =========================
+     CURSOS REALIZADOS
+========================= -->
+<h2>Cursos Realizados</h2>
+
+{% for c in cursos %}
+<div class="section">
+    <h3>{{ c.nombrecurso }}</h3>
+    <p><strong>Entidad:</strong> {{ c.entidadpatrocinadora }}</p>
+    <p><strong>Horas:</strong> {{ c.totalhoras }}</p>
+    <p><strong>Periodo:</strong> {{ c.fechainicio }} - {{ c.fechafin }}</p>
+
+    <p>{{ c.descripcioncurso }}</p>
+
+    {% if c.certificado %}
+        <p class="cert-link">
+            📄 Certificado:
+            <a href="{{ c.certificado.url }}" target="_blank">
+                Ver certificado
+            </a>
+        </p>
+    {% endif %}
+</div>
+{% empty %}
+<p>No hay cursos registrados</p>
+{% endfor %}
+
+<!-- =========================
+     RECONOCIMIENTOS
+========================= -->
+<h2>Reconocimientos</h2>
+
+{% for r in reconocimientos %}
+<div class="section">
+    <p><strong>Tipo:</strong> {{ r.tiporeconocimiento }}</p>
+    <p><strong>Fecha:</strong> {{ r.fechareconocimiento }}</p>
+    <p>{{ r.descripcionreconocimiento }}</p>
+
+    {% if r.certificado %}
+        <p class="cert-link">
+            📄 Certificado:
+            <a href="{{ r.certificado.url }}" target="_blank">
+                Ver certificado
+            </a>
+        </p>
+    {% endif %}
+</div>
+{% empty %}
+<p>No hay reconocimientos registrados</p>
+{% endfor %}
+
+<!-- =========================
+     PRODUCTOS ACADÉMICOS
+========================= -->
 <h2>Productos Académicos</h2>
+
 <ul>
-    {% for p in productos_academicos %}
-        <li>
-            <strong>{{ p.nombrerecurso }}</strong><br>
-            {{ p.descripcion }}
-        </li>
-    {% empty %}
-        <li>No hay productos académicos</li>
-    {% endfor %}
+{% for p in productos_academicos %}
+    <li>
+        <strong>{{ p.nombrerecurso }}</strong><br>
+        {{ p.descripcion }}
+    </li>
+{% empty %}
+    <li>No hay productos académicos</li>
+{% endfor %}
 </ul>
 
-<h2>Venta de Garage</h2>
+<!-- =========================
+     PRODUCTOS LABORALES
+========================= -->
+<h2>Productos Laborales</h2>
+
 <ul>
-    {% for v in ventas %}
-        <li>
-            <strong>{{ v.nombreproducto }}</strong> – ${{ v.valordelbien }}
-        </li>
-    {% empty %}
-        <li>No hay productos en venta</li>
-    {% endfor %}
+{% for p in productos_laborales %}
+    <li>
+        <strong>{{ p.nombreproducto }}</strong> – {{ p.tipoproducto }} <br>
+        {{ p.descripcion }}
+    </li>
+{% empty %}
+    <li>No hay productos laborales</li>
+{% endfor %}
+</ul>
+
+<!-- =========================
+     VENTA DE GARAGE
+========================= -->
+<h2>Venta de Garage</h2>
+
+<ul>
+{% for v in ventas %}
+    <li>
+        <strong>{{ v.nombreproducto }}</strong> – ${{ v.valordelbien }} <br>
+        {{ v.descripcion }}
+    </li>
+{% empty %}
+    <li>No hay productos en venta</li>
+{% endfor %}
 </ul>
 
 <script>
