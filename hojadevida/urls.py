@@ -71,13 +71,10 @@ urlpatterns = [
     path('venta_garage/eliminar/<int:venta_id>/', views.eliminar_venta_garage, name='eliminar_venta_garage'),
     #----------------------------------------------------------------------------------------
 
-    #Para imprimir hoja de vida
-    path(
-        'hoja_de_vida/imprimir/',
-        views.imprimir_hoja_de_vida,
-        name='imprimir_hoja_de_vida'
-    ),
 
+    #para el pdf
+    path('hoja_de_vida/pdf/', views.hoja_de_vida_pdf, name='hoja_vida_pdf'),
+    
 
 ]
 

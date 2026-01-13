@@ -552,10 +552,14 @@ def publico(request):
     })
 #-----------------------------------------------------------------------------------------------------------------
 
-#IMPRIMIR HOJA DE VIDA
-# IMPRIMIR HOJA DE VIDA
-# -------------------------------------------------
-def imprimir_hoja_de_vida(request):
+#PDF DE LA HOJA DE VIDA
+
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from weasyprint import HTML
+from django.conf import settings
+
+def hoja_de_vida_pdf(request):
     perfil = obtener_perfil_activo()
 
     experiencias = ExperienciaLaboral.objects.filter(
@@ -588,14 +592,26 @@ def imprimir_hoja_de_vida(request):
         activar_para_front=True
     )
 
-    context = {
-        'perfil': perfil,
-        'experiencias': experiencias,
-        'cursos': cursos,
-        'reconocimientos': reconocimientos,
-        'productos_academicos': productos_academicos,
-        'productos_laborales': productos_laborales,
-        'ventas': ventas,
-    }
+    html_string = render_to_string(
+        'pdf_hoja_vida.html',
+        {
+            'perfil': perfil,
+            'experiencias': experiencias,
+            'cursos': cursos,
+            'reconocimientos': reconocimientos,
+            'productos_academicos': productos_academicos,
+            'productos_laborales': productos_laborales,
+            'ventas': ventas,
+        }
+    )
 
-    return render(request, 'imprimir.html', context)
+    html = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri('/')
+    )
+
+    pdf = html.write_pdf()
+
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; filename="hoja_de_vida.pdf"'
+    return response

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Hoja de Vida</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #000;
+        }
+
+        h1, h2 {
+            border-bottom: 1px solid #999;
+            padding-bottom: 5px;
+        }
+
+        .perfil {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .perfil img {
+            width: 120px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .seccion {
+            margin-bottom: 25px;
+        }
+
+        .item {
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #0000EE;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<!-- PERFIL -->
+<div class="perfil">
+    {% if perfil.foto_perfil %}
+        <img src="{{ perfil.foto_perfil.url }}">
+    {% endif %}
+
+    <div>
+        <h1>{{ perfil.nombres }} {{ perfil.apellidos }}</h1>
+        <p><strong>{{ perfil.descripcionperfil }}</strong></p>
+        <p>{{ perfil.nacionalidad }}</p>
+        <p>{{ perfil.telefonofijo }}</p>
+        <p>{{ perfil.sitioweb }}</p>
+    </div>
+</div>
+
+<!-- EXPERIENCIA -->
+<div class="seccion">
+    <h2>Experiencia Laboral</h2>
+    {% for e in experiencias %}
+        <div class="item">
+            <strong>{{ e.cargo_desempenado }}</strong> – {{ e.nombre_empresa }}<br>
+            {{ e.fecha_inicio_gestion }} - {{ e.fecha_fin_gestion|default:"Actual" }}<br>
+
+            {% if e.certificado %}
+                Certificado:
+                <a href="{{ e.certificado.url }}">{{ e.certificado.url }}</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+<!-- CURSOS -->
+<div class="seccion">
+    <h2>Cursos Realizados</h2>
+    {% for c in cursos %}
+        <div class="item">
+            <strong>{{ c.nombrecurso }}</strong><br>
+            {{ c.entidadpatrocinadora }}<br>
+
+            {% if c.certificado %}
+                Certificado:
+                <a href="{{ c.certificado.url }}">{{ c.certificado.url }}</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+<!-- RECONOCIMIENTOS -->
+<div class="seccion">
+    <h2>Reconocimientos</h2>
+    {% for r in reconocimientos %}
+        <div class="item">
+            <strong>{{ r.tiporeconocimiento }}</strong> – {{ r.entidadpatrocinadora }}<br>
+
+            {% if r.certificado %}
+                Certificado:
+                <a href="{{ r.certificado.url }}">{{ r.certificado.url }}</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>
