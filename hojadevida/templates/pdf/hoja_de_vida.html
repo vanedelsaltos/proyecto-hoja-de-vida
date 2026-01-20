@@ -364,22 +364,30 @@
 
 <!-- ===================== CERTIFICADOS ===================== -->
 {% for exp in certificados_experiencias %}
+    {% if exp.imagen_certificado %}
     <div style="page-break-before: always; padding:15mm;">
         <img src="{{ exp.imagen_certificado.url }}" style="width:100%;height:100%;object-fit:contain;">
     </div>
+    {% endif %}
 {% endfor %}
 
 {% for rec in certificados_reconocimientos %}
+    {% if rec.imagen_certificado %}
     <div style="page-break-before: always; padding:15mm;">
         <img src="{{ rec.imagen_certificado.url }}" style="width:100%;height:100%;object-fit:contain;">
     </div>
+    {% endif %}
 {% endfor %}
 
 {% for curso in certificados_cursos %}
+    {% if curso.imagen_certificado %}
     <div style="page-break-before: always; padding:15mm;">
         <img src="{{ curso.imagen_certificado.url }}" style="width:100%;height:100%;object-fit:contain;">
     </div>
+    {% endif %}
 {% endfor %}
+
+
 
 </body>
 </html>
