@@ -27,16 +27,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'your secret key')  # <-- ahora lee del .env
+#SECRET_KEY = os.environ.get('SECRET_KEY', 'your secret key')  # <-- ahora lee del .env
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'  # <-- ahora lee del .env y lo convierte a booleano
+#DEBUG = os.environ.get('DEBUG', 'False') == 'True'  # <-- ahora lee del .env y lo convierte a booleano
 
 #ALLOWED_HOSTS = os.environ.get(
 #   'ALLOWED_HOSTS',
 #    '127.0.0.1,localhost'
 #).split(',')
-ALLOWED_HOSTS = ['*']  # Solo temporal para depurar
+#ALLOWED_HOSTS = ['*']  # Solo temporal para depurar
+
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-secret-key')  # fallback por seguridad
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'  # convierte a booleano
+
+ALLOWED_HOSTS = ['*']  # solo temporal para depuración
 
 
 # Application definition
