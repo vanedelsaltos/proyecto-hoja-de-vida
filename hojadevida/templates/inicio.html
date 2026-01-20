@@ -2,26 +2,118 @@
 
 {% block contenido %}
 
-<h2 class="decorative">Inicio</h2>
-
-<div class="section-box">
-
-    {% if perfil.texto_inicio %}
-        <p>{{ perfil.texto_inicio|linebreaks }}</p>
-        
-    {% else %}
-        <p>No has definido el texto de inicio.</p>
-    {% endif %}
-
-
-
-
-    <p>
-        <a href="{% url 'editar_perfil' perfil.id %}" class="btn">
-            ✎ Editar texto de inicio
-        </a>
-    </p>
+<div class="header-section" style="margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
+    <div>
+        <h2 class="decorative" style="margin: 0;">Panel de Administración</h2>
+        <p style="color: #888; margin: 5px 0 0 5px;">Bienvenida, <strong>{{ user.username }}</strong></p>
+    </div>
+    
 
 </div>
+
+<div class="section-box">
+    
+    <div style="text-align: center; padding: 10px 0 30px 0;">
+        <p style="color: var(--accent-soft); font-weight: 700; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase;">
+            Módulos de Gestión
+        </p>
+    </div>
+
+    <div class="bento-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+        
+        <a href="{% url 'lista_perfiles' %}" class="menu-card">
+            <span class="icon">👤</span>
+            <span class="label">Perfiles</span>
+        </a>
+
+        <a href="{% url 'experiencia' %}" class="menu-card">
+            <span class="icon">💼</span>
+            <span class="label">Experiencia</span>
+        </a>
+
+        <a href="{% url 'reconocimientos_lista' %}" class="menu-card">
+            <span class="icon">🏆</span>
+            <span class="label">Premios</span>
+        </a>
+
+        <a href="{% url 'cursos_realizados' %}" class="menu-card">
+            <span class="icon">🎓</span>
+            <span class="label">Cursos</span>
+        </a>
+
+        <a href="{% url 'productos_academicos' %}" class="menu-card">
+            <span class="icon">📚</span>
+            <span class="label">Académicos</span>
+        </a>
+
+        <a href="{% url 'productos_laborales' %}" class="menu-card">
+            <span class="icon">🛠️</span>
+            <span class="label">Laborales</span>
+        </a>
+
+        <a href="{% url 'venta_garage' %}" class="menu-card">
+            <span class="icon">🏷️</span>
+            <span class="label">Garage</span>
+        </a>
+
+        <a href="{% url 'imprimir_hoja_de_vida' %}" class="menu-card" target="_blank" style="border-color: #d1e7ff; background: #f0f7ff;">
+            <span class="icon">🖨️</span>
+            <span class="label" style="color: #0056b3;">Imprimir CV</span>
+        </a>
+    </div>
+
+</div>
+
+<style>
+    .menu-card {
+        background: white;
+        border: 2px solid #f5e6e3;
+        padding: 25px 15px;
+        border-radius: 20px;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        text-align: center;
+    }
+
+    .menu-card .icon { font-size: 2.2rem; }
+    .menu-card .label {
+        font-weight: 800;
+        color: var(--accent-dark);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .menu-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--accent-soft);
+        box-shadow: 0 10px 20px rgba(179, 139, 130, 0.15);
+        background: #fffcfb;
+    }
+
+    .btn-logout-small {
+        text-decoration: none;
+        background: #fff5f5;
+        color: #a51d2d;
+        padding: 10px 18px;
+        border-radius: 12px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        border: 1px solid #f5d7d7;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-logout-small:hover {
+        background: #a51d2d;
+        color: white;
+    }
+</style>
 
 {% endblock %}

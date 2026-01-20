@@ -1,68 +1,58 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Hoja de Vida</title>
+    <title>Administración CV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 </head>
-<body>
+<body class="admin-body">
 
-<!-- ================== HEADER ================== -->
-<header class="header">
+    <header class="header-admin">
+        <div class="header-container">
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <a href="{% url 'inicio_admin' %}" style="text-decoration: none;" class="brand">
+                    <div class="brand-dot"></div>
+                    <h1>Administración</h1>
+                </a>
+                
+                <form method="POST" action="{% url 'logout' %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-link" style="text-decoration: none; border-radius: 10px; font-weight: 700; display: flex; align-items: center; gap: 5px;">
+                        Cerrar Sesión
+                    </button>
+                </form>
+            </div>
 
-    <!-- TÍTULO -->
-    <div class="header-title">
-        <h1>Hoja de Vida</h1>
-    </div>
-
-    <!-- MENÚ PRINCIPAL (SOLO LOGUEADO) -->
-    {% if user.is_authenticated %}
-
-    <nav class="menu-principal">
-        <a href="{% url 'inicio_admin' %}">Inicio</a>
-        <a href="{% url 'lista_perfiles' %}">Perfiles</a>
-        <a href="{% url 'experiencia' %}">Experiencia</a>
-        <a href="{% url 'reconocimientos_lista' %}">Reconocimientos</a>
-        <a href="{% url 'cursos_realizados' %}">Cursos</a>
-        <a href="{% url 'productos_academicos' %}">Productos académicos</a>
-        <a href="{% url 'productos_laborales' %}">Productos laborales</a>
-        <a href="{% url 'venta_garage' %}">Venta garage</a>
-    </nav>
-
-    {% endif %}
-
-</header>
-
-<hr>
-
-<!-- ================== CONTENIDO ================== -->
-<main class="contenido">
-    {% block contenido %}
-    {% endblock %}
-</main>
-
-<hr>
-
-<!-- ================== FOOTER / SESIÓN ================== -->
-<footer class="footer-sesion">
-    {% if user.is_authenticated %}
-        <div class="sesion-box">
-            <p> 👤 Sesión iniciada como <strong>{{ user.username }}</strong></p>
-
-            <form method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button type="submit" class="menu-btn logout-btn">
-                    Cerrar sesión
-                </button>
-            </form>
+            {% if request.resolver_match.url_name != 'inicio_admin' %}
+            <nav class="sub-nav">
+                <a href="{% url 'inicio_admin' %}" class="nav-link {% if request.resolver_match.url_name == 'inicio_admin' %}active{% endif %}">Dashboard</a>
+                <a href="{% url 'lista_perfiles' %}" class="nav-link {% if request.resolver_match.url_name == 'lista_perfiles' %}active{% endif %}">Perfiles</a>
+                <a href="{% url 'experiencia' %}" class="nav-link {% if request.resolver_match.url_name == 'experiencia' %}active{% endif %}">Experiencia</a>
+                <a href="{% url 'reconocimientos_lista' %}" class="nav-link {% if request.resolver_match.url_name == 'reconocimientos_lista' %}active{% endif %}">Reconocimientos</a>
+                <a href="{% url 'cursos_realizados' %}" class="nav-link {% if request.resolver_match.url_name == 'cursos_realizados' %}active{% endif %}">Cursos</a>
+                <a href="{% url 'productos_academicos' %}" class="nav-link {% if request.resolver_match.url_name == 'productos_academicos' %}active{% endif %}">Académicos</a>
+                <a href="{% url 'productos_laborales' %}" class="nav-link {% if request.resolver_match.url_name == 'productos_laborales' %}active{% endif %}">Laborales</a>
+                <a href="{% url 'venta_garage' %}" class="nav-link {% if request.resolver_match.url_name == 'venta_garage' %}active{% endif %}">Garage</a>
+            </nav>
+            {% endif %}
         </div>
-    {% else %}
-        <a href="{% url 'login' %}" class="menu-btn">Iniciar sesión</a>
-    {% endif %}
-</footer>
+    </header>
+
+
+    <main class="main-wrapper">
+        <div class="content-container">
+            {% block contenido %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer class="footer-admin">
+        <div class="user-status">
+            <p>Conectada como: <strong>{{ user.username }}</strong></p>
+        </div>
+    </footer>
 
 </body>
 </html>

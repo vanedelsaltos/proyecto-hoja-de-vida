@@ -2,98 +2,156 @@
 
 {% block contenido %}
 
-<h2 class="decorative">Datos personales</h2>
+<div class="header-section" style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px;">
+    <div>
+        <h2 class="decorative">Datos Personales</h2>
+        <p style="color: #888; margin-top: -15px; margin-left: 5px;">Información detallada de tu perfil profesional.</p>
+    </div>
+    {% if perfil %}
+    <a href="{% url 'editar_perfil' perfil.id %}" class="btn">
+        <span style="margin-right: 8px;">✎</span> Editar Información
+    </a>
+    {% endif %}
+</div>
 
 {% if perfil %}
 
-<div class="section-box">
+<div class="main-profile-layout" style="display: grid; gap: 30px;">
 
-    <!-- ================= DATOS PRINCIPALES ================= -->
-    <div class="card vanilla">
-        <h3>{{ perfil.nombres }} {{ perfil.apellidos }}</h3>
-
-        <p><strong>Tipo de perfil:</strong> {{ perfil.get_perfilactivo_display }}</p>
-
-        {% if perfil.descripcionperfil %}
-            <p>{{ perfil.descripcionperfil }}</p>
-        {% endif %}
-    </div>
-
-    <br>
-
-    <!-- ================= GRID DE INFORMACIÓN ================= -->
-    <div class="bento-grid">
-
-        <!-- DATOS PERSONALES -->
-        <div class="card mint">
-            <h4>Información personal</h4>
-
-            {% if perfil.nacionalidad %}
-                <p><strong>Nacionalidad:</strong> {{ perfil.nacionalidad }}</p>
-            {% endif %}
-
-            {% if perfil.lugarnacimiento %}
-                <p><strong>Lugar de nacimiento:</strong> {{ perfil.lugarnacimiento }}</p>
-            {% endif %}
-
-            {% if perfil.fechanacimiento %}
-                <p><strong>Fecha de nacimiento:</strong> {{ perfil.fechanacimiento }}</p>
-            {% endif %}
-
-            <p><strong>Sexo:</strong> {{ perfil.get_sexo_display }}</p>
-
-            {% if perfil.estadocivil %}
-                <p><strong>Estado civil:</strong> {{ perfil.estadocivil }}</p>
-            {% endif %}
-
-            {% if perfil.licenciaconducir %}
-                <p><strong>Licencia de conducir:</strong> {{ perfil.licenciaconducir }}</p>
+    <div class="section-box" style="border-left: 8px solid var(--accent-soft);">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;">
+            <div style="flex: 1; min-width: 300px;">
+                <span style="background: var(--border-light); color: var(--accent-dark); padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">
+                    {{ perfil.get_perfilactivo_display }}
+                </span>
+                <h3 style="font-size: 2.2rem; font-weight: 800; color: var(--accent-dark); margin: 15px 0;">
+                    {{ perfil.nombres }} {{ perfil.apellidos }}
+                </h3>
+                {% if perfil.descripcionperfil %}
+                    <p style="font-size: 1.1rem; line-height: 1.6; color: #5a4a4a; text-align: justify; max-width: 800px;">
+                        {{ perfil.descripcionperfil }}
+                    </p>
+                {% endif %}
+            </div>
+            
+            {% if perfil.foto_perfil %}
+            <div class="profile-preview-container">
+                <img src="{{ perfil.foto_perfil.url }}" alt="Foto" style="width: 120px; height: 120px; border-radius: 20px; object-fit: cover; border: 4px solid white; box-shadow: var(--shadow-premium);">
+            </div>
             {% endif %}
         </div>
+    </div>
 
-        <!-- CONTACTO -->
-        <div class="card pink">
-            <h4>Contacto</h4>
+    <div class="bento-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px;">
 
-            {% if perfil.telefonoconvencional %}
-                <p><strong>Teléfono:</strong> {{ perfil.telefonoconvencional }}</p>
-            {% endif %}
+        <div class="list-card" style="display: flex; flex-direction: column; gap: 15px;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                <div style="background: #fdfaf9; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 10px; color: var(--accent-soft); font-size: 1.2rem; border: 1px solid var(--border-light);">👤</div>
+                <h4 style="margin: 0; font-weight: 800; color: var(--accent-dark); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">Identidad y Nacimiento</h4>
+            </div>
 
-            {% if perfil.telefonofijo %}
-                <p><strong>Teléfono fijo:</strong> {{ perfil.telefonofijo }}</p>
-            {% endif %}
+            <div class="info-item">
+                <span class="info-label">Nacionalidad</span>
+                <span class="info-value">{{ perfil.nacionalidad|default:"No especificada" }}</span>
+            </div>
 
-            {% if perfil.direcciondomiciliaria %}
-                <p><strong>Dirección:</strong> {{ perfil.direcciondomiciliaria }}</p>
-            {% endif %}
+            <div class="info-item">
+                <span class="info-label">Lugar de Nacimiento</span>
+                <span class="info-value">{{ perfil.lugarnacimiento|default:"No especificado" }}</span>
+            </div>
 
-            {% if perfil.direcciontrabajo %}
-                <p><strong>Dirección trabajo:</strong> {{ perfil.direcciontrabajo }}</p>
-            {% endif %}
+            <div class="info-item">
+                <span class="info-label">Fecha de Nacimiento</span>
+                <span class="info-value">{{ perfil.fechanacimiento|default:"No especificada" }}</span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-label">Género</span>
+                <span class="info-value">{{ perfil.get_sexo_display }}</span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-label">Estado Civil</span>
+                <span class="info-value">{{ perfil.estadocivil|default:"No especificado" }}</span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-label">Licencia de Conducir</span>
+                <span class="info-value">{{ perfil.licenciaconducir|default:"No" }}</span>
+            </div>
+        </div>
+
+        <div class="list-card" style="display: flex; flex-direction: column; gap: 15px;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                <div style="background: #fdfaf9; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 10px; color: var(--accent-soft); font-size: 1.2rem; border: 1px solid var(--border-light);">📍</div>
+                <h4 style="margin: 0; font-weight: 800; color: var(--accent-dark); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">Contacto y Ubicación</h4>
+            </div>
+
+            <div class="info-item">
+                <span class="info-label">Teléfono Móvil</span>
+                <span class="info-value">{{ perfil.telefonoconvencional|default:"Sin registro" }}</span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-label">Teléfono Fijo</span>
+                <span class="info-value">{{ perfil.telefonofijo|default:"Sin registro" }}</span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-label">Dirección Domiciliaria</span>
+                <span class="info-value">{{ perfil.direcciondomiciliaria|default:"Sin registro" }}</span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-label">Dirección de Trabajo</span>
+                <span class="info-value">{{ perfil.direcciontrabajo|default:"Sin registro" }}</span>
+            </div>
 
             {% if perfil.sitioweb %}
-                <p>
-                    <strong>Sitio web:</strong><br>
-                    <a href="{{ perfil.sitioweb }}" target="_blank">
-                        {{ perfil.sitioweb }}
-                    </a>
-                </p>
+            <div class="info-item" style="background: var(--bg-admin); padding: 10px; border-radius: 12px; border: 1px dashed var(--accent-soft);">
+                <span class="info-label">Sitio Web Personal</span>
+                <a href="{{ perfil.sitioweb }}" target="_blank" style="color: var(--accent-soft); font-weight: 700; text-decoration: none; font-size: 0.95rem; word-break: break-all;">
+                    {{ perfil.sitioweb }}
+                </a>
+            </div>
             {% endif %}
         </div>
 
     </div>
-
-    <br>
-
-    <!-- ================= ACCIONES ================= -->
-    <a href="{% url 'editar_perfil' perfil.id %}" class="btn mint">
-        ✎ Editar datos personales
-    </a>
-
 </div>
 
+<style>
+    .info-item {
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid #fdf4f2;
+        padding-bottom: 8px;
+    }
+    
+    .info-item:last-child {
+        border-bottom: none;
+    }
+
+    .info-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #b38b82;
+        text-transform: uppercase;
+        margin-bottom: 2px;
+    }
+
+    .info-value {
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--accent-dark);
+    }
+</style>
+
 {% else %}
-    <p>No hay un perfil activo.</p>
+    <div class="section-box" style="text-align: center; padding: 60px;">
+        <p style="color: #999; font-size: 1.2rem;">No hay un perfil activo seleccionado.</p>
+        <a href="{% url 'lista_perfiles' %}" class="btn" style="margin-top: 20px;">Ir a lista de perfiles</a>
+    </div>
 {% endif %}
 
 {% endblock %}

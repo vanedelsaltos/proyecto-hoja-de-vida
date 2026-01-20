@@ -2,31 +2,52 @@
 
 {% block contenido %}
 
-<h2 class="decorative">⚠️ Confirmar eliminación</h2>
+<div class="delete-wrapper" style="display: flex; justify-content: center; padding: 40px 10px;">
+    
+    <div class="section-box" style="max-width: 500px; width: 100%; text-align: center; border-top: 4px solid #e63946;">
+        
+        <h2 class="decorative" style="margin-bottom: 20px;">Confirmar eliminación</h2>
 
-<div class="section-box">
-
-    <p>
-        ¿Estás seguro de eliminar el perfil:<br>
-        <strong>{{ perfil.nombre_completo }}</strong>?
-    </p>
-
-    <form method="post">
-        {% csrf_token %}
-
-        <div class="menu-principal">
-            <!-- Botón eliminar (rosa) -->
-            <button type="submit" class="btn mint">
-                🗑 Sí, eliminar
-            </button>
-
-            <!-- Botón cancelar (neutral) -->
-            <a href="{% url 'lista_perfiles' %}" class="btn pink">
-                Cancelar
-            </a>
+        <div style="background: #fff5f5; width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; border: 1px solid #f5d7d7;">
+            <span style="font-size: 2rem;">⚠️</span>
         </div>
-    </form>
 
+        <p style="font-size: 1.15rem; color: #444; line-height: 1.6; margin-bottom: 30px;">
+            ¿Estás seguro de que deseas eliminar el perfil:<br>
+            <strong style="color: var(--accent-dark); font-size: 1.3rem;">{{ perfil.nombre_completo }}</strong>?
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <button type="submit" class="btn" style="background: #a51d2d; color: white; width: 100%; border: none;">
+                    🗑 Sí, eliminar permanentemente
+                </button>
+
+                <a href="{% url 'lista_perfiles' %}" class="btn" style="background: #f5f5f5; color: #666; border: 1px solid var(--border-light); text-decoration: none; text-align: center;">
+                    Cancelar y volver
+                </a>
+            </div>
+        </form>
+
+        <p style="margin-top: 25px; font-size: 0.85rem; color: #b38b82; font-style: italic;">
+            * Esta acción no se puede deshacer.
+        </p>
+
+    </div>
 </div>
+
+<style>
+    /* Mantenemos la coherencia con el Dashboard */
+    .section-box {
+        animation: fadeIn 0.4s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
 
 {% endblock %}

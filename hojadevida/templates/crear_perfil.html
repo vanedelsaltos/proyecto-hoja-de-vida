@@ -2,22 +2,96 @@
 
 {% block contenido %}
 
-<h2 class="decorative">✚ Crear nuevo perfil</h2>
+<div class="header-section" style="margin-bottom: 30px;">
+    <h2 class="decorative">Configuración de Perfil</h2>
+    <p style="color: #888; margin-top: -15px; margin-left: 5px;">Completa la información para crear una nueva variante de tu hoja de vida.</p>
+</div>
 
-<div class="section-box">
-
-    <div class="card vanilla">
-        <form method="post">
+<div class="section-box" style="max-width: 800px;">
+    
+    <div class="form-container">
+        <form method="post" class="premium-form" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p }}
+            
+            <div class="form-grid-layout">
+                {{ form.as_p }}
+            </div>
 
-            <button type="submit" class="btn neutral">✔ Guardar perfil</button>
+            <div class="form-actions" style="margin-top: 40px; padding-top: 25px; border-top: 1px solid var(--border-light); display: flex; gap: 15px; align-items: center;">
+                <button type="submit" class="btn">
+                    <span style="margin-right: 8px;">✔</span> Guardar Perfil Profesional
+                </button>
+                
+                <a href="{% url 'lista_perfiles' %}" style="text-decoration: none; color: #999; font-weight: 600; font-size: 0.9rem; margin-left: 10px;">
+                    Cancelar y volver
+                </a>
+            </div>
         </form>
     </div>
 
-    <br>
-    <a href="{% url 'lista_perfiles' %}" class="btn neutral">↩ Volver</a>
-
 </div>
+
+<style>
+    /* Estilizamos los párrafos que genera Django automáticamente */
+    .premium-form p {
+        margin-bottom: 25px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    /* Estilo de las etiquetas (Labels) */
+    .premium-form label {
+        font-weight: 700;
+        color: var(--accent-dark);
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Estilo de los campos de entrada */
+    .premium-form input, 
+    .premium-form select, 
+    .premium-form textarea {
+        background: #fdfaf9;
+        border: 2px solid #f5e6e3;
+        padding: 14px 18px;
+        border-radius: 14px;
+        font-family: 'Outfit', sans-serif;
+        font-size: 1rem;
+        color: #444;
+        transition: all 0.3s ease;
+    }
+
+    .premium-form input:focus, 
+    .premium-form textarea:focus {
+        border-color: var(--accent-soft);
+        background: white;
+        box-shadow: 0 5px 15px rgba(179, 139, 130, 0.1);
+        outline: none;
+    }
+
+    /* Help text de Django (si existe) */
+    .helptext {
+        font-size: 0.8rem;
+        color: #b38b82;
+        margin-top: 4px;
+        font-style: italic;
+    }
+
+    /* Ajuste para textareas (descripciones largas) */
+    .premium-form textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    /* Checkboxes */
+    .premium-form input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        accent-color: var(--accent-soft);
+        cursor: pointer;
+    }
+</style>
 
 {% endblock %}

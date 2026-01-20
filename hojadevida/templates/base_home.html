@@ -1,0 +1,202 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Inicio{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --accent: #b38b82;       
+            --soft-bg: #f5e6e3;     
+            --dark-text: #333333;   
+            --medium-text: #5a4a4a; 
+            --white: #ffffff;
+            --bg-structural: #f0f0f0; 
+            --border-black: 3px solid #222222;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body, html {
+            width: 100%; min-height: 100vh;
+            background-color: var(--bg-structural);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden; /* Evita scroll horizontal */
+        }
+
+        /* Marco exterior responsivo */
+        .outer-frame {
+            width: 95vw;
+            height: 92vh;
+            max-width: 1400px; /* Evita que se estire demasiado en pantallas ultra anchas */
+            border: var(--border-black);
+            border-radius: 40px; 
+            overflow: hidden;
+            position: relative;
+            background-color: var(--soft-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-canvas {
+            position: relative;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--soft-bg), #efe0dd);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        /* Burbujas adaptables */
+        .moving-shape {
+            position: absolute;
+            background-color: var(--accent);
+            border-radius: 50%;
+            z-index: 1;
+            opacity: 0.5;
+            animation: float 25s infinite alternate ease-in-out;
+        }
+        .shape-1 { width: 30vw; height: 30vw; top: -10%; left: -5%; }
+        .shape-2 { width: 25vw; height: 25vw; bottom: -5%; right: -5%; animation-delay: -7s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 30px) scale(1.1); }
+        }
+
+        .bottom-curve {
+            position: absolute;
+            bottom: 0; width: 120%; height: 12vh;
+            background-color: var(--soft-bg);
+            border-top: var(--border-black);
+            border-radius: 50% 50% 0 0;
+            z-index: 2;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Título responsivo */
+        .main-title {
+            font-size: clamp(1rem, 3vw, 3.5rem); /* Se ajusta entre 1.8 y 3.5 según la pantalla */
+            font-weight: 700;
+            color: var(--medium-text);
+            margin-bottom: 2rem;
+            text-shadow: 3px 3px 0px var(--white);
+            white-space: nowrap; 
+        }
+
+        /* Tarjeta Responsiva */
+        .glass-card {
+            background: var(--white);
+            border: var(--border-black);
+            border-radius: 35px;
+            padding: clamp(20px, 5%, 50px);
+            width: 95%;
+            max-width: 800px;
+            box-shadow: 12px 12px 0px var(--medium-text);
+        }
+
+        .card-text {
+            color: var(--dark-text);
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .divider {
+            border: none;
+            border-top: 2px dashed var(--accent);
+            margin: 1.5rem auto;
+            width: 60%;
+            opacity: 0.6;
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 700;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--medium-text);
+        }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .btn-pop {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            padding: 15px 25px;
+            border: var(--border-black);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--dark-text);
+            text-transform: uppercase;
+            transition: all 0.2s;
+            box-shadow: 5px 5px 0px #222222;
+        }
+
+        .btn-cv { background-color: var(--accent); color: var(--white); } 
+        .btn-admin { background-color: var(--soft-bg); }
+
+        .btn-pop:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 7px 7px 0px #222222;
+        }
+
+        .btn-pop:active {
+            transform: translate(3px, 3px);
+            box-shadow: none;
+        }
+
+        /* === AJUSTES PARA MÓVILES === */
+        @media (max-width: 600px) {
+            .outer-frame {
+                width: 98vw;
+                height: 96vh;
+                border-radius: 25px;
+            }
+            .main-title {
+                white-space: normal; /* En móviles muy pequeños permitimos que baje para no romperse */
+                line-height: 1.2;
+            }
+            .glass-card {
+                padding: 30px 15px;
+                border-radius: 25px;
+            }
+            .shape-1, .shape-2 { width: 50vw; height: 50vw; }
+        }
+    </style>
+</head>
+<body>
+    <div class="outer-frame">
+        {% block contenido %}{% endblock %}
+    </div>
+</body>
+</html>

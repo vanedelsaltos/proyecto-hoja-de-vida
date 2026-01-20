@@ -2,32 +2,96 @@
 
 {% block contenido %}
 
-<h2 class="decorative">Formulario de reconocimiento – {{ perfil.nombre_completo }}</h2>
+<div class="header-section" style="margin-bottom: 30px;">
+    <h2 class="decorative">Registrar Reconocimiento</h2>
+    <p style="color: #888; margin-top: -15px; margin-left: 5px;">
+        Añadiendo distinción para: <strong>{{ perfil.nombre_completo }}</strong>
+    </p>
+</div>
 
-<div class="section-box">
+<div class="section-box" style="max-width: 700px; margin: 0 auto;">
 
-    <!-- Fondo interno del formulario -->
-    <div class="card mint">
-
-        <form method="post" enctype="multipart/form-data">
+    <div class="form-container">
+        <form method="post" enctype="multipart/form-data" class="premium-form">
             {% csrf_token %}
-            {{ form.as_p }}
+            
+            <div class="form-body">
+                {{ form.as_p }}
+            </div>
 
-            <div class="menu-principal">
-                <!-- Guardar en rosa -->
-                <button type="submit" class="btn pink">
-                    ✔ Guardar
+            <div class="form-footer" style="margin-top: 40px; padding-top: 25px; border-top: 1px solid var(--border-light); display: flex; gap: 15px; align-items: center;">
+                <button type="submit" class="btn">
+                    <span style="margin-right: 8px;">✔</span> Guardar Reconocimiento
                 </button>
-
-                <!-- Volver -->
-                <a href="{% url 'reconocimientos_lista' %}" class="btn pink">
-                    ↩ Volver
+                
+                <a href="{% url 'reconocimientos_lista' %}" style="text-decoration: none; color: #999; font-weight: 700; font-size: 0.9rem; padding: 10px 20px; transition: all 0.3s;">
+                    Volver
                 </a>
             </div>
         </form>
-
     </div>
 
 </div>
+
+<style>
+    /* Estilización de los párrafos generados por Django */
+    .premium-form p {
+        margin-bottom: 25px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    /* Labels elegantes */
+    .premium-form label {
+        font-weight: 700;
+        color: var(--accent-dark);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-left: 4px;
+    }
+
+    /* Inputs, Selects y Textareas */
+    .premium-form input, 
+    .premium-form select, 
+    .premium-form textarea {
+        background: #fdfaf9;
+        border: 2px solid #f5e6e3;
+        padding: 14px 18px;
+        border-radius: 14px;
+        font-family: 'Outfit', sans-serif;
+        font-size: 1rem;
+        color: #444;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Efecto al hacer clic en un campo */
+    .premium-form input:focus, 
+    .premium-form select:focus, 
+    .premium-form textarea:focus {
+        border-color: var(--accent-soft);
+        background: white;
+        box-shadow: 0 8px 20px rgba(179, 139, 130, 0.12);
+        outline: none;
+    }
+
+    /* Ajuste para el campo de descripción (textarea) */
+    .premium-form textarea {
+        min-height: 150px;
+        line-height: 1.6;
+    }
+
+    /* Estilo para campos de fecha */
+    .premium-form input[type="date"] {
+        max-width: 250px;
+    }
+
+    /* Hover en el botón cancelar */
+    .premium-form a:hover {
+        color: var(--accent-dark) !important;
+        transform: translateX(-3px);
+    }
+</style>
 
 {% endblock %}

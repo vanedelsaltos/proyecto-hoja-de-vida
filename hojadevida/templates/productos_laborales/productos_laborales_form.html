@@ -2,33 +2,88 @@
 
 {% block contenido %}
 
-<h2 class="decorative deco-productos-laborales">
-    Formulario de producto laboral – {{ perfil.nombre_completo }}
-</h2>
+<div class="header-section" style="margin-bottom: 30px;">
+    <h2 class="decorative deco-productos-laborales">Formulario de Producto Laboral</h2>
+    <p style="color: #888; margin-top: -15px; margin-left: 5px;">
+        Gestión de portafolio para <strong>{{ perfil.nombre_completo }}</strong>
+    </p>
+</div>
 
-<div class="section-box">
+<div class="section-box" style="max-width: 700px; margin: 0 auto;">
 
-    <form method="post">
+    <form method="post" class="premium-form">
         {% csrf_token %}
 
-        <!-- CAJA CON FONDO PARA LOS CAMPOS -->
-        <div class="card pink">
+        <div class="form-card-body" style="background: white; padding: 10px 5px;">
             {{ form.as_p }}
         </div>
 
-        <div class="menu-principal">
-            <!-- Botón guardar -->
-            <button type="submit" class="btn pink">
-                ✔ Guardar
+        <div class="form-footer" style="margin-top: 35px; padding-top: 25px; border-top: 1px solid var(--border-light); display: flex; gap: 15px; align-items: center;">
+            <button type="submit" class="btn" style="min-width: 160px;">
+                <span style="margin-right: 8px;">✔</span> Guardar Producto
             </button>
 
-            <!-- Botón volver -->
-            <a href="{% url 'productos_laborales' %}" class="btn mint">
-                ↩ Volver
+            <a href="{% url 'productos_laborales' %}" style="text-decoration: none; color: #999; font-weight: 700; font-size: 0.9rem; padding: 10px 20px; transition: all 0.3s;">
+                Volver
             </a>
         </div>
     </form>
 
 </div>
+
+<style>
+    /* Estilización de los párrafos de Django (as_p) */
+    .premium-form p {
+        margin-bottom: 25px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    /* Etiquetas estilizadas */
+    .premium-form label {
+        font-weight: 700;
+        color: var(--accent-dark);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-left: 4px;
+    }
+
+    /* Entradas de texto y selectores */
+    .premium-form input, 
+    .premium-form select, 
+    .premium-form textarea {
+        background: #fdfaf9;
+        border: 2px solid #f5e6e3;
+        padding: 14px 18px;
+        border-radius: 14px;
+        font-family: 'Outfit', sans-serif;
+        font-size: 1rem;
+        color: #444;
+        transition: all 0.3s ease;
+    }
+
+    /* Efecto Focus profesional */
+    .premium-form input:focus, 
+    .premium-form select:focus, 
+    .premium-form textarea:focus {
+        border-color: var(--accent-soft);
+        background: white;
+        box-shadow: 0 5px 15px rgba(179, 139, 130, 0.1);
+        outline: none;
+    }
+
+    /* Ajuste para áreas de texto si las hay */
+    .premium-form textarea {
+        min-height: 120px;
+    }
+
+    /* Hover en cancelar */
+    .premium-form a:hover {
+        color: var(--accent-dark) !important;
+        transform: translateX(-3px);
+    }
+</style>
 
 {% endblock %}

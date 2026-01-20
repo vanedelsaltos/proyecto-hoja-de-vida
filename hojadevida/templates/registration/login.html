@@ -1,41 +1,82 @@
 {% extends "base.html" %}
 
 {% block contenido %}
-<div class="inicio-section fluid-design">
-    <div class="content-wrapper">
-        <h2 class="inicio-title-login">Iniciar Sesión</h2>
-
-        <div class="section-box login-card">
-            {% if form.errors %}
-                <div class="error-msg">
-                    ❌ Usuario o contraseña incorrectos
-                </div>
-            {% endif %}
-
-            <form method="post" class="login-form">
-                {% csrf_token %}
-
-                <div class="input-group">
-                    <label><strong>Usuario</strong></label>
-                    {{ form.username }}
-                </div>
-
-                <div class="input-group">
-                    <label><strong>Contraseña</strong></label>
-                    {{ form.password }}
-                </div>
-
-                <div class="menu-principal">
-                    <button type="submit" class="btn btn-mint">
-                        🔐 Ingresar
-                    </button>
-
-                    <a href="{% url 'home' %}" class="btn btn-neutral">
-                        ⬅ Volver
-                    </a>
-                </div>
-            </form>
+<div class="login-wrapper" style="min-height: 70vh; display: flex; align-items: center; justify-content: center; padding: 20px;">
+    
+    <div class="section-box login-card" style="max-width: 400px; width: 100%; padding: 40px; border-top: 5px solid var(--accent-dark);">
+        
+        <div style="text-align: center; margin-bottom: 30px;">
+            <div style="font-size: 2.5rem; margin-bottom: 10px;">🔒</div>
+            <h2 class="decorative" style="margin: 0; font-size: 1.8rem;">Iniciar Sesión</h2>
+            <p style="color: #888; font-size: 0.9rem; margin-top: 5px;">Acceso al panel administrativo</p>
         </div>
+
+        {% if form.errors %}
+            <div style="background: #fff5f5; color: #a51d2d; padding: 12px; border-radius: 12px; border: 1px solid #f5d7d7; font-size: 0.85rem; margin-bottom: 20px; text-align: center; font-weight: 700;">
+                ❌ Usuario o contraseña incorrectos
+            </div>
+        {% endif %}
+
+        <form method="post" class="login-form">
+            {% csrf_token %}
+
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: 700; color: var(--accent-dark); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; margin-left: 5px;">
+                    Usuario
+                </label>
+                {{ form.username }}
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <label style="display: block; font-weight: 700; color: var(--accent-dark); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; margin-left: 5px;">
+                    Contraseña
+                </label>
+                {{ form.password }}
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <button type="submit" class="btn" style="width: 100%; justify-content: center; padding: 14px; font-size: 1rem;">
+                    Ingresar al sistema
+                </button>
+
+                <a href="{% url 'home' %}" style="text-align: center; text-decoration: none; color: #999; font-weight: 700; font-size: 0.9rem; padding: 10px; transition: color 0.3s;">
+                    ← Volver al sitio público
+                </a>
+            </div>
+        </form>
     </div>
 </div>
+
+<style>
+    /* Estilos para que los inputs de Django se vean premium */
+    .login-form input {
+        width: 100%;
+        background: #fdfaf9;
+        border: 2px solid #f5e6e3;
+        padding: 14px 18px;
+        border-radius: 14px;
+        font-family: 'Outfit', sans-serif;
+        font-size: 1rem;
+        color: #444;
+        box-sizing: border-box; /* Crucial para que no se salga del contenedor */
+        transition: all 0.3s ease;
+    }
+
+    .login-form input:focus {
+        border-color: var(--accent-soft);
+        background: white;
+        outline: none;
+        box-shadow: 0 8px 20px rgba(179, 139, 130, 0.12);
+    }
+
+    /* Animación de entrada */
+    .login-card {
+        animation: slideUp 0.5s ease-out;
+    }
+
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
 {% endblock %}

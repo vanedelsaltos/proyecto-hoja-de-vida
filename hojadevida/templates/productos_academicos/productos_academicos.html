@@ -2,48 +2,118 @@
 
 {% block contenido %}
 
-<h2 class="decorative">Productos académicos – {{ perfil.nombre_completo }}</h2>
+<div class="header-section" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+    <div>
+        <h2 class="decorative" style="margin: 0;">Productos Académicos</h2>
+        <p style="color: var(--accent-soft); font-weight: 600; margin-top: 5px; margin-left: 2px;">
+            Investigación y recursos de {{ perfil.nombre_completo }}
+        </p>
+    </div>
+    <a href="{% url 'crear_producto_academico' %}" class="btn">
+        <span style="margin-right: 8px;">+</span> Agregar producto
+    </a>
+</div>
 
 <div class="section-box">
 
-    <!-- Botón agregar -->
-    <div class="menu-principal">
-        <a href="{% url 'crear_producto_academico' %}" class="btn mint">
-            ✚ Agregar producto
-        </a>
-    </div>
-
-    <br>
-
     {% if productos %}
-        <div class="bento-grid">
+        <div class="bento-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
             {% for prod in productos %}
-                <div class="card vanilla">
+                <div class="info-card academic-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column; margin-bottom: 0;">
+                    
                     {% if prod.imagen and prod.imagen.url %}
-                        <div class="producto-imagen-wrapper">
-                            <img src="{{ prod.imagen.url }}" class="producto-imagen">
+                        <div class="academic-img-container" style="width: 100%; height: 200px; overflow: hidden; background: #fdfaf9; border-bottom: 1px solid var(--border-light);">
+                            <img src="{{ prod.imagen.url }}" alt="{{ prod.nombrerecurso }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
+                        </div>
+                    {% else %}
+                        <div style="width: 100%; height: 200px; background: #fdf4f2; display: flex; align-items: center; justify-content: center; color: var(--accent-soft); border-bottom: 1px solid var(--border-light);">
+                            <span style="font-size: 3.5rem;">📄</span>
                         </div>
                     {% endif %}
 
+                    <div style="padding: 25px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <span style="display: inline-block; background: #fff; color: var(--accent-soft); padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; border: 1px solid var(--border-light);">
+                                {{ prod.clasificador }}
+                            </span>
+                            <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--accent-dark); line-height: 1.4; margin: 0 0 20px 0;">
+                                {{ prod.nombrerecurso }}
+                            </h3>
+                        </div>
 
-                    <h3>{{ prod.nombrerecurso }}</h3>
-                    <p><strong>Clasificador:</strong> {{ prod.clasificador }}</p>
-                    <div class="menu-principal">
-                        <a href="{% url 'editar_producto_academico' prod.id %}" class="btn mint">✎ Editar</a>
-                        <a href="{% url 'eliminar_producto_academico' prod.id %}" class="btn pink">🗑 Eliminar</a>
+                        <div style="display: flex; gap: 12px; border-top: 1px solid var(--border-light); padding-top: 20px;">
+                            <a href="{% url 'editar_producto_academico' prod.id %}" class="btn-sm-action edit" style="flex: 1; justify-content: center;">
+                                ✎ <span>Editar</span>
+                            </a>
+                            <a href="{% url 'eliminar_producto_academico' prod.id %}" class="btn-sm-action delete" style="padding: 10px 15px;">
+                                🗑
+                            </a>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
     {% else %}
-        <p>No hay productos académicos registrados</p>
+        <div style="text-align: center; padding: 60px; border: 1px dashed var(--border-light); border-radius: 20px; background: #fffcfb;">
+            <p style="color: #999; font-size: 1.1rem;">No hay productos académicos registrados.</p>
+        </div>
     {% endif %}
 
-    <br>
-    <a href="{% url 'inicio_admin' %}" class="btn mint">
-        ↩ Volver al inicio
-    </a>
+    <div style="margin-top: 40px; border-top: 1px solid var(--border-light); padding-top: 25px;">
+        <a href="{% url 'inicio_admin' %}" style="text-decoration: none; color: var(--accent-soft); font-weight: 700; display: flex; align-items: center; gap: 8px;">
+            ← Volver al Dashboard
+        </a>
+    </div>
 
 </div>
+
+<style>
+    /* Estilos específicos para armonizar con el base.css */
+    .academic-card {
+        background: white;
+        border: 1px solid var(--border-light);
+        border-radius: 20px; /* Redondeado igual al contenedor principal */
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .academic-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(65, 49, 46, 0.12);
+        border-color: var(--accent-soft);
+    }
+
+    .academic-card:hover img {
+        transform: scale(1.08);
+    }
+
+    .btn-sm-action {
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 700;
+        padding: 10px 20px;
+        border-radius: 12px; /* Botones redondeados */
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s;
+        border: 1px solid var(--border-light);
+    }
+
+    .btn-sm-action.edit {
+        background: #fdfaf9;
+        color: var(--accent-dark);
+    }
+
+    .btn-sm-action.delete {
+        background: #fff5f5;
+        color: #a51d2d;
+        border-color: #f5d7d7;
+    }
+
+    .btn-sm-action:hover {
+        filter: brightness(0.97);
+        transform: translateY(-2px);
+    }
+</style>
 
 {% endblock %}

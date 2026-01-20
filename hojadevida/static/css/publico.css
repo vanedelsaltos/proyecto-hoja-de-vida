@@ -1,1534 +1,1055 @@
-/* ===============================
-   VARIABLES (PALETA SCRAPBOOK)
-================================ */
-:root {
-    --crema: #fdf8ed;
-    --rosa: #f8c8dc;
-    --amarillo: #f9e1a1;
-    --menta: #d1e9cf;
-    --negro: #000;
-}
-
-/* ===============================
-   RESET BÁSICO
-================================ */
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    background-color: var(--crema);
-    font-family: 'Plus Jakarta Sans', sans-serif; /* cuerpo y botones */
-    color: #111;
-    animation: fadeInPage 0.8s ease forwards; /* animación al ingresar a la página */
-}
-
-/* ===============================
-   ANIMACIONES
-================================ */
-@keyframes fadeInPage {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeInTab {
-    0% { opacity: 0; transform: translateY(10px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-/* ===============================
-   HEADER
-================================ */
-.header {
-    background-color: var(--rosa);
-    border: 3px solid var(--negro);
-    margin: 30px;
-    padding: 20px 30px;
-    border-radius: 25px;
-    box-shadow: 6px 6px 0 var(--amarillo);
-}
-
-.titulo-principal {
-    font-family: 'Pacifico', cursive; /* ⚡ Cambiado a Pacifico */
-    font-weight: 400; /* hace que no se vea tan gruesa */
-    font-size: 2.5rem;
-    margin: 0;
-}
-
-/* ===============================
-   LAYOUT
-================================ */
-.layout {
-    margin: 30px;
-}
-
-/* ===============================
-   TABS → BOTONES PÍLDORA
-================================ */
-.tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-/* ===============================
-   TABS → BOTONES PÍLDORA
-================================ */
-.tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-.tab-button {
-    background: #fff;
-    border: 3px solid var(--negro);
-    padding: 16px 28px;       
-    border-radius: 999px;
-    font-weight: 700;          
-    cursor: pointer;
-    box-shadow: 4px 4px 0 var(--menta);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    font-family: 'Plus Jakarta Sans', sans-serif; /* Botones: Sans-Serif moderno */
-    font-size: 1.2rem;
-    
-    /* Animación de entrada */
-    opacity: 0;
-    transform: translateY(-20px);
-    animation: fadeInButton 0.5s ease forwards;
-}
-
-.tab-button:nth-child(1) { animation-delay: 0.1s; }
-.tab-button:nth-child(2) { animation-delay: 0.2s; }
-.tab-button:nth-child(3) { animation-delay: 0.3s; }
-.tab-button:nth-child(4) { animation-delay: 0.4s; }
-.tab-button:nth-child(5) { animation-delay: 0.5s; }
-.tab-button:nth-child(6) { animation-delay: 0.6s; }
-.tab-button:nth-child(7) { animation-delay: 0.7s; }
-.tab-button:nth-child(8) { animation-delay: 0.8s; }
-
-.tab-button:hover {
-    transform: translate(-2px, -2px) scale(1.05);
-    box-shadow: 6px 6px 0 var(--menta);
-}
-
-.tab-button.active {
-    background-color: var(--amarillo);
-}
-
-/* ===============================
-   ANIMACIÓN BOTONES
-================================ */
-@keyframes fadeInButton {
-    0% { opacity: 0; transform: translateY(-20px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-/* ===============================
-   CANVAS PRINCIPAL
-================================ */
-.tab-content {
-    display: none;
-    opacity: 0;
-}
-
-.tab-content.active {
-    display: block;
-    animation: fadeInTab 0.4s ease forwards; /* animación al mostrar pestaña */
-}
-
-.tab-content {
-    background-color: #fff;
-    border: 3px solid var(--negro);
-    border-radius: 30px;
-    padding: 30px;
-    box-shadow: 8px 8px 0 var(--rosa);
-    margin-bottom: 40px;
-}
-
-/* ===============================
-   BLOQUES TIPO RECORTE
-================================ */
-.tab-content > div {
-    background-color: var(--menta);
-    border: 2px solid var(--negro);
-    border-radius: 18px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-/* ===============================
-   TEXTOS
-================================ */
-
-/* 🔥 Títulos de sección */
-.tab-content h2 {
-    font-family: 'Pacifico', cursive; /* ⚡ Cambiado a Pacifico */
-    font-weight: 400; /* idem */
-    margin-top: 0;
-}
-
-p {
-    font-family: 'Plus Jakarta Sans', sans-serif; /* cuerpo del texto limpio */
-    font-weight: 400;
-    margin: 6px 0;
-}
-
-a {
-    color: #000;
-    font-weight: 600;
-    text-decoration: underline;
-}
-
-
-/* ===============================
-   INICIO / INTRO
-================================ */
+/* Color de fondo del recuadro (Cambiando el verde por Crema) */
 .intro-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    background-color: #f5e6e3; /* Crema de tu paleta */
+    border: 2px solid #b38b82; /* Borde Rosa Viejo/Terracota */
+    border-radius: 30px;       /* Bordes redondeados */
+    padding: 50px;
     text-align: center;
-    min-height: 300px; /* altura mínima para que destaque */
-    gap: 20px;
-    animation: fadeInPage 1s ease forwards; /* animación al cargar inicio */
+    box-shadow: 8px 8px 0px rgba(179, 139, 130, 0.1); /* Sombra suave */
 }
 
+/* Color del título principal */
 .intro-title {
-    font-family: 'Pacifico', cursive;
-    font-size: 3rem;
-    font-weight: 400;
-    margin: 0;
+    font-size: 2.5rem;
+    color: #5a4a4a; /* Marrón Grisáceo */
+    font-weight: 700;
 }
 
+/* El separador debajo del título */
+.intro-separator {
+    width: 80px;
+    height: 3px;
+    background-color: #b38b82; /* Terracota */
+    margin: 15px auto;
+}
+
+/* Texto de descripción */
 .intro-subtitle {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 400;
-    color: #333;
-    max-width: 700px;
+    color: #777777; /* Gris Medio */
+    font-size: 1.1rem;
+    line-height: 1.6;
 }
 
-/* Botón Ver más */
+#main-title {
+    color: #333;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase; /* Para que se vea más formal */
+    letter-spacing: 1px;
+}
+
+/* ===== BOTONES DE LA SECCIÓN INICIO ===== */
+
+/* Botón Imprimir (Color Terracota Intenso) */
+.btn-pdf {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #b3422d; /* Terracota oscuro sugerido */
+    color: white !important;
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-pdf:hover {
+    background-color: #8b2f1d; /* Un tono más oscuro al pasar el mouse */
+    transform: translateY(-2px); /* Efecto de levante */
+}
+
+/* Botón Ver Más (Color Crema/Canela) */
 .btn-vermas {
     display: inline-block;
-    background-color: var(--amarillo);
-    color: #000;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 700;
+    padding: 12px 25px;
+    background-color: #e2a08a; /* Un tono canela suave que combina con el rosa */
+    color: #5a4a4a; /* Texto marrón grisáceo para mejor lectura */
+    font-weight: 600;
+    border-radius: 12px;
     text-decoration: none;
-    padding: 12px 28px;
-    border-radius: 999px;
-    border: 3px solid var(--negro);
-    box-shadow: 4px 4px 0 var(--menta);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-    animation: fadeInButton 0.6s ease forwards;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
 }
 
 .btn-vermas:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 6px 6px 0 var(--menta);
-    background-color: var(--menta);
-}
-
-/* ===============================
-   ESTILO TIMELINE (EXPERIENCIA)
-================================ */
-
-/* Contenedor principal con la línea vertical */
-.timeline-container {
-    position: relative;
-    padding-left: 40px;
-    margin-top: 20px;
-}
-
-/* La línea vertical */
-.timeline-container::before {
-    content: '';
-    position: absolute;
-    left: 7px;
-    top: 0;
-    width: 4px;
-    height: 100%;
-    background-color: var(--rosa);
-    border: 2px solid var(--negro);
-    border-radius: 10px;
-}
-
-/* Cada bloque de experiencia */
-.timeline-item {
-    position: relative;
-    margin-bottom: 40px;
-}
-
-/* El círculo (dot) de la línea de tiempo */
-.timeline-dot {
-    position: absolute;
-    left: -42px;
-    top: 5px;
-    width: 18px;
-    height: 18px;
-    background-color: var(--crema);
-    border: 3px solid var(--negro);
-    border-radius: 50%;
-    z-index: 2;
-    box-shadow: 2px 2px 0 var(--negro);
-}
-
-/* El cuadro de texto */
-.timeline-content {
-    background: #fff;
-    border: 3px solid var(--negro);
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 5px 5px 0 var(--menta);
-    transition: transform 0.2s ease;
-}
-
-.timeline-content:hover {
-    transform: scale(1.01);
-}
-
-/* Estilos de texto internos */
-.timeline-date {
-    display: inline-block;
-    background-color: var(--amarillo);
-    padding: 4px 12px;
-    border: 2px solid var(--negro);
-    border-radius: 999px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-
-.timeline-cargo {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.4rem;
-    margin: 5px 0;
-    text-transform: uppercase;
-    color: var(--negro);
-}
-
-.timeline-empresa {
-    font-weight: 600;
-    color: #555;
-    margin-bottom: 15px;
-}
-
-.funciones-text {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: #333;
-    padding: 10px;
-    background: rgba(0,0,0,0.03);
-    border-radius: 10px;
-}
-
-/* Enlaces y Footer */
-.timeline-footer {
-    margin-top: 15px;
-    border-top: 1px dashed var(--negro);
-    padding-top: 10px;
-}
-
-.timeline-links {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-top: 10px;
-}
-
-.timeline-links a {
-    text-decoration: none;
-    font-size: 0.85rem;
-    padding: 5px 10px;
-    background: var(--crema);
-    border: 2px solid var(--negro);
-    border-radius: 5px;
-    transition: all 0.2s;
-}
-
-.timeline-links a:hover {
-    background: var(--rosa);
-    transform: translateY(-2px);
+    background-color: #d48b73;
+    border-color: #b38b82;
 }
 
 
-/* ===============================
-   NUEVOS ESTILOS PARA COLUMNAS Y TIMELINE
-================================ */
 
-/* Layout de Dos Columnas en Datos */
+/* ===========================
+   DATOS PERSONALES - Publico
+=========================== */
+/* Layout de la Hoja de Vida */
 .resume-grid {
     display: grid;
     grid-template-columns: 280px 1fr;
-    gap: 30px;
+    gap: 40px;
     align-items: start;
+    margin-top: 20px;
 }
 
+/* Sidebar Interno (El cuadro rosa/crema) */
 .resume-sidebar {
-    background-color: var(--rosa);
-    border: 3px solid var(--negro);
-    border-radius: 25px;
-    padding: 25px;
-    box-shadow: 6px 6px 0 var(--negro);
+    background-color: #f5e6e3; /* Crema suave */
+    padding: 30px 20px;
+    border-radius: 20px;
+    border: 1px solid #b38b82;
+}
+
+/* FOTO DE PERFIL REDONDA */
+.perfil-foto-cv {
+    width: 150px;
+    height: 150px;
+    border-radius: 100%; /* Esto la hace completamente circular */
+    object-fit: cover;
+    margin: 0 auto 20px auto;
+    display: block;
+    border: 5px solid white; /* Borde blanco para que resalte */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .section-title-sm {
-    font-family: 'Pacifico', cursive;
-    font-size: 1.5rem;
+    color: #5a4a4a;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     margin-bottom: 20px;
-    border-bottom: 2px solid var(--negro);
-    padding-bottom: 5px;
+    border-bottom: 2px solid #b38b82;
+    display: inline-block;
 }
 
 .contact-item {
     display: flex;
     gap: 12px;
     margin-bottom: 18px;
+    align-items: flex-start;
 }
 
-.contact-item .icon { font-size: 1.3rem; }
-.contact-item p { margin: 0; font-size: 0.9rem; line-height: 1.2; }
+.contact-item .icon { font-size: 1.2rem; }
+.contact-item p { 
+    font-size: 0.9rem; 
+    margin: 0; 
+    color: #5a4a4a;
+    line-height: 1.3;
+}
 
-/* Columna Derecha */
-.perfil-tag {
+/* Contenido Principal (Lado derecho) */
+.cv-name {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* La Burbuja que te gusta */
+.perfil-tag-bubble {
     display: inline-block;
-    background: var(--amarillo);
-    padding: 6px 15px;
-    border: 2px solid var(--negro);
-    border-radius: 8px;
-    font-weight: 800;
-    margin-bottom: 20px;
+    background-color: #b38b82; /* Terracota */
+    color: white;
+    padding: 6px 18px;
+    border-radius: 50px; /* Forma de píldora */
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 25px;
 }
 
-.resume-section h3 {
-    font-family: 'Pacifico', cursive;
-    color: var(--negro);
-    border-bottom: 3px solid var(--menta);
-    display: inline-block;
+.cv-section { margin-bottom: 35px; }
+
+.cv-section-title {
+    font-size: 1.4rem;
+    color: #b38b82;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+    font-weight: 700;
 }
 
-.resume-section-grid {
+.cv-text {
+    color: #5a4a4a;
+    line-height: 1.7;
+    font-size: 1.1rem;
+}
+
+.cv-info-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: 1fr 1fr;
     gap: 15px;
+}
+
+.cv-info-grid p { margin: 0; color: #5a4a4a; }
+.cv-info-grid .full-row { grid-column: span 2; }
+
+.cv-link {
+    color: #b38b82;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.cv-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsivo para móviles */
+@media (max-width: 768px) {
+    .resume-grid { grid-template-columns: 1fr; }
+    .cv-name { font-size: 2rem; }
+}
+
+
+
+
+
+/*-- =======================
+     EXPERIENCIA LABORAL
+======================= --*/
+
+/* =========================================
+   SECCIÓN: EXPERIENCIA LABORAL (Timeline)
+   ========================================= */
+
+/* Contenedor principal con la línea vertical */
+.timeline-container {
+    position: relative;
+    padding-left: 30px;
+    border-left: 2px solid #f0f0f0;
+    margin-left: 10px;
     margin-top: 20px;
 }
 
-.info-box {
-    background: var(--crema);
-    border: 2px solid var(--negro);
-    padding: 15px;
-    border-radius: 15px;
-    text-align: center;
-}
-
-/* Timeline (Experiencia) */
-.timeline-container {
+/* Bloque individual de cada experiencia */
+.exp-block {
     position: relative;
-    padding-left: 35px;
-    border-left: 4px solid var(--rosa);
-    margin-left: 15px;
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 35px;
+    border: 1px solid #eee;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    transition: all 0.3s ease;
 }
 
-.timeline-item {
-    position: relative;
-    margin-bottom: 30px;
+.exp-block:hover {
+    transform: translateX(5px);
+    border-color: #b38b82;
 }
 
+/* El punto de la línea de tiempo */
 .timeline-dot {
     position: absolute;
-    left: -46px;
-    top: 5px;
-    width: 18px;
-    height: 18px;
-    background: var(--amarillo);
-    border: 3px solid var(--negro);
+    left: -41px; /* Ajuste para quedar sobre la línea */
+    top: 28px;
+    width: 20px;
+    height: 20px;
+    background-color: #b38b82; /* Terracota */
+    border: 4px solid white;
     border-radius: 50%;
+    box-shadow: 0 0 0 3px #f5e6e3;
 }
 
-.timeline-content {
-    background: #fff;
-    border: 3px solid var(--negro);
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 5px 5px 0 var(--menta);
-}
-
-.timeline-date {
-    font-size: 0.8rem;
-    font-weight: bold;
-    color: #666;
-}
-
-/* Responsive */
-@media (max-width: 800px) {
-    .resume-grid { grid-template-columns: 1fr; }
-}
-
-
-/* ===============================
-   ESTILO RECONOCIMIENTOS
-================================ */
-.exp-block {
-    background: #fff;
-    border: 3px solid var(--negro);
-    border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 25px;
-    box-shadow: 6px 6px 0 var(--menta);
-}
-
-.exp-header p {
-    margin: 5px 0;
-}
-
-.exp-body {
+/* Cabecera: Cargo y Fecha */
+.header-main {
     display: flex;
-    gap: 20px; /* separación entre funciones y contacto */
-    margin-top: 15px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
     flex-wrap: wrap;
 }
 
-.exp-funciones {
-    flex: 1; /* lado derecho */
-    background: var(--crema);
-    padding: 12px;
-    border-radius: 12px;
-    border: 1px dashed var(--negro);
+.exp-cargo-title {
+    font-size: 1.4rem;
+    color: #333;
+    font-weight: 700;
+    margin: 0;
 }
 
-.exp-contacto {
-    flex: 1; /* lado izquierdo */
-    padding: 12px 15px;
-    border-radius: 12px;
-    background: #f8f8f8; /* fondo suave */
-    border: 2px solid var(--negro); /* borde para diferenciar */
+.exp-period strong {
+    color: #b3422d; /* El mismo terracota fuerte */
+    margin-right: 5px;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+.exp-company {
+    color: #b38b82;
+    font-size: 1.05rem;
+    margin: 8px 0 20px 0;
+}
+
+/* CUERPO: Control de Layout Dinámico */
+
+/* Caso 1: Con referencias (Grid 2 columnas) */
+.exp-body-grid {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 30px;
+    border-top: 1px solid #f5f5f5;
+    padding-top: 20px;
+}
+
+/* Caso 2: Sin referencias (Ancho completo) */
+.exp-body-full {
+    display: block;
+    border-top: 1px solid #f5f5f5;
+    padding-top: 20px;
+}
+
+/* Estilos de contenido */
+.body-title {
+    font-weight: 700;
+    color: #5a4a4a;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.funciones-content {
+    color: #666;
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+/* Tarjeta de Referencia Laboral (Derecha) */
+.exp-contacto-card {
+    background-color: #fcf8f7; /* Un tono casi blanco/crema */
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px dashed #d6b7b0;
+    height: fit-content;
 }
 
 .contact-subtitle {
-    font-weight: 700;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #b38b82;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.contact-data p {
+    font-size: 0.9rem;
     margin-bottom: 8px;
-
+    color: #5a4a4a;
+    line-height: 1.4;
 }
 
-.exp-contacto p {
-    margin: 5px 0;
+.cv-link-small {
+    color: #b3422d;
+    text-decoration: none;
+    word-break: break-all;
 }
 
-.exp-contacto a {
-    color: var(--negro);
+.cv-link-small:hover {
     text-decoration: underline;
 }
 
-.exp-links {
-    margin-top: 15px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.btn-link, .btn-cert {
-    text-decoration: none;
+/* Botones y Enlaces */
+.btn-cert {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 10px 18px;
+    background: #5a4a4a;
+    color: white !important;
+    border-radius: 10px;
     font-size: 0.9rem;
-    font-weight: bold;
-    padding: 6px 12px;
-    border-radius: 8px;
-    border: 2px solid var(--negro);
-    transition: background 0.2s ease;
-}
-
-.btn-link { background: var(--amarillo); color: #000; }
-.btn-cert { background: var(--amarillo); color: #000; }
-
-.btn-link:hover, .btn-cert:hover { background: #f8c8dc; }
-
-
-
-
-/* ===============================
-   EXPERIENCIA LABORAL 
-================================ */
-
-/* Cargo / título dentro de la cabecera */
-.exp-cargo-title {
-    font-family: 'Pacifico', cursive;
-    font-size: 1.8rem;
-    margin: 0 0 5px 0;
-    color: var(--negro);
-}
-
-/* Contenedor de las funciones */
-.funciones-content {
-    margin-top: 8px;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: #333;
-}
-
-/* Botón de certificado debajo de funciones */
-.funciones-certificado {
-    margin-top: 12px;
-}
-
-/* Contenedor general del contacto (lado derecho) */
-.exp-contacto-box {
-    flex: 1;
-    background: #f8f8f8;
-    padding: 12px;
-    border-radius: 12px;
-    border: 2px solid var(--negro);
-}
-
-/* Div interno de contacto */
-.contact-data p {
-    margin: 5px 0;
-    font-size: 0.9rem;
-}
-
-/* Botón para visitar sitio web dentro del contacto */
-.contact-web-wrapper {
-    margin-top: 15px;
-}
-
-.btn-link-inside {
     text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: bold;
-    padding: 6px 10px;
-    border-radius: 8px;
-    border: 2px solid var(--negro);
-    background: var(--amarillo);
-    color: #000;
-    transition: background 0.2s ease, transform 0.2s ease;
+    transition: background 0.3s;
 }
 
-.btn-link-inside:hover {
-    background: #f8c8dc;
-    transform: translateY(-2px);
+.btn-cert:hover {
+    background: #333;
 }
 
-/* ===============================
-   ESTILO EXPERIENCIA LABORAL AJUSTADO
-================================ */
-
-
-/* Cargo / título dentro de la cabecera: tipografía normal */
-.exp-cargo-title {
-    font-family: 'Plus Jakarta Sans', sans-serif; /* ⚡ Sans-serif como el resto */
-    font-size: 1.4rem;
-    margin: 0 0 5px 0;
-    color: var(--negro);
-}
-
-/* Contenedor de las funciones */
-.funciones-content {
-    margin-top: 10px;  /* un poco más de separación */
-    font-size: 0.95rem;
-    line-height: 1.6;  /* aumenta separación entre líneas */
-    color: #333;
-}
-
-/* Botón de certificado debajo de funciones */
-.funciones-certificado {
-    margin-top: 15px;  /* un poco más de separación del contenido */
-    margin-top: 30px;
-}
-
-/* Contenedor general del contacto (lado derecho) */
-.exp-contacto-box {
-    flex: 1;
-    background: #f8f8f8;
-    padding: 15px;  /* más espacio interno */
-    border-radius: 12px;
-    border: 2px solid var(--negro);
-}
-
-/* Agregar separación visual con línea horizontal debajo del título del contacto */
-.exp-contacto-box .contact-subtitle {
-    font-weight: 700;
-    margin-bottom: 12px; /* espacio antes de la línea */
-    padding-bottom: 4px;
-    border-bottom: 2px solid var(--negro); /* línea de separación */
+.btn-web-small {
     display: block;
-}
-
-/* Espaciado entre los elementos de contacto */
-.contact-data p {
-    margin: 8px 0; /* más separación */
-    font-size: 0.9rem;
-}
-
-/* Botón para visitar sitio web dentro del contacto */
-.contact-web-wrapper {
-    margin-top: 15px;
-    margin-top: 28px;
-}
-
-.btn-link-inside {
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: bold;
-    padding: 6px 10px;
+    text-align: center;
+    margin-top: 12px;
+    padding: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1.5px solid #b38b82;
+    color: #b38b82;
     border-radius: 8px;
-    border: 2px solid var(--negro);
-    background: var(--amarillo);
-    color: #000;
-    transition: background 0.2s ease, transform 0.2s ease;
+    text-decoration: none;
+    transition: all 0.3s;
 }
 
-.btn-link-inside:hover {
-    background: #f8c8dc;
-    transform: translateY(-2px);
+.btn-web-small:hover {
+    background-color: #b38b82;
+    color: white !important;
 }
 
-/* Agregar separación interna para las funciones y contacto (exp-body) */
-.exp-body {
-    display: flex;
-    gap: 25px; /* un poco más de espacio entre columnas */
-    margin-top: 15px;
-    flex-wrap: wrap;
+/* Estado vacío */
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+    background: #fdfdfd;
+    border-radius: 20px;
+    border: 2px dashed #eee;
 }
 
-.exp-funciones, .exp-contacto-box {
-    padding: 15px; /* más aire dentro de cada recuadro */
+/* Responsivo para móviles */
+@media (max-width: 850px) {
+    .exp-body-grid {
+        grid-template-columns: 1fr;
+    }
+    .exp-contacto-card {
+        margin-top: 10px;
+    }
+    .header-main {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
 
-/* Línea separadora completa en Funciones y Responsabilidades */
-.exp-funciones .body-title {
-    font-weight: 800;               /* más grueso */
-    margin-bottom: 12px;            /* espacio entre título y contenido */
-    padding-bottom: 6px;            /* espacio entre texto y línea */
-    border-bottom: 2px solid var(--negro); /* línea que abarca todo el recuadro */
-    display: block;                 /* línea ocupa todo el ancho del contenedor */
-}
 
-
-
-
-/* ===============================
-   CURSOS REALIZADOS
-================================ */
-
-#cursos .curso-block {
-    background: var(--menta);
-    border: 3px solid var(--negro);
+.exp-block {
+    position: relative;
+    background: white;
     border-radius: 20px;
     padding: 25px;
-    margin-bottom: 30px;
-    box-shadow: 6px 6px 0 var(--menta);
+    margin-bottom: 35px;
+    
+    /* LINEA CLAVE 1: El Borde */
+    /* Cambiamos el color suave por uno más presente (Terracota claro) */
+    border: 2px solid #e5d1cd; 
+
+    /* LINEA CLAVE 2: La Sombra (Shadow) */
+    /* Añadimos una sombra un poco más profunda para dar volumen */
+    box-shadow: 0 10px 20px rgba(179, 139, 130, 0.1); 
+    
+    transition: all 0.3s ease;
 }
 
-/* Cabecera del curso */
-#cursos .curso-title {
-    font-size: 1.5rem;
-    font-weight: 800;
-    margin-bottom: 12px;  /* espacio debajo */
-    margin-top: 0;        /* ← nuevo: quita el espacio superior */
+/* Efecto cuando pasas el mouse para que resalte aún más */
+.exp-block:hover {
+    transform: translateX(8px);
+    border-color: #b38b82; /* Se vuelve más oscuro al señalarlo */
+    box-shadow: 0 15px 30px rgba(179, 139, 130, 0.15);
 }
 
-#cursos .curso-body-vertical {
+/* LINEA CLAVE 3: El Separador Interno */
+/* Para que la parte de arriba se diferencie de las funciones */
+.exp-body-grid, .exp-body-full {
+    border-top: 2px solid #f5e6e3; /* Línea divisoria más gruesa y colorida */
+    padding-top: 20px;
+    margin-top: 5px;
+}
+
+
+
+
+
+/*----------------------
+--- SECCIÓN CURSOS -----
+------------------------*/
+.courses-container {
     display: flex;
-    gap: 20px;
-    align-items: flex-start;
-    flex-wrap: wrap;  /* se acomoda en móvil */
-    margin-top: 15px;
-}
-
-/* Subtítulos solo para cursos */
-#cursos .body-title, 
-#cursos .contact-subtitle {
-    font-weight: 800;
-    margin-bottom: 10px;
-    display: inline-block;
-    background: #fdfdfd;
-    padding: 6px 12px;
-    border: 2px solid var(--negro);
-    border-radius: 20px;
-}
-
-/* Descripción */
-#cursos .curso-descripcion {
-    flex: 1;
-    min-width: 250px;
-}
-
-#cursos .descripcion-content {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 20px; /* espacio más grande antes del botón */
-}
-
-/* Línea divisoria vertical punteada */
-#cursos .info-divider-vertical {
-    width: 2px;
-    border-left: 2px dashed #333;
-    opacity: 0.6;
-    margin: 0 10px;
-}
-
-/* Información de la entidad */
-#cursos .curso-contacto {
-    flex: 1;
-    min-width: 250px;
-}
-
-#cursos .contact-data p {
-    margin: 6px 0;
-    font-size: 0.95rem;
-}
-
-#cursos .contact-data a {
-    color: var(--negro);
-    text-decoration: underline;
-}
-
-/* Botón certificado debajo de descripción */
-#cursos .curso-certificado {
+    flex-direction: column;
+    gap: 25px;
     margin-top: 20px;
 }
 
-#cursos .btn-cert {
-    background: var(--amarillo);
-    border: 2px solid var(--negro);
-    padding: 8px 15px;
-    border-radius: 10px;
-    font-weight: bold;
-    text-decoration: none;
-    color: #000;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s ease, transform 0.2s ease;
-}
-
-#cursos .btn-cert:hover {
-    background: #f8c8dc;
-    transform: translateY(-2px);
-}
-
-
-/* ===============================
-   RECONOCIMIENTOS
-================================ */
-
-
-/* Contenedor general */
-.tab-content {
-    padding: 20px;
-    background-color: var(--crema);
-    border-radius: 15px;
-    margin-bottom: 20px;
-}
-
-/* Título */
-.tab-content h2 {
-    font-size: 1.8rem;
-    color: var(--negro);
-    margin-bottom: 20px;
-}
-
-/* Bloque de reconocimiento */
-.recon-block {
-    background-color: var(--menta);
-    border-left: 4px solid var(--rosa); /* raya lateral */
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-/* Cabecera tipo y fecha */
-.recon-header p {
-    margin: 0 0 5px 0;
-    color: var(--negro);
-}
-.recon-header p strong {
-    font-weight: bold; /* solo los nombres de los campos en negrita */
-}
-
-/* Sección descripción */
-.recon-desc {
-    margin-top: 15px;
-}
-
-/* Recuadro circular descripción */
-.recon-subtitle.circular.descripcion {
-    font-weight: bold;
-    color: var(--negro);
-    margin-bottom: 5px;
-    display: inline-block;
-    padding: 8px 15px;
-    border-radius: 50px;
-    background-color: var(--rosa); /* color para Descripción */
-    border: 2px solid var(--negro); /* borde negro */
-}
-
-/* Recuadro circular entidad */
-.recon-subtitle.circular.entidad {
-    font-weight: bold;
-    color: var(--negro);
-    margin-bottom: 5px;
-    display: inline-block;
-    padding: 8px 15px;
-    border-radius: 50px;
-    background-color: var(--rosa); /* color para Información de la entidad */
-    border: 2px solid var(--negro); /* borde negro */
-}
-
-/* Texto de descripción */
-.recon-text {
-    margin: 0;
-}
-
-/* Sección información de la entidad */
-.recon-info {
-    margin-top: 15px;
-}
-.recon-info p {
-    margin: 2px 0;
-    color: var(--negro);
-}
-.recon-info p strong {
-    font-weight: bold; /* solo nombres en negrita */
-}
-
-/* Botón de certificado */
-.recon-certificado {
-    margin-top: 15px;
-}
-.btn-cert {
-    display: inline-block;
-    padding: 8px 15px;
-    background-color: var(--amarillo);
-    color: var(--negro);
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
-.btn-cert:hover {
-    background-color: var(--rosa);
-}
-
-/* Mensaje de no datos */
-.no-data {
-    color: #555;
-    font-style: italic;
-    margin-top: 10px;
-}
-
-
-
-
-/* ===============================
-   PRODUCTOS ACADÉMICOS 
-================================ */
-
-/* Contenedor general */
-#prod_acad {
-    padding: 20px;
-    background-color: var(--crema);
-    border-radius: 15px;
-    margin-bottom: 20px;
-}
-
-/* Título */
-#prod_acad h2 {
-    font-size: 1.8rem;
-    color: var(--negro);
-    margin-bottom: 20px;
-}
-
-/* Bloque de cada producto académico */
-.prod-acad-block {
-    display: flex;
-    gap: 20px; /* espacio entre columnas */
-    background-color: var(--menta);
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    flex-wrap: wrap; /* se ajusta en pantallas pequeñas */
-    border: 1px solid var(--rosa); /* separador externo */
-}
-
-/* Cada columna */
-.prod-col {
-    flex: 1;
-    min-width: 150px;
-    padding: 0 10px;
-    border-right: 1px solid var(--negro); /* separador vertical */
-}
-
-/* Quitar borde a la última columna */
-.prod-col:last-child {
-    border-right: none;
-}
-
-/* Título de cada columna con fondo amarillo y borde redondeado */
-.prod-title.rounded {
-    display: inline-block;
-    background-color: var(--amarillo);    /* fondo amarillo */
-    padding: 5px 10px;
-    border-radius: 15px;                  /* borde redondeado */
-    border: 2px solid var(--negro);       /* borde negro agregado */
-    font-weight: bold;
-    color: var(--negro);
-    margin-bottom: 5px;
-}
-
-/* Contenido de la columna */
-.prod-text {
-    color: var(--negro);
-    margin: 0;
-}
-
-/* Mensaje de no datos */
-.no-data {
-    color: #555;
-    font-style: italic;
-    margin-top: 10px;
-}
-
-
-
-
-/* ===============================
-   PRODUCTOS LABORALES
-================================ */
-
-/* Bloque general de cada producto laboral (recuadro grande) */
-.prod-lab-block {
-    background-color: var(--menta);
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    border: 2px solid var(--negro);   /* borde negro del bloque grande */
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-/* Información principal (lado izquierdo) */
-.prod-lab-info {
-    flex: 1;
-    min-width: 200px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-/* Subtítulos compactos de información principal */
-.prod-title.rounded.small.pink {
-    display: inline-block;
-    background-color: var(--rosa);
-    border-radius: 15px;
-    border: 2px solid var(--negro);
-    padding: 3px 8px;
-    font-weight: bold;
-    color: var(--negro);
-    margin-bottom: 5px;
-    width: fit-content;
-}
-
-/* Recuadro de descripción completo */
-.prod-lab-desc-box {
-    flex: 2;
-    min-width: 200px;
-    background-color: var(--crema);  /* recuadro amarillo */
-    border-radius: 10px;
-    border: 2px solid var(--negro);     /* borde negro */
-    padding: 10px 15px;
-}
-
-/* Subtítulo de descripción sin recuadro */
-.desc-subtitle {
-    font-weight: bold;
-    color: var(--negro);
-    margin-bottom: 8px;
-}
-
-/* Línea divisoria entre subtítulo y contenido */
-.desc-divider {
-    border: none;
-    border-top: 2px solid var(--negro);
-    margin: 5px 0 10px 0;
-}
-
-/* Texto de la descripción */
-.prod-lab-desc-box .prod-text {
-    margin: 0;
-    color: var(--negro);
-}
-
-/* Texto de cada campo */
-.prod-text {
-    margin: 0 0 5px 0;
-    color: var(--negro);
-}
-
-/* Mensaje de no datos */
-.no-data {
-    color: #555;
-    font-style: italic;
-    margin-top: 10px;
-}
-
-
-
-/* ===============================
-   VENTA DE GARAGE
-================================ */
-/* Bloque general de cada producto en venta */
-.venta-block {
-    background-color: var(--crema);  /* fondo verde menta */
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 2px solid var(--negro);  /* borde negro del bloque */
-    display: flex;
-    flex-direction: column;  /* apila información y descripción verticalmente */
-    gap: 15px;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-.venta-block:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
-
-/* Lista de información principal como viñetas */
-.venta-info {
-    list-style-type: disc;
-    padding-left: 20px;
-    margin: 0;
-    color: var(--negro);
-}
-
-/* Recuadro de descripción debajo */
-.venta-desc-box {
-    background-color: var(--rosa );  /* color claro */
-    border-radius: 10px;
-    border: 2px solid var(--negro);
-    padding: 10px 15px;
-}
-
-/* Subtítulo de descripción */
-.desc-subtitle {
-    font-weight: bold;
-    color: var(--negro);
-    margin-bottom: 8px;
-}
-
-/* Línea divisoria */
-.desc-divider {
-    border: none;
-    border-top: 2px solid var(--negro);
-    margin: 5px 0 10px 0;
-}
-
-/* Texto de la descripción */
-.venta-desc-box .venta-text {
-    margin: 0;
-    color: var(--negro);
-}
-
-/* Mensaje de no datos */
-.no-data {
-    color: #555;
-    font-style: italic;
-    margin-top: 10px;
-}
-
-
-.venta-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
-}
-
-@media (max-width: 768px) {
-    .venta-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-
-
-
-
-
-/* ===============================
-   HOME
-================================ */
-/* ===============================
-   DISEÑO HOME FLUIDO (GRAPE STYLE) - COMPLETO Y CORREGIDO
-   =============================== */
-
-/* Contenedor Principal del Home */
-.inicio-section.fluid-design {
-    position: relative;
-    background-color: var(--rosa);
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 85vh;
-    border-radius: 40px;
-    margin: 20px;
-    border: 4px solid var(--negro);
-    z-index: 1;
-}
-
-/* Contenedor de Manchas (Blobs) */
-.blob-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 0;
-}
-
-/* Estilo Base de las Manchas */
-.blob {
-    position: absolute;
-    background-color: #7a5ba7; /* Uva fuerte */
-    z-index: 0;
-    transition: all 0.5s ease;
-}
-
-.blob-1 {
-    width: 400px;
-    height: 400px;
-    top: -120px;
-    left: -120px;
-    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
-    animation: blobMorph 8s infinite alternate ease-in-out;
-}
-
-.blob-2 {
-    width: 500px;
-    height: 500px;
-    bottom: -180px;
-    right: -120px;
-    background-color: #9273c2; /* Uva medio */
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    animation: blobMorph 10s infinite alternate-reverse ease-in-out;
-}
-
-.blob-3 {
-    width: 120%;
-    height: 180px;
-    bottom: -40px;
-    left: -10%;
-    background-color: var(--menta);
-    border-top: 4px solid var(--negro);
-    border-radius: 50% 50% 0 0;
-    opacity: 0.95;
-    z-index: 1;
-}
-
-/* Título Principal */
-.fluid-design .inicio-title {
-    font-family: 'Pacifico', cursive;
-    color: #402522;
-    font-size: 3.5rem;
-    text-shadow: 5px 5px 0px var(--crema);
-    margin-bottom: 30px;
-    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
-    text-align: center;
-    position: relative;
-    z-index: 10;
-}
-
-/* ===============================
-   CAJA DE INFORMACIÓN (CENTRADOS)
-   =============================== */
-
-.fluid-design .section-box {
-    background-color: #fff;
-    border: 4px solid var(--negro);
-    /* Usamos el amarillo como pediste en la última versión */
-    box-shadow: 12px 12px 0px var(--amarillo); 
-    padding: 45px 40px;
-    border-radius: 35px;
-    max-width: 680px;
-    /*transform: rotate(-1deg); */
-    position: relative;
-    z-index: 10;
-    
-    /* Centrado total del contenido interno */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin: 0 auto;
-}
-
-.fluid-design .inicio-text {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.3rem;
-    line-height: 1.6;
-    color: #222;
-    font-weight: 500;
-    margin-bottom: 30px;
-}
-
-.fluid-design .section-divider {
-    border: none;
-    border-top: 3px dashed var(--negro);
-    margin: 25px auto;
-    width: 80%;
-    opacity: 0.3;
-}
-
-.fluid-design .section-subtitle {
-    font-family: 'Pacifico', cursive;
-    font-size: 1.8rem;
-    color: var(--negro);
-    margin-bottom: 30px;
-    font-weight: 400;
-}
-
-/* ===============================
-   BOTONES (SIN SUBRAYADO)
-   =============================== */
-
-.fluid-design .menu-principal {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 100%;
-}
-
-.fluid-design .btn {
-    display: inline-block;
-    padding: 15px 30px;
-    font-size: 1.1rem;
+.curso-block {
+    background: white;
     border-radius: 20px;
-    border: 3px solid var(--negro);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    padding: 25px;
+    border: 2px solid #e5d1cd; /* Borde definido como pediste */
+    box-shadow: 0 10px 20px rgba(179, 139, 130, 0.08);
+    transition: all 0.3s ease;
+}
+
+.curso-block:hover {
+    border-color: #b38b82;
+    transform: translateY(-3px);
+}
+
+.curso-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+}
+
+.curso-period {
+    background: #f5e6e3;
+    color: #b3422d;
+    padding: 8px 15px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.curso-meta {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.meta-item {
+    font-size: 0.95rem;
+    color: #b38b82;
+}
+
+/* Layouts */
+.curso-body-grid {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 30px;
+    border-top: 2px solid #f5e6e3;
+    padding-top: 20px;
+}
+
+.curso-body-full {
+    display: block;
+    border-top: 2px solid #f5e6e3;
+    padding-top: 20px;
+}
+
+/* Tarjeta lateral de contacto */
+.curso-contacto-card {
+    background-color: #fcf8f7;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px dashed #d6b7b0;
+    height: fit-content;
+}
+
+.descripcion-content {
+    color: #666;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+/* Responsivo */
+@media (max-width: 850px) {
+    .curso-body-grid { grid-template-columns: 1fr; }
+    .header-main { flex-direction: column; align-items: flex-start; gap: 10px; }
+}
+
+
+
+/*---------------------
+ SECCIÓN RECONOCIMIENTOS
+ ------------------------- */
+.recon-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.recon-block {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    border: 2px solid #e5d1cd; /* Borde reforzado */
+    box-shadow: 0 10px 25px rgba(182, 66, 42, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Pequeño detalle decorativo lateral */
+.recon-block::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background-color: #b38b82;
+}
+
+.recon-block:hover {
+    border-color: #b38b82;
+    transform: translateY(-4px);
+}
+
+.recon-header-main {
+    margin-bottom: 20px;
+}
+
+.header-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.recon-type-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.recon-date-badge {
+    background-color: #fcf1ee;
+    color: #b6422a;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid #f5e6e3;
+}
+
+.recon-entity-name {
+    color: #8b5e54;
+    font-size: 1.1rem;
+}
+
+/* Grids Dinámicos */
+.recon-body-grid {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 30px;
+    border-top: 2px solid #f5e6e3;
+    padding-top: 20px;
+}
+
+.recon-body-full {
+    display: block;
+    border-top: 2px solid #f5e6e3;
+    padding-top: 20px;
+}
+
+.recon-text {
+    color: #5a4a4a;
+    line-height: 1.7;
+    font-size: 1.05rem;
+}
+
+/* Tarjeta de contacto */
+.recon-contacto-card {
+    background-color: #fffaf9;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px dashed #b38b82;
+    align-self: start;
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+    .recon-body-grid { grid-template-columns: 1fr; }
+    .header-info { flex-direction: column; align-items: flex-start; }
+}
+
+
+
+
+
+
+
+
+
+/* ----------------------
+SECCIÓN PRODUCTOS ACADÉMICOS 
+-----------------------------------*/
+/* Contenedor: Estable y centrado para no afectar al menú */
+.prod-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    max-width: 1100px; /* Mantiene la simetría con el resto del CV */
+    margin: 25px auto;
+    box-sizing: border-box;
+    padding: 0 10px; /* Pequeño respiro en los bordes */
+}
+
+/* Tarjeta Premium: Formato Horizontal (Toda la hoja) */
+.prod-card-premium {
+    display: flex;
+    background: #ffffff;
+    border-radius: 24px;
+    border: 2px solid #e5d1cd;
+    overflow: hidden;
+    box-shadow: 0 12px 35px rgba(179, 139, 130, 0.1);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    min-height: 280px;
+    width: 100%; /* Obliga a ocupar el ancho de la grid */
+}
+
+.prod-card-premium:hover {
+    transform: translateY(-8px);
+    border-color: #b38b82;
+    box-shadow: 0 20px 45px rgba(179, 139, 130, 0.2);
+}
+
+/* Área Visual: Imagen a la izquierda */
+.prod-visual {
+    width: 320px;
+    min-width: 320px;
+    background: #fdfaf9; /* Fondo crema suave */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    border-right: 2px solid #f5e6e3;
+    cursor: zoom-in;
+}
+
+.prod-visual img {
+    max-width: 100%;
+    max-height: 250px;
+    object-fit: contain; /* No recorta la imagen, la muestra completa */
+    border-radius: 12px;
+    transition: transform 0.5s ease;
+}
+
+.prod-card-premium:hover .prod-visual img {
+    transform: scale(1.05);
+}
+
+/* Overlay de la imagen */
+.prod-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(179, 139, 130, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.3s;
+    color: white;
+    font-weight: 600;
+    backdrop-filter: blur(3px);
+}
+
+.prod-visual:hover .prod-overlay {
+    opacity: 1;
+}
+
+/* Detalles y Texto (Lado derecho) */
+.prod-details {
+    padding: 30px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* Evita desbordes de texto */
+}
+
+.prod-category-tag {
+    display: inline-block;
+    align-self: flex-start;
+    background: linear-gradient(135deg, #f5e6e3 0%, #ecd6d1 100%);
+    color: #b3422d;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.prod-title-text {
+    font-size: 1.6rem;
+    color: #2d2d2d;
     font-weight: 800;
-    /* Eliminar subrayado */
-    text-decoration: none !important;
-    color: var(--negro); 
+    margin: 0;
+    line-height: 1.2;
 }
 
-.fluid-design .btn-mint {
-    background-color: var(--menta);
-    box-shadow: 6px 6px 0px var(--negro);
+.prod-divider {
+    height: 3px;
+    width: 50px;
+    background: #b38b82;
+    margin: 20px 0;
+    border-radius: 3px;
 }
 
-.fluid-design .btn-neutral {
-    background-color: var(--crema);
-    box-shadow: 6px 6px 0px var(--negro);
+.prod-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #b38b82;
+    text-transform: uppercase;
+    margin-bottom: 10px;
 }
 
-.fluid-design .btn:hover {
-    transform: translate(3px, 3px);
-    box-shadow: 2px 2px 0px var(--negro);
-    text-decoration: none; /* Refuerzo para el hover */
+.prod-description-scroll {
+    color: #555;
+    line-height: 1.7;
+    font-size: 1rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
-/* ===============================
-   ANIMACIONES Y RESPONSIVE
-   =============================== */
-
-@keyframes blobMorph {
-    0% {
-        border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
-        transform: translate(0, 0) rotate(0deg);
-    }
-    33% {
-        border-radius: 70% 30% 46% 54% / 30% 29% 71% 70%;
-    }
-    66% {
-        border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
-        transform: translate(20px, -20px) rotate(10deg);
-    }
-    100% {
-        border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
-        transform: translate(0, 0) rotate(0deg);
-    }
+/* Mantenimiento del Menú de Navegación */
+.tabs-nav-container { 
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* Sombra ligera para separarlo del contenido */
 }
 
-@media (max-width: 600px) {
-    .fluid-design .inicio-title {
-        font-size: 2.2rem;
+/* Mobile Responsive: Se vuelve vertical en pantallas pequeñas */
+@media (max-width: 900px) {
+    .prod-card-premium {
+        flex-direction: column;
     }
-    .blob-1, .blob-2 {
-        width: 250px;
+    .prod-visual {
+        width: 100%;
+        min-width: 100%;
         height: 250px;
-    }
-    .fluid-design .section-box {
-        padding: 30px 20px;
-        margin: 10px;
+        border-right: none;
+        border-bottom: 2px solid #f5e6e3;
     }
 }
 
 
 
-/* ===============================
-   RESPONSIVE GLOBAL – PUBLICO
-================================ */
 
-/* Tablets */
-@media (max-width: 1024px) {
 
-    .layout,
-    .header,
-    .inicio-section.fluid-design {
-        margin: 15px;
-    }
 
-    .resume-grid {
-        grid-template-columns: 1fr;
-    }
+/* =========================================
+   NUEVA SECCIÓN PRODUCTOS LABORALES (FLUIDA)
+   ========================================= */
 
-    .resume-sidebar {
-        box-shadow: none;
-    }
+.lab-item-modern {
+    background: white;
+    padding: 40px;
+    border-radius: 30px;
+    margin-bottom: 40px;
+    border-left: 8px solid #b38b82; /* Franja lateral de color */
+    box-shadow: 0 15px 40px rgba(179, 139, 130, 0.1);
+    transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-/* Móviles */
-@media (max-width: 768px) {
-
-    /* Tabs */
-    .tabs {
-        justify-content: center;
-    }
-
-    .tab-button {
-        font-size: 1rem;
-        padding: 12px 20px;
-    }
-
-    /* Contenido general */
-    .tab-content {
-        padding: 20px;
-    }
-
-    h2 {
-        text-align: center;
-    }
-
-    /* Experiencia */
-    .exp-body {
-        flex-direction: column;
-    }
-
-    /* Cursos */
-    .curso-body-vertical {
-        flex-direction: column;
-    }
-
-    .info-divider-vertical {
-        display: none;
-    }
-
-    /* Productos académicos */
-    .prod-acad-block {
-        flex-direction: column;
-    }
+.lab-item-modern:hover {
+    transform: translateX(10px);
+    box-shadow: 0 20px 50px rgba(179, 139, 130, 0.15);
 }
 
-/* Teléfonos pequeños */
-@media (max-width: 480px) {
-
-    body {
-        font-size: 14px;
-    }
-
-    .tab-button {
-        width: 100%;
-        text-align: center;
-    }
-
-    .intro-title,
-    .fluid-design .inicio-title {
-        font-size: 2rem;
-    }
-
-    .fluid-design .menu-principal {
-        flex-direction: column;
-    }
-
-    .fluid-design .btn {
-        width: 100%;
-    }
-
-    .venta-grid {
-        grid-template-columns: 1fr;
-    }
+/* Cabecera superior */
+.lab-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
 }
 
-
-/*FOTO PARA DE PERFIL*/
-.perfil-foto-container {
-    text-align: center;
-    margin-bottom: 20px;
+.lab-type-tag {
+    background: #f5e6e3;
+    color: #b3422d;
+    padding: 6px 15px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.perfil-foto {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #000;
+.lab-main-title {
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: 800;
+    margin: 10px 0 0 0;
+    line-height: 1.2;
 }
 
-/*FOTO PARA DE PRODUCTOS ACADÉMICOS*/
-/* FOTO PARA PRODUCTOS ACADÉMICOS (ADMIN) */
-.producto-imagen {
-    max-width: 100%;
-    max-height: 160px;
-    width: auto;
-    height: auto;
-    object-fit: contain;
+/* Caja de fecha */
+.lab-date-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fdfaf9;
+    padding: 10px 18px;
+    border-radius: 15px;
+    border: 1px solid #f5e6e3;
+}
+
+.date-text {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #b38b82;
+}
+
+/* Cuerpo de descripción */
+.lab-content-body {
+    border-top: 1px solid #f5e6e3;
+    padding-top: 25px;
+}
+
+.lab-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #b38b82;
+    text-transform: uppercase;
+    margin-bottom: 15px;
     display: block;
-    margin: 0 auto 12px auto;
-    border-radius: 10px;
-    border: 2px solid var(--negro);
-    background-color: var(--crema);
 }
 
-.producto-imagen-publico {
-    width: 150px;
-    height: 100px;
+.lab-text {
+    color: #5a4a4a;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    text-align: justify;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .lab-item-modern {
+        padding: 25px;
+        border-left-width: 5px;
+    }
+    .lab-header-flex {
+        flex-direction: column;
+    }
+    .lab-main-title {
+        font-size: 1.4rem;
+    }
+}
+
+
+
+
+
+
+/* =========================================
+   SECCIÓN VENTA GARAGE (CATÁLOGO)
+   ========================================= */
+/* Estilo unificado para Productos Académicos y Venta de Garage */
+.prod-card-premium {
+    display: flex;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border: 1px solid #f0f0f0;
+    height: 280px; /* Altura fija para uniformidad */
+}
+
+.prod-visual {
+    width: 35%;
+    position: relative;
+    overflow: hidden;
+}
+
+.prod-visual img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    border-radius: 6px;
-    margin-bottom: 5px;
+    transition: transform 0.5s;
 }
 
-.producto-imagen-wrapper {
-    padding: 10px;
-    background-color: var(--amarillo);
-    border: 2px dashed var(--negro);
-    border-radius: 14px;
-    margin-bottom: 12px;
+.prod-card-premium:hover .prod-visual img {
+    transform: scale(1.1);
 }
 
+.prod-details {
+    width: 65%;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.prod-category-tag {
+    background: #fdf2f0;
+    color: #d88370;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.prod-title-text {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 10px;
+}
+
+.prod-divider {
+    height: 2px;
+    background: linear-gradient(to right, #d88370, #f7fafc);
+    margin-bottom: 15px;
+}
+
+.prod-description-scroll {
+    overflow-y: auto;
+    max-height: 120px;
+    font-size: 0.95rem;
+    color: #4a5568;
+    line-height: 1.6;
+    padding-right: 10px;
+}
+
+/* Scrollbar fina para la descripción */
+.prod-description-scroll::-webkit-scrollbar { width: 4px; }
+.prod-description-scroll::-webkit-scrollbar-thumb { background: #cbd5e0; border-radius: 10px; }
 
 
-/* ===============================
-   IMAGEN – VENTA DE GARAGE
-================================ */
 
-.venta-imagen {
-    width: 220px;
-    height: 160px;
-    object-fit: cover;   /* 🔑 evita deformación */
+.prod-description-scroll {
+    /* 1. Define una altura máxima para que el texto no empuje el resto de la tarjeta */
+    max-height: 120px; 
+    
+    /* 2. Activa el scroll vertical solo cuando el texto supera la altura anterior */
+    overflow-y: auto; 
+    
+    /* 3. Evita que el texto se salga por los lados */
+    overflow-x: hidden; 
+    
+    /* 4. Estética del texto */
+    font-size: 0.95rem;
+    color: #4a5568;
+    line-height: 1.6;
+    padding-right: 10px; /* Espacio para que el texto no toque la barrita de scroll */
+    
+    /* 5. Romper palabras muy largas (como links) para que no ensanchen la caja */
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+/* Personalización de la barrita de scroll para que se vea moderna */
+.prod-description-scroll::-webkit-scrollbar {
+    width: 4px;
+}
+.prod-description-scroll::-webkit-scrollbar-thumb {
+    background: #d88370; /* Color terracota como tu menú */
     border-radius: 10px;
-    border: 2px solid var(--negro);
-    margin-bottom: 12px;
 }
+.prod-description-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+
+@media (max-width: 768px) {
+    .prod-card-premium {
+        height: auto; /* Permite que la tarjeta crezca en móviles */
+        flex-direction: column;
+    }
+    .prod-description-scroll {
+        max-height: none; /* Quita el límite de altura en móviles */
+        overflow-y: visible; 
+    }
+}
+
+
+

@@ -2,34 +2,95 @@
 
 {% block contenido %}
 
-<h2 class="decorative">
-    Formulario de producto en venta – {{ perfil.nombre_completo }}
-</h2>
+<div class="header-section" style="margin-bottom: 30px;">
+    <h2 class="decorative">Publicar en Venta de Garage</h2>
+    <p style="color: #888; margin-top: -15px; margin-left: 5px;">
+        Nuevo artículo para el catálogo de <strong>{{ perfil.nombre_completo }}</strong>
+    </p>
+</div>
 
-<div class="section-box">
+<div class="section-box" style="max-width: 700px; margin: 0 auto;">
 
-    <form method="post" enctype="multipart/form-data">
-
+    <form method="post" enctype="multipart/form-data" class="premium-form">
         {% csrf_token %}
 
-        <!-- Fondo de color para los campos -->
-        <div class="card mint">
+        <div class="form-body" style="background: white;">
             {{ form.as_p }}
         </div>
 
-        <div class="menu-principal">
-            <!-- Guardar en rosa -->
-            <button type="submit" class="btn pink">
-                ✔ Guardar
+        <div class="form-footer" style="margin-top: 40px; padding-top: 25px; border-top: 1px solid var(--border-light); display: flex; gap: 15px; align-items: center;">
+            <button type="submit" class="btn" style="min-width: 180px;">
+                <span style="margin-right: 8px;">✔</span> Publicar Producto
             </button>
-
-            <!-- Volver neutral -->
-            <a href="{% url 'venta_garage' %}" class="btn pinkl">
-                ↩ Volver
+            
+            <a href="{% url 'venta_garage' %}" style="text-decoration: none; color: #999; font-weight: 700; font-size: 0.9rem; padding: 10px 20px; transition: all 0.3s;">
+                Cancelar y volver
             </a>
         </div>
     </form>
-
 </div>
+
+<style>
+    /* Estilización de los párrafos generados por {{ form.as_p }} */
+    .premium-form p {
+        margin-bottom: 25px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    /* Estilo para las etiquetas de los campos */
+    .premium-form label {
+        font-weight: 700;
+        color: var(--accent-dark);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-left: 4px;
+    }
+
+    /* Estilo para inputs de texto, números, selectores y textarea */
+    .premium-form input, 
+    .premium-form select, 
+    .premium-form textarea {
+        background: #fdfaf9;
+        border: 2px solid #f5e6e3;
+        padding: 14px 18px;
+        border-radius: 14px;
+        font-family: 'Outfit', sans-serif;
+        font-size: 1rem;
+        color: #444;
+        transition: all 0.3s ease;
+    }
+
+    /* Efecto al seleccionar un campo */
+    .premium-form input:focus, 
+    .premium-form select:focus, 
+    .premium-form textarea:focus {
+        border-color: var(--accent-soft);
+        background: white;
+        box-shadow: 0 8px 20px rgba(179, 139, 130, 0.12);
+        outline: none;
+    }
+
+    /* Ajuste específico para el campo de precio (numérico) */
+    .premium-form input[type="number"] {
+        max-width: 200px;
+        font-weight: 800;
+        color: var(--accent-dark);
+    }
+
+    /* Ajuste para el campo de descripción */
+    .premium-form textarea {
+        min-height: 120px;
+        line-height: 1.6;
+    }
+
+    /* Hover en el enlace de cancelar */
+    .premium-form a:hover {
+        color: var(--accent-dark) !important;
+        transform: translateX(-3px);
+    }
+</style>
 
 {% endblock %}

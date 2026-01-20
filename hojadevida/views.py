@@ -1,14 +1,20 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from weasyprint import HTML
+from django.conf import settings
+import os
 
-from .forms import DatosPersonalesForm
-from .forms import ExperienciaLaboralForm
-from .forms import CursosRealizadosForm
-from .forms import ReconocimientosForm
-from .forms import ProductosAcademicosForm
-from .forms import ProductosLaboralesForm
-from .forms import VentaGarageForm
-
+from .forms import (
+    DatosPersonalesForm,
+    ExperienciaLaboralForm,
+    CursosRealizadosForm,
+    ReconocimientosForm,
+    ProductosAcademicosForm,
+    ProductosLaboralesForm,
+    VentaGarageForm
+)
 
 from .models import (
     DatosPersonales,
@@ -20,12 +26,9 @@ from .models import (
     VentaGarage
 )
 
-
 # -------------------------------------------------
 # PERFIL ACTIVO
 # -------------------------------------------------
-
-
 def obtener_perfil_activo():
     perfil = DatosPersonales.objects.filter(es_activo=True).first()
     if perfil is None:
@@ -33,60 +36,43 @@ def obtener_perfil_activo():
     return perfil
 
 
-
 # -------------------------------------------------
-# HOME - ES PARA QUE LO VEA EL PÚBLICO - Para elegir ver o administrar
+# HOME
 # -------------------------------------------------
-
 def home(request):
-    return render(request, 'home.html')
-
-
+    return render(request, "home.html")
 
 
 # -------------------------------------------------
-# INICIO - LO VEO EN EL PANEL PRIVADO
+# PANEL PRIVADO
 # -------------------------------------------------
 @login_required
 def inicio(request):
     perfil = obtener_perfil_activo()
-
     if perfil is None:
         return redirect('crear_perfil')
-
     return render(request, 'inicio.html', {'perfil': perfil})
 
 
-
-# --------------------------------------------------------------------------------------------------
-
+# -------------------------------------------------
 # DATOS PERSONALES
 # -------------------------------------------------
-
 @login_required
 def datos_personales(request):
     perfil = obtener_perfil_activo()
-
     if not perfil:
-        return render(request, 'error.html', {
-            'mensaje': 'No hay un perfil activo'
-        })
-
-    return render(request, 'datospersonales.html', {
-        'perfil': perfil
-    })
+        return render(request, 'error.html', {'mensaje': 'No hay un perfil activo'})
+    return render(request, 'datospersonales.html', {'perfil': perfil})
 
 
-#ESTO ES PARA VER TODOS los perfiles creados, se puede editar, borrar etc
+# LISTA DE PERFILES
 @login_required
 def lista_perfiles(request):
     perfiles = DatosPersonales.objects.all().order_by('-es_activo')
-    return render(request, 'lista_perfiles.html', {
-        'perfiles': perfiles
-    })
+    return render(request, 'lista_perfiles.html', {'perfiles': perfiles})
 
 
-#PARA ACTIVAR UN PERFIL
+# ACTIVAR PERFIL
 @login_required
 def activar_perfil(request, perfil_id):
     perfil = get_object_or_404(DatosPersonales, id=perfil_id)
@@ -95,7 +81,7 @@ def activar_perfil(request, perfil_id):
     return redirect('lista_perfiles')
 
 
-#PARA CREAR EL PERFIL
+# CREAR PERFIL
 @login_required
 def crear_perfil(request):
     if request.method == 'POST':
@@ -105,39 +91,13 @@ def crear_perfil(request):
             return redirect('lista_perfiles')
     else:
         form = DatosPersonalesForm()
-
-    return render(request, 'form_datos_personales.html', {
-        'form': form,
-        'accion': 'Crear'
-    })
+    return render(request, 'form_datos_personales.html', {'form': form, 'accion': 'Crear'})
 
 
-
-#PARA ELIMINAR UN PERFIL
-@login_required
-def eliminar_perfil(request, perfil_id):
-    perfil = get_object_or_404(DatosPersonales, id=perfil_id)
-
-    # Regla: no permitir eliminar el perfil activo
-    if perfil.es_activo:
-        return render(request, 'error.html', {
-            'mensaje': 'No se puede eliminar el perfil activo.'
-        })
-
-    if request.method == 'POST':
-        perfil.delete()
-        return redirect('lista_perfiles')
-
-    return render(request, 'confirmar_eliminar.html', {
-        'perfil': perfil
-    })
-
-
-#PARA EDITAR UN PERFIL
+# EDITAR PERFIL
 @login_required
 def editar_perfil(request, perfil_id):
     perfil = get_object_or_404(DatosPersonales, id=perfil_id)
-
     if request.method == 'POST':
         form = DatosPersonalesForm(request.POST, request.FILES, instance=perfil)
         if form.is_valid():
@@ -145,39 +105,36 @@ def editar_perfil(request, perfil_id):
             return redirect('lista_perfiles')
     else:
         form = DatosPersonalesForm(instance=perfil)
+    return render(request, 'form_datos_personales.html', {'form': form, 'accion': 'Guardar cambios'})
 
-    return render(request, 'form_datos_personales.html', {
-        'form': form,
-        'accion': 'Guardar cambios'
-    })
+
+# ELIMINAR PERFIL
+@login_required
+def eliminar_perfil(request, perfil_id):
+    perfil = get_object_or_404(DatosPersonales, id=perfil_id)
+    if perfil.es_activo:
+        return render(request, 'error.html', {'mensaje': 'No se puede eliminar el perfil activo.'})
+    if request.method == 'POST':
+        perfil.delete()
+        return redirect('lista_perfiles')
+    return render(request, 'confirmar_eliminar.html', {'perfil': perfil})
+
 
 # -------------------------------------------------
 # EXPERIENCIA LABORAL
 # -------------------------------------------------
-#LISTAR LA PARTE DE EXPERIENCIAS - CUANTAS HAY
 @login_required
 def experiencia(request):
     perfil = obtener_perfil_activo()
-    experiencias = ExperienciaLaboral.objects.filter(
-        idperfilconqueestaactivo=perfil
-    )
-
-    return render(request, 'experiencia/experiencia_lista.html', {
-        'perfil': perfil,
-        'experiencias': experiencias
-    })
+    experiencias = ExperienciaLaboral.objects.filter(idperfilconqueestaactivo=perfil)
+    return render(request, 'experiencia/experiencia_lista.html', {'perfil': perfil, 'experiencias': experiencias})
 
 
-#ESTO ES PARA LA PARTE DE EDICION DE LA PARTE DE EXPERIENCIA LABORAL
-
-#CREAR UNA EXPERIENCIA LABORAR
 @login_required
 def crear_experiencia(request):
     perfil = obtener_perfil_activo()
-
     if request.method == 'POST':
         form = ExperienciaLaboralForm(request.POST, request.FILES)
-
         if form.is_valid():
             experiencia = form.save(commit=False)
             experiencia.idperfilconqueestaactivo = perfil
@@ -185,18 +142,12 @@ def crear_experiencia(request):
             return redirect('experiencia')
     else:
         form = ExperienciaLaboralForm()
-
-    return render(request, 'experiencia/experiencia_form.html', {
-        'form': form,
-        'perfil': perfil
-    })
+    return render(request, 'experiencia/experiencia_form.html', {'form': form, 'perfil': perfil})
 
 
-#EDITAR EXPERIENCIA
 @login_required
 def editar_experiencia(request, experiencia_id):
     experiencia = get_object_or_404(ExperienciaLaboral, pk=experiencia_id)
-
     if request.method == 'POST':
         form = ExperienciaLaboralForm(request.POST, request.FILES, instance=experiencia)
         if form.is_valid():
@@ -204,13 +155,9 @@ def editar_experiencia(request, experiencia_id):
             return redirect('experiencia')
     else:
         form = ExperienciaLaboralForm(instance=experiencia)
-
-    return render(request, 'experiencia/experiencia_form.html', {
-        'form': form
-    })
+    return render(request, 'experiencia/experiencia_form.html', {'form': form})
 
 
-#ELIMINAR EXPERIENCIA
 @login_required
 def eliminar_experiencia(request, experiencia_id):
     experiencia = get_object_or_404(ExperienciaLaboral, pk=experiencia_id)
@@ -218,22 +165,16 @@ def eliminar_experiencia(request, experiencia_id):
     return redirect('experiencia')
 
 
-
-
 # -------------------------------------------------
 # RECONOCIMIENTOS
 # -------------------------------------------------
-#LISTAR RECONOCIMIENTOS
 @login_required
 def reconocimientos_lista(request):
     perfil = obtener_perfil_activo()
     reconocimientos = Reconocimientos.objects.filter(idperfilconqueestaactivo=perfil)
-    return render(request, 'reconocimientos/reconocimientos_lista.html', {
-        'perfil': perfil,
-        'reconocimientos': reconocimientos
-    })
+    return render(request, 'reconocimientos/reconocimientos_lista.html', {'perfil': perfil, 'reconocimientos': reconocimientos})
 
-#CREAR RECONOCIMIENTOS
+
 @login_required
 def crear_reconocimiento(request):
     perfil = obtener_perfil_activo()
@@ -246,12 +187,9 @@ def crear_reconocimiento(request):
             return redirect('reconocimientos_lista')
     else:
         form = ReconocimientosForm()
-    return render(request, 'reconocimientos/reconocimientos_form.html', {
-        'form': form,
-        'perfil': perfil
-    })
+    return render(request, 'reconocimientos/reconocimientos_form.html', {'form': form, 'perfil': perfil})
 
-#EDITAR RECONOCIMIENTOS
+
 @login_required
 def editar_reconocimiento(request, reconocimiento_id):
     reconocimiento = get_object_or_404(Reconocimientos, pk=reconocimiento_id)
@@ -262,11 +200,9 @@ def editar_reconocimiento(request, reconocimiento_id):
             return redirect('reconocimientos_lista')
     else:
         form = ReconocimientosForm(instance=reconocimiento)
-    return render(request, 'reconocimientos/reconocimientos_form.html', {
-        'form': form
-    })
+    return render(request, 'reconocimientos/reconocimientos_form.html', {'form': form})
 
-#ELIMINAR RECONOCIMIENTOS
+
 @login_required
 def eliminar_reconocimiento(request, reconocimiento_id):
     reconocimiento = get_object_or_404(Reconocimientos, pk=reconocimiento_id)
@@ -274,24 +210,16 @@ def eliminar_reconocimiento(request, reconocimiento_id):
     return redirect('reconocimientos_lista')
 
 
-
-
-
 # -------------------------------------------------
 # CURSOS REALIZADOS
 # -------------------------------------------------
-#LISTAR LA PARTE DE CURSOS REALIZADOS - CUANTOS HAY
-
 @login_required
 def cursos_realizados(request):
     perfil = obtener_perfil_activo()
     cursos = CursosRealizados.objects.filter(idperfilconqueestaactivo=perfil)
-    return render(request, 'cursos/cursos_lista.html', {
-        'perfil': perfil,
-        'cursos': cursos
-    })
+    return render(request, 'cursos/cursos_lista.html', {'perfil': perfil, 'cursos': cursos})
 
-#PARA CREAR UN CURSO
+
 @login_required
 def crear_curso(request):
     perfil = obtener_perfil_activo()
@@ -304,13 +232,9 @@ def crear_curso(request):
             return redirect('cursos_realizados')
     else:
         form = CursosRealizadosForm()
-    return render(request, 'cursos/cursos_form.html', {
-        'form': form,
-        'perfil': perfil
-    })
+    return render(request, 'cursos/cursos_form.html', {'form': form, 'perfil': perfil})
 
 
-#PARA EDITAR CURSO
 @login_required
 def editar_curso(request, curso_id):
     curso = get_object_or_404(CursosRealizados, pk=curso_id)
@@ -321,11 +245,9 @@ def editar_curso(request, curso_id):
             return redirect('cursos_realizados')
     else:
         form = CursosRealizadosForm(instance=curso)
-    return render(request, 'cursos/cursos_form.html', {
-        'form': form
-    })
+    return render(request, 'cursos/cursos_form.html', {'form': form})
 
-#PARA ELIMINAR CURSO
+
 @login_required
 def eliminar_curso(request, curso_id):
     curso = get_object_or_404(CursosRealizados, pk=curso_id)
@@ -336,18 +258,13 @@ def eliminar_curso(request, curso_id):
 # -------------------------------------------------
 # PRODUCTOS ACADÉMICOS
 # -------------------------------------------------
-#LISTA DE PRODUCTOS ACADÉMICOS
 @login_required
 def productos_academicos(request):
     perfil = obtener_perfil_activo()
     productos = ProductosAcademicos.objects.filter(idperfilconqueestaactivo=perfil)
-    return render(request, 'productos_academicos/productos_academicos.html', {
-        'perfil': perfil,
-        'productos': productos
-    })
+    return render(request, 'productos_academicos/productos_academicos.html', {'perfil': perfil, 'productos': productos})
 
 
-#CREAR PRODUCTO
 @login_required
 def crear_producto_academico(request):
     perfil = obtener_perfil_activo()
@@ -360,13 +277,9 @@ def crear_producto_academico(request):
             return redirect('productos_academicos')
     else:
         form = ProductosAcademicosForm()
-    return render(request, 'productos_academicos/productos_academicos_form.html', {
-        'form': form,
-        'perfil': perfil
-    })
+    return render(request, 'productos_academicos/productos_academicos_form.html', {'form': form, 'perfil': perfil})
 
 
-#EDITAR PRODUCTO
 @login_required
 def editar_producto_academico(request, producto_id):
     producto = get_object_or_404(ProductosAcademicos, pk=producto_id)
@@ -380,7 +293,6 @@ def editar_producto_academico(request, producto_id):
     return render(request, 'productos_academicos/productos_academicos_form.html', {'form': form})
 
 
-#ELIMINAR PRODUCTO
 @login_required
 def eliminar_producto_academico(request, producto_id):
     producto = get_object_or_404(ProductosAcademicos, pk=producto_id)
@@ -388,22 +300,16 @@ def eliminar_producto_academico(request, producto_id):
     return redirect('productos_academicos')
 
 
-
 # -------------------------------------------------
 # PRODUCTOS LABORALES
 # -------------------------------------------------
-#LISTA DE PRODUCTOS LABORALES
 @login_required
 def productos_laborales(request):
     perfil = obtener_perfil_activo()
     productos = ProductosLaborales.objects.filter(idperfilconqueestaactivo=perfil)
-    return render(request, 'productos_laborales/productos_laborales.html', {
-        'perfil': perfil,
-        'productos': productos
-    })
+    return render(request, 'productos_laborales/productos_laborales.html', {'perfil': perfil, 'productos': productos})
 
 
-#CREAR PRODUCTO LABORAL
 @login_required
 def crear_producto_laboral(request):
     perfil = obtener_perfil_activo()
@@ -416,12 +322,9 @@ def crear_producto_laboral(request):
             return redirect('productos_laborales')
     else:
         form = ProductosLaboralesForm()
-    return render(request, 'productos_laborales/productos_laborales_form.html', {
-        'form': form,
-        'perfil': perfil
-    })
+    return render(request, 'productos_laborales/productos_laborales_form.html', {'form': form, 'perfil': perfil})
 
-#EDITAR PRODUCTO LABORAL
+
 @login_required
 def editar_producto_laboral(request, producto_id):
     producto = get_object_or_404(ProductosLaborales, pk=producto_id)
@@ -435,7 +338,6 @@ def editar_producto_laboral(request, producto_id):
     return render(request, 'productos_laborales/productos_laborales_form.html', {'form': form})
 
 
-#ELIMINAR PRODUCTO LABORAL
 @login_required
 def eliminar_producto_laboral(request, producto_id):
     producto = get_object_or_404(ProductosLaborales, pk=producto_id)
@@ -443,22 +345,16 @@ def eliminar_producto_laboral(request, producto_id):
     return redirect('productos_laborales')
 
 
-
 # -------------------------------------------------
 # VENTA DE GARAGE
 # -------------------------------------------------
-#LISTA DE LAS VENTAS DE GARAGE
 @login_required
 def venta_garage(request):
     perfil = obtener_perfil_activo()
     ventas = VentaGarage.objects.filter(idperfilconqueestaactivo=perfil)
-    return render(request, 'venta_garage/venta_garage.html', {
-        'perfil': perfil,
-        'ventas': ventas
-    })
+    return render(request, 'venta_garage/venta_garage.html', {'perfil': perfil, 'ventas': ventas})
 
 
-#CREAR VENTAS
 @login_required
 def crear_venta_garage(request):
     perfil = obtener_perfil_activo()
@@ -471,12 +367,9 @@ def crear_venta_garage(request):
             return redirect('venta_garage')
     else:
         form = VentaGarageForm()
-    return render(request, 'venta_garage/venta_garage_form.html', {
-        'form': form,
-        'perfil': perfil
-    })
+    return render(request, 'venta_garage/venta_garage_form.html', {'form': form, 'perfil': perfil})
 
-#EDITAR VENTAS
+
 @login_required
 def editar_venta_garage(request, venta_id):
     venta = get_object_or_404(VentaGarage, pk=venta_id)
@@ -490,7 +383,6 @@ def editar_venta_garage(request, venta_id):
     return render(request, 'venta_garage/venta_garage_form.html', {'form': form})
 
 
-#ELIMINAR VENTAS
 @login_required
 def eliminar_venta_garage(request, venta_id):
     venta = get_object_or_404(VentaGarage, pk=venta_id)
@@ -498,48 +390,17 @@ def eliminar_venta_garage(request, venta_id):
     return redirect('venta_garage')
 
 
-
-
-
-
-
-
-# --------------------------------------------------------------------------------------------------
+# -------------------------------------------------
 # PÁGINA PÚBLICA (SIN LOGIN)
 # -------------------------------------------------
 def publico(request):
     perfil = obtener_perfil_activo()
-
-    experiencias = ExperienciaLaboral.objects.filter(
-        idperfilconqueestaactivo=perfil,
-        activar_para_front=True
-    )
-
-    cursos = CursosRealizados.objects.filter(
-        idperfilconqueestaactivo=perfil,
-        activar_para_front=True
-    )
-
-    reconocimientos = Reconocimientos.objects.filter(
-        idperfilconqueestaactivo=perfil,
-        activar_para_front=True
-    )
-
-    productos_academicos = ProductosAcademicos.objects.filter(
-        idperfilconqueestaactivo=perfil,
-        activar_para_front=True
-    )
-
-    productos_laborales = ProductosLaborales.objects.filter(
-        idperfilconqueestaactivo=perfil,
-        activar_para_front=True
-    )
-
-    ventas = VentaGarage.objects.filter(
-        idperfilconqueestaactivo=perfil,
-        activar_para_front=True
-    )
-    
+    experiencias = ExperienciaLaboral.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
+    cursos = CursosRealizados.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
+    reconocimientos = Reconocimientos.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
+    productos_academicos = ProductosAcademicos.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
+    productos_laborales = ProductosLaborales.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
+    ventas = VentaGarage.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
 
     return render(request, 'publico.html', {
         'perfil': perfil,
@@ -550,52 +411,70 @@ def publico(request):
         'productos_laborales': productos_laborales,
         'ventas': ventas,
     })
-#-----------------------------------------------------------------------------------------------------------------
 
-#IMPRIMIR HOJA DE VIDA
-# IMPRIMIR HOJA DE VIDA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# -------------------------------------------------
+# IMPRIMIR HOJA DE VIDA (PDF)
 # -------------------------------------------------
 def imprimir_hoja_de_vida(request):
+    """
+    Genera el PDF con TODA la información
+    que aparece en la página pública, dejando
+    los certificados al final.
+    """
     perfil = obtener_perfil_activo()
+    if not perfil:
+        return HttpResponse("No hay perfil activo para generar el PDF.")
 
-    experiencias = ExperienciaLaboral.objects.filter(
-        idperfilconqueestaactivo=perfil,
-        activar_para_front=True
-    )
+    experiencias = ExperienciaLaboral.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
+    cursos = CursosRealizados.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
+    reconocimientos = Reconocimientos.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
+    productos_academicos = ProductosAcademicos.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
+    productos_laborales = ProductosLaborales.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
+    # ventas = VentaGarage.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True) # No las queremos
 
-    cursos = CursosRealizados.objects.filter(
-        idperfilconqueestaactivo=perfil,
-        activar_para_front=True
-    )
+    # -------------------------
+    # Filtrar solo certificados que tengan imagen
+    # -------------------------
+    certificados_experiencias = experiencias.filter(imagen_certificado__isnull=False).exclude(imagen_certificado='')
+    certificados_reconocimientos = reconocimientos.filter(imagen_certificado__isnull=False).exclude(imagen_certificado='')
+    certificados_cursos = cursos.filter(imagen_certificado__isnull=False).exclude(imagen_certificado='')
 
-    reconocimientos = Reconocimientos.objects.filter(
-        idperfilconqueestaactivo=perfil,
-        activar_para_front=True
-    )
+    html_string = render_to_string("pdf/hoja_de_vida.html", {
+        "perfil": perfil,
+        "experiencias": experiencias,
+        "cursos": cursos,
+        "reconocimientos": reconocimientos,
+        "productos_academicos": productos_academicos,  # se muestra solo texto
+        "productos_laborales": productos_laborales,    # se muestra solo texto
+        # CERTIFICADOS
+        "certificados_experiencias": certificados_experiencias,
+        "certificados_reconocimientos": certificados_reconocimientos,
+        "certificados_cursos": certificados_cursos,
+    })
 
-    productos_academicos = ProductosAcademicos.objects.filter(
-        idperfilconqueestaactivo=perfil,
-        activar_para_front=True
-    )
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = 'inline; filename="hoja_de_vida.pdf"'
 
-    productos_laborales = ProductosLaborales.objects.filter(
-        idperfilconqueestaactivo=perfil,
-        activar_para_front=True
-    )
+    HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri('/')
+    ).write_pdf(response)
 
-    ventas = VentaGarage.objects.filter(
-        idperfilconqueestaactivo=perfil,
-        activar_para_front=True
-    )
+    return response
 
-    context = {
-        'perfil': perfil,
-        'experiencias': experiencias,
-        'cursos': cursos,
-        'reconocimientos': reconocimientos,
-        'productos_academicos': productos_academicos,
-        'productos_laborales': productos_laborales,
-        'ventas': ventas,
-    }
+    
 
-    return render(request, 'imprimir.html', context)

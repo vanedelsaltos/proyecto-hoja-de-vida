@@ -2,47 +2,124 @@
 
 {% block contenido %}
 
-<h2 class="decorative">Lista de perfiles</h2>
+<div class="section-box">
+    
+    <div class="header-section" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <h2 class="decorative" style="margin: 0;">Gestión de Perfiles</h2>
+        <a href="{% url 'crear_perfil' %}" class="btn">
+            <span style="margin-right: 8px;">+</span> Crear nuevo perfil
+        </a>
+    </div>
 
-<a href="{% url 'crear_perfil' %}" class="btn neutral">✚ Crear nuevo perfil</a>
-<br><br>
-
-<div class="bento-grid">
-
-    {% for perfil in perfiles %}
-
-        <div class="card {% if perfil.es_activo %}mint{% else %}vanilla{% endif %} double-border">
-            <h3>{{ perfil.nombres }} {{ perfil.apellidos }}</h3>
-            <p><strong>Tipo:</strong> {{ perfil.get_perfilactivo_display }}</p>
-            <p>
-                <strong>Activo:</strong>
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+        {% for perfil in perfiles %}
+            <div class="info-card {% if perfil.es_activo %}active-profile-card{% endif %}" style="position: relative; overflow: hidden; margin-bottom: 0;">
+                
                 {% if perfil.es_activo %}
-                    <span class="activo-texto">𖤐 Sí</span>
-                {% else %}
-                    —
+                    <div class="active-badge">ACTIVO</div>
                 {% endif %}
-            </p>
 
-            <p class="menu-principal">
-                <a href="{% url 'editar_perfil' perfil.id %}" class="btn neutral">
-                    ✎ Editar
-                </a>
-                <a href="{% url 'activar_perfil' perfil.id %}" class="btn neutral">
-                    𖤐 Activar
-                </a>
-                <a href="{% url 'eliminar_perfil' perfil.id %}" class="btn neutral">
-                    🗑 Eliminar
-                </a>
-            </p>
-        </div>
+                <div class="card-body">
+                    <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--accent-dark); margin-bottom: 10px;">
+                        {{ perfil.nombres }} {{ perfil.apellidos }}
+                    </h3>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 25px;">
+                        <p style="margin: 0; font-size: 0.9rem; color: #777;">
+                            <strong style="color: var(--accent-soft);">TIPO:</strong> {{ perfil.get_perfilactivo_display }}
+                        </p>
+                        <p style="margin: 0; font-size: 0.9rem; color: #777;">
+                            <strong style="color: var(--accent-soft);">ESTADO:</strong> 
+                            {% if perfil.es_activo %}
+                                <span style="color: #2d6a4f; font-weight: 700;">𖤐 ACTIVO</span>
+                            {% else %}
+                                <span style="color: #999;">○ En archivo</span>
+                            {% endif %}
+                        </p>
+                    </div>
 
-    {% empty %}
-        <p>No hay perfiles creados.</p>
-    {% endfor %}
+                    <div class="actions-group" style="display: flex; gap: 10px; flex-wrap: wrap; border-top: 1px solid var(--border-light); padding-top: 20px;">
+                        <a href="{% url 'editar_perfil' perfil.id %}" class="btn-action edit">
+                            ✎ <span>Editar</span>
+                        </a>
+                        
+                        {% if not perfil.es_activo %}
+                        <a href="{% url 'activar_perfil' perfil.id %}" class="btn-action activate">
+                            ★ <span>Activar</span>
+                        </a>
+                        {% endif %}
 
+                        <a href="{% url 'eliminar_perfil' perfil.id %}" class="btn-action delete">
+                            🗑 <span>Borrar</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        {% empty %}
+            <div style="text-align: center; padding: 50px; border: 1px dashed var(--border-light); border-radius: 15px;">
+                <p style="color: #999; font-size: 1.1rem;">No hay perfiles registrados en el sistema.</p>
+            </div>
+        {% endfor %}
+    </div>
 </div>
 
-<br>
-<a href="{% url 'inicio_admin' %}" class="btn neutral">↩  Volver a inicio</a>
+<div style="margin-top: 20px; padding-left: 10px;">
+    <a href="{% url 'inicio_admin' %}" style="text-decoration: none; color: var(--accent-soft); font-weight: 600; display: flex; align-items: center; gap: 8px;">
+        ← Volver al Dashboard
+    </a>
+</div>
+
+<style>
+    /* Estilos para que las tarjetas se vean separadas y redondeadas */
+    .info-card {
+        background: white;
+        border: 1px solid var(--border-light);
+        border-radius: 15px; /* Bordes redondeados */
+        padding: 25px;       /* Espacio interno para que el texto no pegue al borde */
+        transition: all 0.3s ease;
+    }
+
+    .active-profile-card {
+        border: 2px solid var(--accent-soft) !important;
+        background: #fffcfb !important;
+    }
+
+    .active-badge {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: var(--accent-soft);
+        color: white;
+        font-size: 0.65rem;
+        font-weight: 900;
+        padding: 5px 25px;
+        transform: rotate(45deg) translate(15px, -12px);
+        width: 100px;
+        text-align: center;
+    }
+
+    .btn-action {
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 700;
+        padding: 8px 18px;
+        border-radius: 10px; /* Botones de acción también redondeados */
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s;
+        border: 1px solid var(--border-light);
+    }
+
+    .btn-action.edit { color: var(--accent-dark); background: #fdfaf9; }
+    .btn-action.activate { color: #2d6a4f; background: #eefdf5; border-color: #cce3d8; }
+    .btn-action.delete { color: #a51d2d; background: #fff5f5; border-color: #f5d7d7; }
+
+    .btn-action:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+</style>
 
 {% endblock %}

@@ -32,12 +32,6 @@ class DatosPersonales(models.Model):
     verbose_name="Perfil activo"
     )
 
-    #para editar el inicio en cada perfil
-    texto_inicio = models.TextField(
-        blank=True,
-        null=True,
-        verbose_name="Texto de inicio público"
-    )
 
     descripcionperfil = models.CharField(
         max_length=100,
@@ -241,6 +235,15 @@ class ExperienciaLaboral(models.Model):
         null=True
     )
 
+    imagen_certificado = CloudinaryField(
+        'Imagen del certificado', 
+        resource_type='image', 
+        folder='certificados/experiencia',
+        blank=True, 
+        null=True 
+    )
+
+
 
 
     # ================= VISIBILIDAD =================
@@ -291,8 +294,7 @@ class Reconocimientos(models.Model):
     )
 
     # ================= DESCRIPCIÓN =================
-    descripcionreconocimiento = models.CharField(
-        max_length=100,
+    descripcionreconocimiento = models.TextField(
         blank=True,
         verbose_name="Descripción del reconocimiento"
     )
@@ -327,6 +329,16 @@ class Reconocimientos(models.Model):
         blank=True,
         null=True
     )
+
+
+    imagen_certificado = CloudinaryField(
+        'Imagen del certificado', 
+        resource_type='image', 
+        folder='certificados/reconocimientos',
+        blank=True, 
+        null=True 
+    )
+
 
 
         # ================= VISIBILIDAD =================
@@ -388,8 +400,7 @@ class CursosRealizados(models.Model):
 
 
 
-    descripcioncurso = models.CharField(
-        max_length=100,
+    descripcioncurso = models.TextField(
         blank=True,
         verbose_name="Descripción del curso"
     )
@@ -426,6 +437,15 @@ class CursosRealizados(models.Model):
         blank=True,
         null=True
     )
+
+    imagen_certificado = CloudinaryField(
+    'Imagen del certificado', 
+        resource_type='image',
+        folder='certificados/cursos',
+        blank=True,
+        null=True
+    )
+
 
 
     
@@ -483,6 +503,7 @@ class ProductosAcademicos(models.Model):
     imagen = CloudinaryField(
         folder='productos_academicos',  
         null=True,
+        blank=True,
         verbose_name="Imagen del producto"
     )
 

@@ -1,40 +1,34 @@
-{% extends "base_publico.html" %}
+{% extends "base_home.html" %}
 
 {% block contenido %}
-<div class="inicio-section fluid-design">
-
-    <div class="blob-container">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-    </div>
+<div class="main-canvas">
+    <div class="moving-shape shape-1"></div>
+    <div class="moving-shape shape-2"></div>
+    
+    <div class="bottom-curve"></div>
 
     <div class="content-wrapper">
-        <h1 class="inicio-title">
-            Bienvenido a mi Hoja de Vida
-        </h1>
+        <h1 class="main-title">Bienvenido a la página de mi Hoja de Vida</h1>
 
-        <div class="section-box">
-            <p class="inicio-text">
-                Descubre mi experiencia profesional, formación académica y proyectos realizados
-                de manera clara, organizada y fácil de navegar.
+        <div class="glass-card">
+            <p class="card-text">
+                Descubre mi experiencia profesional, formación académica y proyectos realizados de manera clara, organizada y fácil de navegar.
             </p>
 
-            <hr class="section-divider">
+            <hr class="divider">
 
-            <h3 class="section-subtitle">¿Qué deseas hacer?</h3>
+            <h2 class="subtitle">¿Qué deseas hacer?</h2>
 
-            <div class="menu-principal">
-                <a href="{% url 'publico' %}" class="btn btn-mint">
-                    ✴ Ver hoja de vida ✴
+            <div class="btn-container">
+                <a href="{% url 'publico' %}" class="btn-pop btn-cv">
+                    ✴ VER HOJA DE VIDA ✴
                 </a>
 
-                <a href="{% url 'login' %}" class="btn btn-neutral">
-                    ➜] Ingresar como administrador
+                <a href="{% url 'login' %}" class="btn-pop btn-admin">
+                    ➜] INGRESAR COMO ADMINISTRADOR
                 </a>
             </div>
         </div>
     </div>
-
 </div>
 {% endblock %}

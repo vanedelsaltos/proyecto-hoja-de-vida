@@ -12,7 +12,11 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import os
-import dj_database_url 
+import dj_database_url
+from dotenv import load_dotenv  # <-- agregado para leer el .env
+
+# Carga las variables del .env
+load_dotenv()  # <-- esto lee el .env en la raíz del proyecto
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,10 +27,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'your secret key')  # <-- ahora lee del .env
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'  # <-- ahora lee del .env y lo convierte a booleano
 
 #ALLOWED_HOSTS = os.environ.get(
 #   'ALLOWED_HOSTS',
@@ -36,8 +40,6 @@ ALLOWED_HOSTS = []
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
-
-
 
 
 # Application definition
@@ -90,7 +92,6 @@ WSGI_APPLICATION = 'conf_django.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 
-
 if os.environ.get("DATABASE_URL"):
     DATABASES = {
         "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
@@ -106,8 +107,6 @@ else:
             'PORT': '5432',
         }
     }
-
-
 
 
 # Password validation
@@ -161,12 +160,10 @@ LOGIN_URL = '/login/'
 
 #PARTE PARA CLOUDINARY
 
-import os
-
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
-    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),  # <-- ahora lee del .env
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),        # <-- ahora lee del .env
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),  # <-- ahora lee del .env
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

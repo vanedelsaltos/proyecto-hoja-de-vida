@@ -1,509 +1,161 @@
-/* ============================
-   IMPORTS & VARIABLES
-   ============================ */
-
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Pacifico&display=swap');
-
+/* ============================================================
+   VARIABLES PREMIUM - DISEÑO UNIFICADO
+   ============================================================ */
 :root {
-    /* 🎨 Paleta principal */
-    --bg-main: #fdf8ed;
-    --pink: #f8c8dc;
-    --mint: #d1e9cf;
-    --vanilla: #f9e1a1;
+    --bg-admin: #fdfaf9;    
+    --accent-dark: #41312e; 
+    --accent-soft: #b38b82; 
     --white: #ffffff;
-    --black: #1a1a1a;
-
-    /* 🖋 Tipografías */
-    --font-body: 'Plus Jakarta Sans', sans-serif;
-    --font-title: 'Pacifico', cursive;
-
-    /* 🧱 Bordes */
-    --radius-xl: 32px;
-    --radius-lg: 24px;
-    --border-dark: 2px solid #000;
-
-    /* 🌈 Sombras */
-    --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.08);
-    --shadow-hard: 4px 4px 0 #000;
+    --text-main: #333333;
+    --border-light: #f5e6e3;
+    --shadow-premium: 0 10px 30px rgba(65, 49, 46, 0.08); /* Sombra más suave */
+    --radius-admin: 20px;
 }
 
-/* ============================
-   RESET BÁSICO
-   ============================ */
-
-* {
-    box-sizing: border-box;
-}
-
-body {
+/* ============================================================
+   ESTRUCTURA BASE
+   ============================================================ */
+body.admin-body {
     margin: 0;
-    background-color: var(--bg-main);
-    font-family: var(--font-body);
-    color: #333;
-    padding: 16px;
-}
-
-/* ============================
-   LAYOUT GENERAL
-   ============================ */
-
-.main-layout {
-    display: grid;
-    grid-template-columns: 260px 1fr;
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-admin);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
 }
 
-/* ============================
-   SIDEBAR
-   ============================ */
-
-.sidebar {
-    background-color: var(--black);
-    padding: 30px 20px;
-    border-radius: 0 40px 40px 0;
-    color: #fff;
+.header-admin {
+    background: var(--white);
+    padding: 15px 0;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.02);
+    border-bottom: 1px solid var(--border-light);
 }
 
-.sidebar h2 {
-    font-family: var(--font-title);
-    font-size: 26px;
-    margin-bottom: 30px;
-}
-
-
-.sidebar a {
-    display: block;
-    padding: 12px 16px;
-    margin-bottom: 12px;
-    background: #fff;
-    color: #000;
-    border-radius: 20px;
-    text-decoration: none;
-    font-weight: 600;
-    border: var(--border-dark);
-    transition: transform 0.2s ease;
-}
-
-.sidebar a:hover {
-    transform: translateY(-3px) rotate(-1deg);
-}
-
-/* ============================
-   CONTENIDO PRINCIPAL
-   ============================ */
-
-.content {
-    padding: 40px;
+.header-container {
     max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.brand h1 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 0;
+    color: var(--accent-dark);
+}
+
+.main-wrapper {
+    flex-grow: 1;
+    padding: 40px 20px; /* Más espacio arriba y abajo */
+}
+
+.content-container {
+    max-width: 1100px;
     margin: 0 auto;
 }
 
-/* ============================
-   BENTO GRID
-   ============================ */
+/* ============================================================
+   COMPONENTES DE CONTENIDO (BLOQUES DE INFORMACIÓN)
+   ============================================================ */
 
-.bento-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 28px;
+/* Este es el contenedor principal de cada página */
+.section-box {
+    background: var(--white);
+    padding: 40px; /* Espacio generoso para que nada esté pegado al borde */
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-admin);
+    box-shadow: var(--shadow-premium);
+    margin-bottom: 30px;
 }
 
-/* ============================
-   CARDS (Neo-Bento)
-   ============================ */
-
-.card {
-    background-color: var(--white);
-    border-radius: var(--radius-xl);
-    padding: 28px;
-    box-shadow: var(--shadow-soft);
-    position: relative;
-}
-
-/* Variantes pastel */
-.card.pink { background-color: var(--pink); }
-.card.mint { background-color: var(--mint); }
-.card.vanilla { background-color: var(--vanilla); }
-
-/* Borde doble estilo scrapbook */
-.card.double-border {
-    border: 5px solid #000;
-    outline: 4px solid var(--pink);
-    outline-offset: -10px;
-}
-
-/* ============================
-   EFECTOS SCRAPBOOK
-   ============================ */
-
-/* Cinta adhesiva */
-.tape {
-    position: absolute;
-    top: -12px;
-    left: 40%;
-    width: 90px;
-    height: 26px;
-    background: rgba(255, 255, 255, 0.7);
-    transform: rotate(-3deg);
-    border-radius: 6px;
-}
-
-/* Clip */
-.clip {
-    position: absolute;
-    top: -18px;
-    right: 22px;
-    font-size: 28px;
-}
-
-/* ============================
-   IMAGEN PERFIL (POLAROID)
-   ============================ */
-
-.profile-photo {
+/* ESTILO PARA LOS RECUADROS DE INFORMACIÓN INDIVIDUAL */
+/* Úsalo en tus plantillas como <div class="info-card"> ... </div> */
+.info-card {
     background: #fff;
-    padding: 14px;
-    border-radius: 14px;
-    box-shadow: var(--shadow-hard);
-    transform: rotate(-2deg);
-    display: inline-block;
+    border: 1px solid var(--border-light);
+    border-radius: 15px; /* Bordes redondeados */
+    padding: 25px;       /* Espacio interno para el texto */
+    margin-bottom: 20px; /* Separación entre recuadros */
+    transition: transform 0.2s ease;
 }
 
-.profile-photo img {
-    width: 160px;
-    border-radius: 8px;
-    display: block;
-}
-
-/* ============================
-   TÍTULOS
-   ============================ */
-
-h1, h2 {
-    font-family: var(--font-title);
-    font-weight: normal;
-    margin-top: 0;
+.info-card:last-child {
+    margin-bottom: 0; /* El último no necesita espacio abajo */
 }
 
 h2.decorative {
-    padding: 14px 20px;
-    border-radius: 18px;
-    background:
-        repeating-linear-gradient(
-            45deg,
-            #d1e9cf,
-            #d1e9cf 10px,
-            #fdf8ed 10px,
-            #fdf8ed 20px
-        );
-    border: var(--border-dark);
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--accent-dark);
+    margin-bottom: 25px;
+    background: none !important;
+    padding: 0 !important;
 }
 
-/* ============================
-   BOTONES (Y2K + Neo-Brutal)
-   ============================ */
-
-button,
-.btn {
-    font-family: var(--font-body);
-    font-weight: 600;
-    padding: 12px 22px;
-    border-radius: 18px;
-    background: var(--vanilla);
-    border: var(--border-dark);
-    cursor: pointer;
-    box-shadow: var(--shadow-hard);
-    transition: all 0.15s ease;
-}
-
-button:hover,
-.btn:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 #000;
-}
-
-/* ============================
-   FORMULARIOS
-   ============================ */
-
-form {
-    display: grid;
-    gap: 18px;
-}
-
-input,
-select,
-textarea {
-    padding: 12px 14px;
-    border-radius: 14px;
-    border: var(--border-dark);
-    font-family: var(--font-body);
-}
-
-/* ============================
-   TABLAS / LISTAS
-   ============================ */
-
-.list-card {
-    background: var(--white);
-    border-radius: var(--radius-lg);
-    padding: 20px;
-    border: var(--border-dark);
-    box-shadow: var(--shadow-soft);
-}
-
-/* ============================
-   FOOTER DECORATIVO
-   ============================ */
-
-.footer-note {
-    margin-top: 40px;
-    font-size: 14px;
-    opacity: 0.6;
-    text-align: center;
-}
-
-/* ============================
-   MENÚ SUPERIOR COMO BOTONES
-   ============================ */
-
-.menu-principal {
+/* ============================================================
+   NAVEGACIÓN SECUNDARIA
+   ============================================================ */
+.sub-nav {
     display: flex;
     flex-wrap: wrap;
-    gap: 14px;
-    margin: 20px 0;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-light);
 }
 
-/* Hacemos que los <a> se comporten como botones */
-.menu-principal a {
-    display: inline-block;
-    font-family: var(--font-body);
-    font-weight: 600;
-    padding: 12px 22px;
-    border-radius: 18px;
-    background: var(--pink);
-    color: #000;
+.nav-link {
     text-decoration: none;
-    border: var(--border-dark);
-    box-shadow: var(--shadow-hard);
-    transition: all 0.15s ease;
-}
-
-/* Hover igual que botones */
-.menu-principal a:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 #000;
-    background: var(--mint);
-}
-
-/* ============================
-   SECCIÓN INICIO
-   ============================ */
-
-.inicio-section {
-    margin-top: 30px;
-}
-
-.inicio-title {
-    font-family: var(--font-title);
-    font-size: 28px;
-    margin-bottom: 12px;
-    margin-left: 8px; /* leve desplazamiento estético */
-}
-
-/* ============================
-   CONTENEDOR DE SECCIÓN (INICIO)
-   ============================ */
-
-.section-box {
-    background-color: var(--white);
-    border-radius: var(--radius-xl);
-    padding: 28px;
-    border: var(--border-dark); /* ← BORDE NEGRO */
-    box-shadow: var(--shadow-soft);
-}
-
-/* ============================
-   RESPONSIVE DESIGN
-   ============================ */
-
-@media (max-width: 1024px) {
-    .main-layout {
-        grid-template-columns: 220px 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    .main-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .sidebar {
-        border-radius: 0;
-        margin-bottom: 20px;
-    }
-
-        body {
-        padding: 12px;
-    }
-
-
-    .content {
-        padding: 20px;
-    }
-
-    .menu-principal {
-        justify-content: center;
-    }
-}
-
-/* ============================
-   BOTONES MINT (para perfiles)
-   ============================ */
-.btn.mint {
-    background-color: var(--mint);
-    color: #000;
-    border: var(--border-dark);
-}
-
-.btn.mint:hover {
-    background-color: var(--pink); /* cambio al rosa al hacer hover */
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 #000;
-}
-
-.btn.neutral {
-    background-color: var(--vanilla); /* color claro que contraste con rosa */
-    color: #000;
-    border: var(--border-dark);
-}
-
-.btn.neutral:hover {
-    background-color: var(--mint); /* hover verde pastel */
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 #000;
-}
-
-/* ============================
-   ESPACIADO DE TEXTO
-   ============================ */
-
-/* Espaciado general de párrafos */
-p {
-    line-height: 1.7;
-    margin-bottom: 16px;
-}
-
-/* Espaciado extra dentro de secciones */
-.section-box p:last-child {
-    margin-bottom: 0;
-}
-
-/* Separación entre títulos y cajas */
-h2 + .section-box {
-    margin-top: 18px;
-}
-
-/* ============================
-   BOTONES NEUTRALES PARA LISTA DE PERFILES
-   ============================ */
-
-.btn.neutral {
-    background-color: #f9e1a1; /* un tono vainilla que combina */
-    color: #000;
-    border: var(--border-dark);
-    box-shadow: var(--shadow-hard);
-}
-
-.btn.neutral:hover {
-    background-color: #ffffff; /* cambia a verde menta al pasar el cursor */
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 #000;
-}
-
-.activo-texto {
-    background-color: #d1e9cf; /* verde pastel */
-    color: #000;
-    padding: 2px 8px;
-    border-radius: 12px;
+    font-size: 0.9rem;
     font-weight: 700;
-}
-
-
-
-/* ===============================
-   ESTILOS ESPECÍFICOS PARA LOGIN
-   =============================== */
-
-
-/* 1. Centramos todo el contenido en la pantalla */
-.fluid-design {
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center;     /* Centra verticalmente */
-    min-height: 80vh;        /* Altura suficiente para que se vea centrado */
-    flex-direction: column;
-}
-
-.content-wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centra el título y la card */
-}
-
-/* 2. Ajuste de la caja de login */
-.login-card {
-    width: 100% !important;
-    max-width: 500px !important; /* Un poco más ancha para que luzca mejor */
-    padding: 40px !important;    /* Más espacio interno */
-    transform: rotate(0deg) !important; /* Quitamos rotación para que sea más legible */
-}
-
-.login-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 25px; /* Más espacio entre campos */
-}
-
-/* 3. Letra MÁS GRANDE en inputs y etiquetas */
-.input-group label {
-    display: block;
-    margin-bottom: 10px;
-    font-size: 1.3rem !important; /* Letra de etiqueta más grande */
-}
-
-.login-form input {
-    width: 100%;
-    padding: 15px 20px !important; /* Inputs más altos */
-    border: 3px solid #000 !important;
-    border-radius: 15px;
-    font-family: var(--font-body);
-    font-size: 1.2rem !important; /* Letra dentro del input más grande */
-    background-color: #fff;
+    color: var(--accent-soft);
+    padding: 10px 20px;
+    border-radius: 12px; 
+    background: #fffcfb;
+    border: 1px solid #f5e6e3;
     transition: all 0.3s ease;
 }
 
-/* 4. Título de Inicio Sesión más grande */
-.inicio-title-login {
-    font-family: var(--font-title);
-    font-size: 3.5rem !important; /* Título gigante */
-    margin-bottom: 30px;
-    text-align: center;
+.nav-link.active {
+    background: var(--accent-soft);
+    color: white;
+    border-color: var(--accent-soft);
 }
 
-/* 5. Botones más grandes */
-.login-card .btn {
-    font-size: 1.1rem !important;
-    padding: 15px 25px !important;
-    flex: 1; /* Para que midan lo mismo */
-    text-align: center;
-}
-
-.login-card .menu-principal {
-    display: flex;
-    justify-content: center;
+/* ============================================================
+   TABLAS Y LISTAS (Si usas tablas para la info)
+   ============================================================ */
+table {
     width: 100%;
-    gap: 20px;
+    border-collapse: separate;
+    border-spacing: 0 15px; /* Espacio ENTRE filas */
+}
+
+th {
+    color: var(--accent-soft);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    padding: 0 20px;
+}
+
+td {
+    background: white;
+    padding: 20px;
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+}
+
+/* Redondear esquinas de las filas */
+td:first-child {
+    border-left: 1px solid var(--border-light);
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+td:last-child {
+    border-right: 1px solid var(--border-light);
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
 }

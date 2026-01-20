@@ -1,32 +1,168 @@
-
 {% extends "base.html" %}
 
 {% block contenido %}
 
-<h2 class="decorative">Formulario de experiencia – {{ perfil.nombre_completo }}</h2>
-
-<div class="section-box">
-
-    <!-- Fondo de color para la sección del formulario -->
-    <div style="background-color: #f8c8dc; padding: 20px; border-radius: 24px; box-shadow: var(--shadow-soft);">
-        
-        <!-- 🔴 CAMBIO CLAVE AQUÍ -->
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-
-            <div class="menu-principal">
-                <button type="submit" class="btn" style="background-color: #d1e9cf; color: #000; border: var(--border-dark);">
-                    ✔ Guardar
-                </button>
-                
-                <a href="{% url 'experiencia' %}" class="btn" style="background-color: #f9e1a1; color: #000; border: var(--border-dark);">
-                    ↩ Volver
-                </a>
-            </div>
-        </form>
-    </div>
-
+<div class="header-section" style="margin-bottom: 30px;">
+    <h2 class="decorative">Formulario de Experiencia</h2>
+    <p style="color: #888; margin-top: -15px; margin-left: 5px;">
+        Añadiendo trayectoria para: <strong>{{ perfil.nombre_completo }}</strong>
+    </p>
 </div>
+
+<div class="section-box" style="max-width: 850px; margin: 0 auto;">
+
+    <form method="post" enctype="multipart/form-data" class="premium-form">
+        {% csrf_token %}
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            
+            <div class="form-column">
+                <p>
+                    <label>Cargo desempeñado</label>
+                    {{ form.cargo_desempenado }}
+                </p>
+
+                <p>
+                    <label>Nombre de la empresa</label>
+                    {{ form.nombre_empresa }}
+                </p>
+
+                <p>
+                    <label>Lugar de la empresa</label>
+                    {{ form.lugar_empresa }}
+                </p>
+
+                <p>
+                    <label>Email de la empresa</label>
+                    {{ form.email_empresa }}
+                </p>
+                
+                <p>
+                    <label>Sitio web</label>
+                    {{ form.sitio_web_empresa }}
+                </p>
+            </div>
+
+            <div class="form-column">
+                <p>
+                    <label>Nombre del contacto</label>
+                    {{ form.nombre_contacto_empresarial }}
+                </p>
+
+                <p>
+                    <label>Teléfono del contacto</label>
+                    {{ form.telefono_contacto_empresarial }}
+                </p>
+
+                <p>
+                    <label>Fecha de inicio</label>
+                    {{ form.fecha_inicio_gestion }}
+                </p>
+
+                <p>
+                    <label>Fecha de finalización</label>
+                    {{ form.fecha_fin_gestion }}
+                </p>
+            </div>
+        </div>
+
+        <p style="margin-top: 10px;">
+            <label>Descripción de funciones</label>
+            {{ form.descripcion_funciones }}
+        </p>
+
+        <div style="background: #fdfaf9; padding: 25px; border-radius: 18px; border: 1px dashed var(--border-light); margin: 30px 0;">
+            <h4 style="margin: 0 0 15px 0; font-size: 0.9rem; color: var(--accent-soft); text-transform: uppercase; letter-spacing: 1px;">Soportes y Visibilidad</h4>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <p>
+                    <label>Certificado (PDF)</label>
+                    {{ form.certificado }}
+                </p>
+                <p>
+                    <label>Imagen del certificado</label>
+                    {{ form.imagen_certificado }}
+                </p>
+            </div>
+
+            <div class="checkbox-wrapper" style="margin-top: 15px; background: white; padding: 15px; border-radius: 12px; border: 1px solid var(--border-light);">
+                <label style="display: flex; align-items: center; gap: 12px; cursor: pointer; text-transform: none; font-size: 1rem; color: var(--accent-dark);">
+                    {{ form.activar_para_front }}
+                    <span style="font-weight: 600;">Mostrar esta experiencia en la página pública</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-footer" style="display: flex; gap: 15px; align-items: center; border-top: 1px solid var(--border-light); padding-top: 30px;">
+            <button type="submit" class="btn">
+                <span style="margin-right: 8px;">✔</span> Guardar Experiencia
+            </button>
+
+            <a href="{% url 'experiencia' %}" style="text-decoration: none; color: #999; font-weight: 700; font-size: 0.9rem; padding: 10px 20px;">
+                Volver
+            </a>
+        </div>
+    </form>
+</div>
+
+<style>
+    .premium-form p {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .premium-form label {
+        font-weight: 700;
+        color: var(--accent-dark);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .premium-form input, 
+    .premium-form select, 
+    .premium-form textarea {
+        background: #fdfaf9;
+        border: 2px solid #f5e6e3;
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-family: 'Outfit', sans-serif;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .premium-form input:focus, 
+    .premium-form textarea:focus {
+        border-color: var(--accent-soft);
+        background: white;
+        outline: none;
+        box-shadow: 0 5px 15px rgba(179, 139, 130, 0.1);
+    }
+
+    .premium-form textarea {
+        min-height: 100px;
+    }
+
+    /* Estilo para el input de tipo archivo */
+    input[type="file"] {
+        font-size: 0.8rem;
+        padding: 8px;
+    }
+
+    /* Checkbox personalizado */
+    input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        accent-color: var(--accent-soft);
+    }
+
+    @media (max-width: 768px) {
+        div[style*="grid-template-columns: 1fr 1fr"] {
+            grid-template-columns: 1fr !important;
+        }
+    }
+</style>
 
 {% endblock %}

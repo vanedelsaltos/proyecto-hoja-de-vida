@@ -15,7 +15,6 @@ class DatosPersonalesForm(forms.ModelForm):
         fields = [
             'perfilactivo',
             'descripcionperfil',
-            'texto_inicio',
             'apellidos',
             'nombres',
             'foto_perfil',
@@ -58,6 +57,7 @@ class ExperienciaLaboralForm(forms.ModelForm):
             'fecha_fin_gestion',
             'descripcion_funciones',
             'certificado',
+            'imagen_certificado',
             'activar_para_front',
         ]
         widgets = {
@@ -81,6 +81,7 @@ class CursosRealizadosForm(forms.ModelForm):
             'telefonocontactoauspicia',
             'emailempresapatrocinadora',
             'certificado',
+            'imagen_certificado',
             'activar_para_front',
         ]
         widgets = {
@@ -101,6 +102,7 @@ class ReconocimientosForm(forms.ModelForm):
             'nombrecontactoauspicia',
             'telefonocontactoauspicia',
             'certificado',
+            'imagen_certificado',
             'activar_para_front',
         ]
         widgets = {

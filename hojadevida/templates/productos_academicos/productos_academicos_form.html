@@ -2,32 +2,94 @@
 
 {% block contenido %}
 
-<h2 class="decorative">Formulario de producto académico – {{ perfil.nombre_completo }}</h2>
+<div class="header-section" style="margin-bottom: 30px;">
+    <h2 class="decorative">Detalles del Producto Académico</h2>
+    <p style="color: #888; margin-top: -15px; margin-left: 5px;">
+        Registro de producción científica para: <strong>{{ perfil.nombre_completo }}</strong>
+    </p>
+</div>
 
-<div class="section-box">
+<div class="section-box" style="max-width: 750px; margin: 0 auto;">
 
-    <!-- Fondo interno del formulario -->
-    <div class="card mint">
-
-        <form method="post" enctype="multipart/form-data">
+    <div class="form-container">
+        <form method="post" enctype="multipart/form-data" class="premium-form">
             {% csrf_token %}
-            {{ form.as_p }}
+            
+            <div class="form-body">
+                {{ form.as_p }}
+            </div>
 
-            <div class="menu-principal">
-                <!-- Guardar en ROSA -->
-                <button type="submit" class="btn pink">
-                    ✔ Guardar
+            <div class="form-footer" style="margin-top: 40px; padding-top: 25px; border-top: 1px solid var(--border-light); display: flex; gap: 15px; align-items: center;">
+                <button type="submit" class="btn">
+                    <span style="margin-right: 8px;">✔</span> Guardar Producto
                 </button>
-
-                <!-- Volver (se mantiene igual) -->
-                <a href="{% url 'productos_academicos' %}" class="btn pink">
-                    ↩ Volver
+                
+                <a href="{% url 'productos_academicos' %}" style="text-decoration: none; color: #999; font-weight: 700; font-size: 0.9rem; padding: 10px 20px; transition: all 0.3s;">
+                    Volver
                 </a>
             </div>
         </form>
-
     </div>
 
 </div>
+
+<style>
+    /* Estilización de los párrafos (etiquetas y campos) */
+    .premium-form p {
+        margin-bottom: 25px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    /* Etiquetas elegantes en mayúsculas pequeñas */
+    .premium-form label {
+        font-weight: 700;
+        color: var(--accent-dark);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-left: 4px;
+    }
+
+    /* Inputs y Selectores con estilo crema suave */
+    .premium-form input, 
+    .premium-form select, 
+    .premium-form textarea {
+        background: #fdfaf9;
+        border: 2px solid #f5e6e3;
+        padding: 14px 18px;
+        border-radius: 14px;
+        font-family: 'Outfit', sans-serif;
+        font-size: 1rem;
+        color: #444;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Efecto de enfoque profesional */
+    .premium-form input:focus, 
+    .premium-form select:focus, 
+    .premium-form textarea:focus {
+        border-color: var(--accent-soft);
+        background: white;
+        box-shadow: 0 8px 20px rgba(179, 139, 130, 0.12);
+        outline: none;
+    }
+
+    /* Estilo para carga de archivos/imágenes */
+    .premium-form input[type="file"] {
+        background: white;
+        border: 2px dashed var(--border-light);
+        padding: 12px;
+        font-size: 0.9rem;
+        cursor: pointer;
+    }
+
+    /* Ajuste para el link de cancelar */
+    .premium-form a:hover {
+        color: var(--accent-dark) !important;
+        transform: translateX(-3px);
+    }
+</style>
 
 {% endblock %}

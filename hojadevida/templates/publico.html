@@ -1,129 +1,103 @@
 {% extends "base_publico.html" %}
 
-{% block contenido %}
-
-<!-- ---------- BOTONES / PESTAÑAS ---------- -->
-<div class="tabs">
-    <button id="btn-inicio" class="tab-button active" onclick="mostrarTab('inicio')">Inicio</button>
-    <button id="btn-datos" class="tab-button" onclick="mostrarTab('datos')">Datos personales</button>
-    <button id="btn-experiencia" class="tab-button" onclick="mostrarTab('experiencia')">Experiencia</button>
-    <button id="btn-cursos" class="tab-button" onclick="mostrarTab('cursos')">Cursos</button>
-    <button id="btn-reconocimientos" class="tab-button" onclick="mostrarTab('reconocimientos')">Reconocimientos</button>
-    <button id="btn-prod_acad" class="tab-button" onclick="mostrarTab('prod_acad')">Productos académicos</button>
-    <button id="btn-prod_lab" class="tab-button" onclick="mostrarTab('prod_lab')">Productos laborales</button>
-    <button id="btn-venta" class="tab-button" onclick="mostrarTab('venta')">Venta garage</button>
-</div>
+{% block content %}
 
 <!-- =======================
      PESTAÑA DE INICIO
 ======================= -->
 <div id="inicio" class="tab-content active">
     <div class="intro-container">
+        
         <h1 class="intro-title">Bienvenido/a</h1>
-        <a href="{% url 'imprimir_hoja_de_vida' %}" 
-            class="btn mint"
-            target="_blank">
-            🖨️ Imprimir hoja de vida
-        </a>
+        <div class="intro-separator"></div>
 
         {% if perfil.texto_inicio %}
             <p class="intro-subtitle">{{ perfil.texto_inicio|linebreaks }}</p>
         {% else %}
-            <p class="intro-subtitle">Gracias por visitar mi hoja de vida digital.</p>
+            <p class="intro-subtitle">
+                Explora mi experiencia profesional, cursos y proyectos en esta hoja de vida digital.
+            </p>
         {% endif %}
-        <a href="#datos" class="btn-vermas" onclick="mostrarTab('datos')">Ver más</a>
+
+        <div class="intro-buttons" style="margin-top: 1.5rem;">
+            <a href="{% url 'imprimir_hoja_de_vida' %}" target="_blank" class="btn-pdf">
+                🖨 Imprimir Hoja de Vida
+            </a>
+            <a href="#datos" class="btn-vermas" onclick="mostrarTab('datos')">Ver más</a>
+        </div>
+
     </div>
 </div>
 
-<!-- =======================
-     DATOS PERSONALES
-======================= -->
 <div id="datos" class="tab-content">
     <div class="resume-grid">
         
-        <!-- ===== SIDEBAR: Contacto / Identificación ===== -->
         <aside class="resume-sidebar">
             {% if perfil.foto_perfil %}
                 <div class="perfil-foto-container">
-                    <img src="{{ perfil.foto_perfil.url }}" alt="Foto de perfil" class="perfil-foto">
+                    <img src="{{ perfil.foto_perfil.url }}" alt="Foto de perfil" class="perfil-foto-cv">
                 </div>
             {% endif %}
+
             <h2 class="section-title-sm">Contacto</h2>
             
-            {% if perfil.lugarnacimiento %}
-            <div class="contact-item">
-                <span class="icon">📍</span>
-                <p><strong>Ubicación</strong><br>{{ perfil.lugarnacimiento }}</p>
-            </div>
-            {% endif %}
+            <div class="contact-box">
+                {% if perfil.lugarnacimiento %}
+                <div class="contact-item">
+                    <span class="icon">📍</span>
+                    <p><strong>Ubicación</strong><br>{{ perfil.lugarnacimiento }}</p>
+                </div>
+                {% endif %}
 
-            {% if perfil.telefonoconvencional %}
-            <div class="contact-item">
-                <span class="icon">📱</span>
-                <p><strong>Teléfono</strong><br>{{ perfil.telefonoconvencional }}</p>
-            </div>
-            {% endif %}
+                {% if perfil.telefonoconvencional or perfil.telefonofijo %}
+                <div class="contact-item">
+                    <span class="icon">📱</span>
+                    <p><strong>Teléfono</strong><br>{{ perfil.telefonoconvencional|default:perfil.telefonofijo }}</p>
+                </div>
+                {% endif %}
 
-            {% if perfil.sitioweb %}
-            <div class="contact-item">
-                <span class="icon">🌐</span>
-                <p><strong>Sitio Web</strong><br><a href="{{ perfil.sitioweb }}" target="_blank">Visitar sitio</a></p>
-            </div>
-            {% endif %}
+                {% if perfil.sitioweb %}
+                <div class="contact-item">
+                    <span class="icon">🌐</span>
+                    <p><strong>Sitio Web</strong><br><a href="{{ perfil.sitioweb }}" target="_blank" class="cv-link">Visitar sitio</a></p>
+                </div>
+                {% endif %}
 
-            {% if perfil.numerocedula %}
-            <div class="contact-item">
-                <span class="icon">🪪</span>
-                <p><strong>Identificación</strong><br>{{ perfil.numerocedula }}</p>
-            </div>
-            {% endif %}
+                <div class="contact-item">
+                    <span class="icon">🪪</span>
+                    <p><strong>Identificación</strong><br>{{ perfil.numerocedula }}</p>
+                </div>
 
-            <div class="contact-item">
-                <span class="icon">🚗</span>
-                <p><strong>Licencia</strong><br>{{ perfil.licenciaconducir|default:"No dispone" }}</p>
+                <div class="contact-item">
+                    <span class="icon">🚗</span>
+                    <p><strong>Licencia</strong><br>{{ perfil.licenciaconducir|default:"No dispone" }}</p>
+                </div>
             </div>
         </aside>
 
-        <!-- ===== MAIN: Datos personales completos (texto limpio) ===== -->
         <main class="resume-main">
-            <!-- Nombre completo y tipo de perfil -->
-            <h2 class="intro-title" style="font-size: 2.5rem; text-align: left;">
-                {{ perfil.nombres }} {{ perfil.apellidos }}
-            </h2>
-            {% if perfil.get_perfilactivo_display %}
-            <p class="perfil-tag">{{ perfil.get_perfilactivo_display }}</p>
-            {% endif %}
+            <h1 class="cv-name">{{ perfil.nombres }} {{ perfil.apellidos }}</h1>
+            
+            <span class="perfil-tag-bubble">{{ perfil.get_perfilactivo_display }}</span>
 
-            <!-- Descripción profesional -->
-            <div class="resume-section">
-
-                {% if perfil.descripcionperfil %}
-                    <p>{{ perfil.descripcionperfil|linebreaks }}</p>
-                {% else %}
-                    <p>Sin descripción disponible.</p>
-                {% endif %}
+            <div class="cv-section" style="margin-top: 20px;">
+                <div class="cv-text">
+                    {{ perfil.descripcionperfil|linebreaks|default:"Persona apasionada y enfocada en el desarrollo profesional." }}
+                </div>
             </div>
 
-            <!-- Información personal simple (sin tarjetas) -->
-            <div class="resume-section">
-                {% if perfil.nacionalidad %}
+            <div class="cv-section">
+                <h3 class="cv-section-title">Detalles Personales</h3>
+                <div class="cv-info-grid">
                     <p><strong>Nacionalidad:</strong> {{ perfil.nacionalidad }}</p>
-                {% endif %}
-                {% if perfil.fechanacimiento %}
-                    <p><strong>Fecha de nacimiento:</strong> {{ perfil.fechanacimiento }}</p>
-                {% endif %}
-                {% if perfil.get_sexo_display %}
+                    <p><strong>Nacimiento:</strong> {{ perfil.fechanacimiento|date:"d M, Y" }}</p>
+                    <p><strong>Estado Civil:</strong> {{ perfil.estadocivil }}</p>
                     <p><strong>Sexo:</strong> {{ perfil.get_sexo_display }}</p>
-                {% endif %}
-                {% if perfil.estadocivil %}
-                    <p><strong>Estado civil:</strong> {{ perfil.estadocivil }}</p>
-                {% endif %}
-                {% if perfil.direcciondomiciliaria %}
-                    <p><strong>Dirección domiciliaria:</strong> {{ perfil.direcciondomiciliaria }}</p>
-                {% endif %}
-                {% if perfil.direcciontrabajo %}
-                    <p><strong>Dirección trabajo:</strong> {{ perfil.direcciontrabajo }}</p>
-                {% endif %}
+                    <p class="full-row"><strong>Dirección domiciliaria:</strong> {{ perfil.direcciondomiciliaria }}</p>
+                    {% if perfil.direcciontrabajo %}
+                    <p class="full-row"><strong>Dirección de trabajo:</strong> {{ perfil.direcciontrabajo }}</p>
+                    {% endif %}
+                </div>
             </div>
         </main>
     </div>
@@ -133,83 +107,83 @@
 <!-- =======================
      EXPERIENCIA LABORAL
 ======================= -->
-
 <div id="experiencia" class="tab-content">
-    <h2 class="section-title">Experiencia Laboral</h2>
+    <div class="timeline-container">
+        {% for e in experiencias %}
+            <div class="exp-block">
+                <div class="timeline-dot"></div>
 
-    {% for e in experiencias %}
-        <div class="exp-block">
-
-            <!-- Cabecera -->
-            <div class="exp-header">
-                <h3 class="exp-cargo-title">{{ e.cargo_desempenado|title }}</h3>
-                {% if e.nombre_empresa %}
-                    <p><strong>Empresa:</strong> {{ e.nombre_empresa }}</p>
-                {% endif %}
-                {% if e.lugar_empresa %}
-                    <p><strong>Lugar:</strong> {{ e.lugar_empresa }}</p>
-                {% endif %}
-                <p><strong>Periodo de trabajo:</strong>
-                    {{ e.fecha_inicio_gestion }}
-                    {% if e.fecha_fin_gestion %} - {{ e.fecha_fin_gestion }}{% else %} - Actualidad{% endif %}
-                </p>
-            </div>
-
-            <!-- Cuerpo: funciones + contacto -->
-            <div class="exp-body">
-                
-                <!-- Funciones (lado izquierdo) -->
-                {% if e.descripcion_funciones %}
-                    <div class="exp-funciones">
-                        <p class="body-title"> Funciones y Responsabilidades</p>
-                        <div class="funciones-content">
-                            {{ e.descripcion_funciones|linebreaksbr }}
-                        </div>
-
-                        <!-- BOTÓN DE CERTIFICADO debajo de funciones -->
-                        {% if e.certificado %}
-                            <div class="curso-certificado">
-                                <a href="{{ e.certificado.url }}" target="_blank" class="btn-cert">
-                                    📄 Ver Certificado
-                                </a>
-
-                            </div>
-                        {% endif %}
-
-
+                <div class="exp-header">
+                    <div class="header-main">
+                        <h3 class="exp-cargo-title">{{ e.cargo_desempenado|title }}</h3>
+                        <span class="exp-period">
+                            <strong>Tiempo en el cargo:</strong> 
+                            {{ e.fecha_inicio_gestion|date:"j \d\e F \d\e Y" }} - 
+                            {% if e.fecha_fin_gestion %}
+                                {{ e.fecha_fin_gestion|date:"j \d\e F \d\e Y" }}
+                            {% else %}
+                                Actualidad
+                            {% endif %}
+                        </span>
                     </div>
-                {% endif %}
-
-                <!-- Contacto (lado derecho) -->
-                <div class="exp-contacto-box">
-                    <p class="contact-subtitle"> Información de contacto de la empresa</p>
-                    <div class="contact-data">
-                        {% if e.nombre_contacto_empresarial %}
-                            <p><strong>Contacto:</strong> {{ e.nombre_contacto_empresarial }}</p>
-                        {% endif %}
-                        {% if e.telefono_contacto_empresarial %}
-                            <p><strong>Teléfono:</strong> {{ e.telefono_contacto_empresarial }}</p>
-                        {% endif %}
-                        {% if e.email_empresa %}
-                            <p><strong>Email:</strong> <a href="mailto:{{ e.email_empresa }}">{{ e.email_empresa }}</a></p>
-                        {% endif %}
-                        
-                        {% if e.sitio_web_empresa %}
-                            <div class="contact-web-wrapper">
-                                <a href="{{ e.sitio_web_empresa }}" target="_blank" class="btn-link-inside">🌐 Visitar Sitio Web</a>
-                            </div>
-                        {% endif %}
-                    </div>
+                    
+                    <p class="exp-company"><strong>⏺ Empresa:</strong> {{ e.nombre_empresa|default:"No especificada" }} | {{ e.lugar_empresa }}</p>
+                    
                 </div>
 
-            </div> <!-- fin exp-body -->
+                <div class="{% if e.nombre_contacto_empresarial or e.telefono_contacto_empresarial or e.email_empresa or e.sitio_web_empresa %}exp-body-grid{% else %}exp-body-full{% endif %}">
+                    
+                    <div class="exp-info-main">
+                        {% if e.descripcion_funciones %}
+                            <p class="body-title">Funciones y Responsabilidades</p>
+                            <div class="funciones-content">
+                                {{ e.descripcion_funciones|linebreaks }}
+                            </div>
+                        {% endif %}
 
-        </div>
-    {% empty %}
-        <p>No hay experiencia registrada</p>
-    {% endfor %}
+                        {% if e.certificado %}
+                            <div class="certificado-wrapper">
+                                <a href="{{ e.certificado.url }}" target="_blank" class="btn-cert">
+                                    
+                                    <span>📄</span> Ver Certificado Laboral
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    {% if e.nombre_contacto_empresarial or e.telefono_contacto_empresarial or e.email_empresa or e.sitio_web_empresa %}
+                    <div class="exp-contacto-card">
+                        <p class="contact-subtitle">Referencia Laboral</p>
+                        <div class="contact-data">
+                            {% if e.nombre_contacto_empresarial %}
+                                <p><strong>Persona:</strong> {{ e.nombre_contacto_empresarial }}</p>
+                            {% endif %}
+                            {% if e.telefono_contacto_empresarial %}
+                                <p><strong>Teléfono:</strong> {{ e.telefono_contacto_empresarial }}</p>
+                            {% endif %}
+                            {% if e.email_empresa %}
+                                <p><strong>Email:</strong> <a href="mailto:{{ e.email_empresa }}" class="cv-link-small">{{ e.email_empresa }}</a></p>
+                            {% endif %}
+                            
+                            {% if e.sitio_web_empresa %}
+                                <a href="{{ e.sitio_web_empresa }}" target="_blank" class="btn-web-small">
+                                    <span class="icon">
+                                    🌐</span> Web Empresa
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        {% empty %}
+            <div class="empty-state">
+                <p>No hay experiencia registrada aún.</p>
+            </div>
+        {% endfor %}
+    </div>
 </div>
-
 
 
 <!-- =======================
@@ -217,81 +191,75 @@
 ======================= -->
 
 <div id="cursos" class="tab-content">
-    <h2>Cursos Realizados</h2>
+    <div class="courses-container">
+        {% for c in cursos %}
+        <div class="curso-block">
+            
+            <div class="curso-header">
+                <div class="header-main">
+                    <h3 class="curso-title">{{ c.nombrecurso|title }}</h3>
+                    <span class="curso-period">
+                        <strong>Periodo:</strong> 
+                        {{ c.fechainicio|date:"j \d\e F \d\e Y" }} - 
+                        {% if c.fechafin %}{{ c.fechafin|date:"j \d\e F \d\e Y" }}{% else %}Actualidad{% endif %}
+                    </span>
+                </div>
+                
+                <div class="curso-meta">
+                    {% if c.totalhoras %}
+                        <span class="meta-item">⏱ <strong>Duración:</strong> {{ c.totalhoras }} horas</span>
+                    {% endif %}
+                    {% if c.entidadpatrocinadora %}
+                        <span class="meta-item">🏛 <strong>Institución:</strong> {{ c.entidadpatrocinadora }}</span>
+                    {% endif %}
+                </div>
+            </div>
 
-    {% for c in cursos %}
-    <div class="curso-block">
+            <div class="{% if c.nombrecontactoauspicia or c.telefonocontactoauspicia or c.emailempresapatrocinadora %}curso-body-grid{% else %}curso-body-full{% endif %}">
+                
+                <div class="curso-info-main">
+                    {% if c.descripcioncurso %}
+                        <p class="body-title">Descripción del curso</p>
+                        <div class="descripcion-content">
+                            {{ c.descripcioncurso|linebreaks }}
+                        </div>
+                    {% endif %}
 
-        <!-- Cabecera del curso -->
-        <div class="curso-header">
-            {% if c.nombrecurso %}
-                <h3 class="curso-title">{{ c.nombrecurso }}</h3>
-            {% endif %}
-            {% if c.totalhoras %}
-                <p><strong>Total de horas:</strong> {{ c.totalhoras }}</p>
-            {% endif %}
-
-            <p><strong>Periodo:</strong> {{ c.fechainicio }}{% if c.fechafin %} - {{ c.fechafin }}{% else %} - Actualidad{% endif %}</p>
-
-        </div>
-
-        <!-- Cuerpo lado a lado: descripción y entidad -->
-        <div class="curso-body-vertical">
-
-            <!-- Descripción -->
-            <div class="curso-descripcion">
-                <p class="body-title">  Descripción del curso</p>
-                <div class="descripcion-content">
-                    {{ c.descripcioncurso|linebreaksbr }}
+                    {% if c.certificado %}
+                        <div class="certificado-wrapper">
+                            <a href="{{ c.certificado.url }}" target="_blank" class="btn-cert">
+                                <span>👁</span> Ver Certificado
+                            </a>
+                        </div>
+                    {% endif %}
                 </div>
 
-    
-                {% if c.certificado %}
-                <div class="curso-certificado">
-                    <a href="{{ c.certificado.url }}" target="_blank" class="btn-cert">
-                        📄 Ver Certificado
-                    </a>
+                {% if c.nombrecontactoauspicia or c.telefonocontactoauspicia or c.emailempresapatrocinadora %}
+                <div class="curso-contacto-card">
+                    <p class="contact-subtitle">Contacto de la Entidad</p>
+                    <div class="contact-data">
+                        {% if c.nombrecontactoauspicia %}
+                            <p><strong>Responsable:</strong> {{ c.nombrecontactoauspicia }}</p>
+                        {% endif %}
+                        {% if c.telefonocontactoauspicia %}
+                            <p><strong>Teléfono:</strong> {{ c.telefonocontactoauspicia }}</p>
+                        {% endif %}
+                        {% if c.emailempresapatrocinadora %}
+                            <p><strong>Email:</strong> <a href="mailto:{{ c.emailempresapatrocinadora }}" class="cv-link-small">{{ c.emailempresapatrocinadora }}</a></p>
+                        {% endif %}
+                    </div>
                 </div>
                 {% endif %}
 
             </div>
-
-            <!-- Línea divisoria vertical -->
-            <div class="info-divider-vertical"></div>
-
-            <!-- Información de la entidad -->
-            <div class="curso-contacto">
-                <p class="contact-subtitle">Información de la entidad</p>
-                <ul class="contact-data">
-                    {% if c.entidadpatrocinadora %}
-                        <li><strong>Entidad patrocinadora:</strong> {{ c.entidadpatrocinadora }}</li>
-                    {% endif %}
-                    {% if c.nombrecontactoauspicia %}
-                        <li><strong>Contacto:</strong> {{ c.nombrecontactoauspicia }}</li>
-                    {% endif %}
-                    {% if c.telefonocontactoauspicia %}
-                        <li><strong>Teléfono:</strong> {{ c.telefonocontactoauspicia }}</li>
-                    {% endif %}
-                    {% if c.emailempresapatrocinadora %}
-                        <li>
-                            <strong>Email:</strong>
-                            <a href="mailto:{{ c.emailempresapatrocinadora }}">
-                                {{ c.emailempresapatrocinadora }}
-                            </a>
-                        </li>
-                    {% endif %}
-                </ul>
-
-            </div>
-
         </div>
-
+        {% empty %}
+        <div class="empty-state">
+            <p>No hay cursos registrados aún.</p>
+        </div>
+        {% endfor %}
     </div>
-    {% empty %}
-    <p>No hay cursos registrados</p>
-    {% endfor %}
 </div>
-
 
 
 
@@ -299,97 +267,115 @@
      RECONOCIMIENTOS
 ======================= -->
 
-
 <div id="reconocimientos" class="tab-content">
-    <h2>Reconocimientos</h2>
-
-    {% if reconocimientos %}
-        {% for r in reconocimientos %}
-            <div class="recon-block">
-
-                <!-- Cabecera: tipo y fecha -->
-                <div class="recon-header">
-                    <p><strong>Tipo de reconocimiento:</strong> {{ r.tiporeconocimiento }}</p>
-                    <p><strong>Fecha:</strong> {{ r.fechareconocimiento }}</p>
-                </div>
-
-                <!-- Descripción -->
-                <div class="recon-desc">
-                    <p class="recon-subtitle circular descripcion">Descripción del reconocimiento</p>
-                    <p class="recon-text">{{ r.descripcionreconocimiento|linebreaksbr }}</p>
-                </div>
-
-                <!-- Información de la entidad patrocinadora -->
-                <div class="recon-info">
-                    <p class="recon-subtitle circular entidad">Información de la entidad</p>
-
-                    <ul class="recon-entity-list">
+    <div class="recon-container">
+        {% if reconocimientos %}
+            {% for r in reconocimientos %}
+                <div class="recon-block">
+                    
+                    <div class="recon-header-main">
+                        <div class="header-info">
+                            <h3 class="recon-type-title">𖤐 {{ r.tiporeconocimiento|title }}</h3>
+                            <span class="recon-date-badge">
+                                𝄜 {{ r.fechareconocimiento|date:"j \d\e F \d\e Y" }}
+                            </span>
+                        </div>
                         {% if r.entidadpatrocinadora %}
-                            <li><strong>Entidad patrocinadora:</strong> {{ r.entidadpatrocinadora }}</li>
+                            <p class="recon-entity-name"><strong>Otorgado por:</strong> {{ r.entidadpatrocinadora }}</p>
                         {% endif %}
-                        {% if r.nombrecontactoauspicia %}
-                            <li><strong>Contacto:</strong> {{ r.nombrecontactoauspicia }}</li>
-                        {% endif %}
-                        {% if r.telefonocontactoauspicia %}
-                            <li><strong>Teléfono:</strong> {{ r.telefonocontactoauspicia }}</li>
-                        {% endif %}
-                    </ul>
-                </div>
-
-                
-
-                <!-- Botón de certificado -->
-                {% if r.certificado %}
-                    <div class="recon-certificado">
-                        <a href="{{ r.certificado.url }}" target="_blank" class="btn-cert">
-                            📄 Ver Certificado
-                        </a>
                     </div>
-                {% endif %}
 
+                    <div class="{% if r.nombrecontactoauspicia or r.telefonocontactoauspicia %}recon-body-grid{% else %}recon-body-full{% endif %}">
+                        
+                        <div class="recon-info-main">
+                            <p class="body-title">Detalles del Reconocimiento</p>
+                            <div class="recon-text">
+                                {{ r.descripcionreconocimiento|linebreaks }}
+                            </div>
 
+                            {% if r.certificado %}
+                                <div class="certificado-wrapper">
+                                    <a href="{{ r.certificado.url }}" target="_blank" class="btn-cert">
+                                        <span>👁</span> Ver Certificado 
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        {% if r.nombrecontactoauspicia or r.telefonocontactoauspicia %}
+                        <div class="recon-contacto-card">
+                            <p class="contact-subtitle">Referencia de Validación</p>
+                            <div class="contact-data">
+                                {% if r.nombrecontactoauspicia %}
+                                    <p><strong>Contacto:</strong> {{ r.nombrecontactoauspicia }}</p>
+                                {% endif %}
+                                {% if r.telefonocontactoauspicia %}
+                                    <p><strong>Teléfono:</strong> {{ r.telefonocontactoauspicia }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <p>No hay reconocimientos registrados en tu perfil aún.</p>
             </div>
-        {% endfor %}
-    {% else %}
-        <p class="no-data">No hay reconocimientos registrados</p>
-    {% endif %}
+        {% endif %}
+    </div>
 </div>
+
+
+
 
 <!-- =======================
      PRODUCTOS ACADÉMICOS
 ======================= -->
 <div id="prod_acad" class="tab-content">
-    <h2>Productos Académicos</h2>
+    <div class="prod-grid">
+        {% if productos_academicos %}
+            {% for p in productos_academicos %}
+                <div class="prod-card-premium">
+                    
+                    {% if p.imagen %}
+                    <div class="prod-visual">
+                        <!-- Aquí envolvemos la imagen con un enlace -->
+                        <a href="{{ p.imagen.url }}" target="_blank">
+                            <img src="{{ p.imagen.url }}" alt="{{ p.nombrerecurso }}">
+                            <div class="prod-overlay">
+                                <span>Click para ampliar</span>
+                            </div>
+                        </a>
+                    </div>
+                    {% endif %}
 
-    {% if productos_academicos %}
-        {% for p in productos_academicos %}
-            <div class="prod-acad-block">
+                    <div class="prod-details">
+                        <div class="prod-header-row">
+                            <span class="prod-category-tag">{{ p.clasificador }}</span>
+                            <h3 class="prod-title-text">{{ p.nombrerecurso|title }}</h3>
+                        </div>
 
-                {% if p.imagen %}
-                    <img src="{{ p.imagen.url }}" class="producto-imagen-publico">
-                {% endif %}
+                        <div class="prod-divider"></div>
 
-                <div class="prod-col">
-                    <p class="prod-title rounded">Nombre del recurso</p>
-                    <p class="prod-text">{{ p.nombrerecurso }}</p>
+                        <div class="prod-body">
+                            <p class="prod-label">Descripción:</p>
+                            <div class="prod-description-scroll">
+                                {{ p.descripcion|linebreaksbr }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="prod-col">
-                    <p class="prod-title rounded">Clasificador</p>
-                    <p class="prod-text">{{ p.clasificador }}</p>
-                </div>
-
-                <div class="prod-col">
-                    <p class="prod-title rounded">Descripción</p>
-                    <p class="prod-text">{{ p.descripcion }}</p>
-                </div>
-
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <p>No hay productos académicos registrados aún.</p>
             </div>
-        {% endfor %}
-    {% else %}
-        <p class="no-data">No hay productos académicos registrados</p>
-    {% endif %}
+        {% endif %}
+    </div>
 </div>
+
 
 
 
@@ -398,45 +384,51 @@
 ======================= -->
 
 <div id="prod_lab" class="tab-content">
-    <h2 class="section-title">Productos Laborales</h2>
+    <div class="prod-grid"> {% if productos_laborales %}
+            {% for p in productos_laborales %}
+                <div class="lab-item-modern">
+                    
+                    <div class="lab-header-flex">
+                        <div class="lab-title-group">
+                            <span class="lab-type-tag">{{ p.tipoproducto|default:"Producto Laboral" }}</span>
+                            <h3 class="lab-main-title">{{ p.nombreproducto }}</h3>
+                        </div>
+                        
+                        {% if p.fecha_producto %}
+                        <div class="lab-date-box">
+                            <span class="icon">𝄜</span>
+                            <span class="date-text">{{ p.fecha_producto|date:"F, Y" }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
 
-    {% if productos_laborales %}
-        {% for p in productos_laborales %}
-            <div class="prod-lab-block">  <!-- Bloque grande que encierra todo -->
-
-                <!-- Información principal (lado izquierdo) -->
-                <div class="prod-lab-info">
-                    {% if p.nombreproducto %}
-                        <p class="prod-title rounded small pink">Nombre del producto</p>
-                        <p class="prod-text">{{ p.nombreproducto }}</p>
+                    {% if p.descripcion %}
+                    <div class="lab-content-body">
+                        <div class="lab-desc-container">
+                            <p class="lab-label">Descripción del Proyecto / Producto</p>
+                            <div class="lab-text">
+                                {{ p.descripcion|linebreaksbr }}
+                            </div>
+                        </div>
+                    </div>
                     {% endif %}
 
-                    {% if p.fecha_producto %}
-                        <p class="prod-title rounded small pink">Fecha</p>
-                        <p class="prod-text">{{ p.fecha_producto|date:"d/m/Y" }}</p>
-                    {% endif %}
-
-                    {% if p.tipoproducto %}
-                        <p class="prod-title rounded small pink">Tipo</p>
-                        <p class="prod-text">{{ p.tipoproducto }}</p>
-                    {% endif %}
                 </div>
-
-                <!-- Descripción en un recuadro grande -->
-                {% if p.descripcion %}
-                <div class="prod-lab-desc-box">
-                    <p class="desc-subtitle">Descripción</p>  <!-- Subtítulo sin recuadro -->
-                    <hr class="desc-divider">
-                    <p class="prod-text">{{ p.descripcion|linebreaksbr }}</p>
-                </div>
-                {% endif %}
-
-            </div> <!-- fin bloque grande -->
-        {% endfor %}
-    {% else %}
-        <p class="no-data">No hay productos laborales registrados</p>
-    {% endif %}
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <p>No hay productos laborales registrados aún.</p>
+            </div>
+        {% endif %}
+    </div>
 </div>
+
+
+
+
+
+
+
 
 
 <!-- =======================
@@ -444,45 +436,45 @@
 ======================= -->
 
 <div id="venta" class="tab-content">
-    <h2 class="section-title">Venta Garage</h2>
-
-    {% if ventas %}
-        <div class="venta-grid">
+    <div class="prod-grid"> 
+        {% if ventas %}
             {% for v in ventas %}
-                <div class="venta-block">
+                <div class="prod-card-premium">
+                    
                     {% if v.imagen %}
-                        <img src="{{ v.imagen.url }}" class="venta-imagen">
-                    {% endif %}
-
-                    <!-- Información principal (viñetas) -->
-                    <ul class="venta-info">
-                        {% if v.nombreproducto %}
-                            <li><strong>Nombre del producto:</strong> {{ v.nombreproducto }}</li>
-                        {% endif %}
-                        {% if v.estadoproducto %}
-                            <li><strong>Estado:</strong> {{ v.estadoproducto }}</li>
-                        {% endif %}
-                        {% if v.valordelbien %}
-                            <li><strong>Valor:</strong> ${{ v.valordelbien }}</li>
-                        {% endif %}
-                    </ul>
-
-                    <!-- Descripción -->
-                    {% if v.descripcion %}
-                    <div class="venta-desc-box">
-                        <p class="desc-subtitle">Descripción</p>
-                        <hr class="desc-divider">
-                        <p class="venta-text">{{ v.descripcion|linebreaksbr }}</p>
+                    <div class="prod-visual">
+                        <a href="{{ v.imagen.url }}" target="_blank">
+                            <img src="{{ v.imagen.url }}" alt="{{ v.nombreproducto }}">
+                            <div class="prod-overlay">
+                                <span>Click para ampliar</span>
+                            </div>
+                        </a>
                     </div>
                     {% endif %}
 
+                    <div class="prod-details">
+                        <div class="prod-header-row">
+                            <span class="prod-category-tag">${{ v.valordelbien }}</span>
+                            <h3 class="prod-title-text">{{ v.nombreproducto|title }}</h3>
+                        </div>
+
+                        <div class="prod-divider"></div>
+
+                        <div class="prod-body">
+                            <p class="prod-label">Estado: <strong>{{ v.estadoproducto|default:"Disponible" }}</strong></p>
+                            <div class="prod-description-scroll">
+                                {{ v.descripcion|linebreaksbr }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             {% endfor %}
-        </div>
-    {% else %}
-        <p class="no-data">No hay productos en venta</p>
-    {% endif %}
+        {% else %}
+            <div class="empty-state">
+                <p>No hay productos registrados en la venta de garage actualmente.</p>
+            </div>
+        {% endif %}
+    </div>
 </div>
-
 
 {% endblock %}
