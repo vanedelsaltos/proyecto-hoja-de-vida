@@ -4,192 +4,125 @@
 <head>
     <meta charset="UTF-8">
     <title>Hoja de Vida - {{ perfil.nombre_completo }}</title>
-
-    <!-- BASE para que WeasyPrint resuelva imágenes y CSS -->
     <base href="{{ css_url|cut:'css/hoja_de_vida.css' }}">
-
-    <!-- CSS PRINCIPAL -->
     <link rel="stylesheet" href="{{ css_url }}">
-
     <style>
-        body {
-            font-family: 'Roboto', Arial, Helvetica, sans-serif;
-        }
+        body { font-family: 'Roboto', Arial, sans-serif; -webkit-print-color-adjust: exact; }
+        .cv-container { display: flex; min-height: 100vh; width: 100%; }
+        .sidebar { width: 32%; background-color: #a3867a; color: white; padding: 25px; }
+        .main-content { width: 68%; background-color: white; padding: 30px; }
+        .main-title { border-bottom: 2px solid #eee; margin-top: 25px; padding-bottom: 5px; color: #333; text-transform: uppercase; font-size: 1.2em; }
+        .timeline-item { border-left: 2px solid #a3867a; margin-left: 10px; padding-left: 20px; padding-bottom: 20px; position: relative; }
+        .timeline-item::before { content: ""; position: absolute; left: -7px; top: 0; width: 12px; height: 12px; background: #a3867a; border-radius: 50%; }
+        .puesto, .curso-nombre { font-weight: bold; color: #a3867a; margin: 0; }
+        .empresa, .periodo { font-size: 0.9em; margin: 2px 0; color: #555; }
+        img.foto-perfil { width: 150px; height: 150px; border-radius: 50%; border: 5px solid white; object-fit: cover; }
     </style>
 </head>
 <body>
 
-<!-- ===================== CV PRINCIPAL ===================== -->
 <div class="cv-container">
-
-    <!-- ========== COLUMNA IZQUIERDA ========== -->
     <aside class="sidebar">
-
-        <div class="foto-container">
-            {% if perfil.foto_perfil %}
-                <img src="{{ perfil.foto_perfil.url }}" class="foto-perfil">
-            {% endif %}
+        <div class="foto-container" style="text-align:center; margin-bottom:20px;">
+            {% if perfil.foto_perfil %}<img src="{{ perfil.foto_perfil.url }}" class="foto-perfil">{% endif %}
         </div>
 
-        {% if perfil %}
         <section class="sidebar-section">
             <h2 class="sidebar-title">Información Personal</h2>
-            <ul class="info-personal-bullets">
-                {% if perfil.nombres or perfil.apellidos %}
-                <li><strong>Nombres y Apellidos:</strong><br>{{ perfil.nombres }} {{ perfil.apellidos }}</li>
-                {% endif %}
-                {% if perfil.nacionalidad %}
-                <li><strong>Nacionalidad:</strong><br>{{ perfil.nacionalidad }}</li>
-                {% endif %}
-                {% if perfil.fechanacimiento %}
-                <li><strong>Fecha de nacimiento:</strong><br>{{ perfil.fechanacimiento }}</li>
-                {% endif %}
-                {% if perfil.lugarnacimiento %}
-                <li><strong>Lugar de nacimiento:</strong><br>{{ perfil.lugarnacimiento }}</li>
-                {% endif %}
-                {% if perfil.sexo %}
-                <li><strong>Sexo:</strong><br>{{ perfil.get_sexo_display }}</li>
-                {% endif %}
-                {% if perfil.estadocivil %}
-                <li><strong>Estado civil:</strong><br>{{ perfil.estadocivil }}</li>
-                {% endif %}
+            <ul class="info-personal-bullets" style="list-style:none; padding:0;">
+                <li><strong>Nombres:</strong><br>{{ perfil.nombres }} {{ perfil.apellidos }}</li>
+                {% if perfil.nacionalidad %}<li><strong>Nacionalidad:</strong><br>{{ perfil.nacionalidad }}</li>{% endif %}
+                {% if perfil.fechanacimiento %}<li><strong>Nacimiento:</strong><br>{{ perfil.fechanacimiento }}</li>{% endif %}
+                {% if perfil.lugarnacimiento %}<li><strong>Lugar:</strong><br>{{ perfil.lugarnacimiento }}</li>{% endif %}
+                {% if perfil.get_sexo_display %}<li><strong>Sexo:</strong><br>{{ perfil.get_sexo_display }}</li>{% endif %}
+                {% if perfil.estadocivil %}<li><strong>Estado civil:</strong><br>{{ perfil.estadocivil }}</li>{% endif %}
             </ul>
         </section>
 
         <section class="sidebar-section">
             <h2 class="sidebar-title">Contacto</h2>
-            <ul class="info-personal">
-                {% if perfil.telefonoconvencional %}
-                <li class="contact-item"><div class="icon-circle">📱</div><span>{{ perfil.telefonoconvencional }}</span></li>
-                {% endif %}
-                {% if perfil.sitioweb %}
-                <li class="contact-item"><div class="icon-circle">🌐</div><span>{{ perfil.sitioweb }}</span></li>
-                {% endif %}
-                {% if perfil.email %}
-                <li class="contact-item"><div class="icon-circle">✉️</div><span>{{ perfil.email }}</span></li>
-                {% endif %}
-            </ul>
-        </section>
-        {% endif %}
-    </aside>
+            <p><strong>Teléfono:</strong><br>Móvil: {{ perfil.telefonoconvencional }}</p>
+            {% if perfil.sitioweb %}<p><strong>Web:</strong><br>{{ perfil.sitioweb }}</p>{% endif %}
+            {% if perfil.numerocedula %}<p><strong>Cédula:</strong><br>{{ perfil.numerocedula }}</p>{% endif %}
+        </aside>
 
-    <!-- ========== COLUMNA DERECHA ========== -->
     <main class="main-content">
-
-        {% if perfil %}
-        <header class="header-right">
-            <h1>{{ perfil.nombre_completo|upper }}</h1>
-            {% if perfil.descripcionperfil %}
-            <div class="bio">
-                <h2>Perfil Profesional</h2>
-                <p>{{ perfil.descripcionperfil }}</p>
-            </div>
-            {% endif %}
+        <header>
+            <h1 style="margin:0; font-size:2.5em;">{{ perfil.nombre_completo|upper }}</h1>
+            <h2 style="font-size:1.3em; margin-top:10px;">Perfil Profesional</h2>
+            <p>{{ perfil.descripcionperfil }}</p>
         </header>
-        {% endif %}
 
-        <!-- ================= EXPERIENCIA ================= -->
         {% if experiencias %}
-        <section class="section-main">
+        <section>
             <h2 class="main-title">Experiencia Laboral</h2>
             {% for exp in experiencias %}
             <div class="timeline-item">
-                <p class="puesto">{{ exp.puesto }}</p>
-                <p>{{ exp.descripcion }}</p>
+                <p class="puesto">{{ exp.cargo_desempenado }}</p>
+                <p class="empresa">{{ exp.nombre_empresa }} | {{ exp.lugar_empresa }}</p>
+                <p class="periodo">{{ exp.fecha_inicio_gestion }} - {% if exp.fecha_fin_gestion %}{{ exp.fecha_fin_gestion }}{% else %}Actualidad{% endif %}</p>
+                <p>{{ exp.descripcion_funciones }}</p>
             </div>
             {% endfor %}
         </section>
         {% endif %}
 
-        <!-- ================= CURSOS ================= -->
         {% if cursos %}
-        <section class="section-main">
+        <section>
             <h2 class="main-title">Cursos</h2>
             {% for curso in cursos %}
             <div class="timeline-item">
-                <p class="curso-nombre">{{ curso.nombre }}</p>
-                <p>{{ curso.descripcion }}</p>
+                <p class="curso-nombre">{{ curso.nombrecurso }}</p>
+                <p class="empresa">{{ curso.entidadpatrocinadora }} ({{ curso.totalhoras }}h)</p>
+                <p class="periodo">{{ curso.fechainicio }} - {{ curso.fechafin }}</p>
             </div>
             {% endfor %}
         </section>
         {% endif %}
 
-        <!-- ================= RECONOCIMIENTOS ================= -->
         {% if reconocimientos %}
-        <section class="section-main">
+        <section>
             <h2 class="main-title">Reconocimientos</h2>
             {% for rec in reconocimientos %}
             <div class="timeline-item">
-                <p>{{ rec.nombre }}</p>
+                <p class="puesto">{{ rec.tiporeconocimiento }}</p>
+                <p class="empresa">{{ rec.entidadpatrocinadora }}</p>
+                <p>{{ rec.descripcionreconocimiento }}</p>
             </div>
             {% endfor %}
         </section>
         {% endif %}
 
-        <!-- ================= PRODUCTOS ACADÉMICOS ================= -->
         {% if productos_academicos %}
-        <section class="productos-academicos">
+        <section>
             <h2 class="main-title">Productos Académicos</h2>
             {% for prod in productos_academicos %}
-            <div class="producto-fila">
-                <div class="producto-texto">{{ prod.descripcion }}</div>
-                {% if prod.imagen %}
-                <div class="producto-imagen">
-                    <img src="{{ prod.imagen.url }}">
+            <div style="display:flex; margin-bottom:15px; gap:15px; border-left:2px solid #ddd; padding-left:15px;">
+                <div style="flex:2;">
+                    <h3 style="margin:0; font-size:1.1em;">{{ prod.nombrerecurso }}</h3>
+                    <p style="font-size:0.9em; margin:5px 0;">{{ prod.descripcion }}</p>
                 </div>
+                {% if prod.imagen %}
+                <div style="flex:1;"><img src="{{ prod.imagen.url }}" style="width:100%; border-radius:5px;"></div>
                 {% endif %}
             </div>
             {% endfor %}
         </section>
         {% endif %}
-
-        <!-- ================= PRODUCTOS LABORALES ================= -->
-        {% if productos_laborales %}
-        <section class="productos-laborales">
-            <h2 class="main-title">Productos Laborales</h2>
-            {% for prod in productos_laborales %}
-            <div class="producto-laboral-fila">
-                <div class="producto-texto">{{ prod.descripcion }}</div>
-            </div>
-            {% endfor %}
-        </section>
-        {% endif %}
-
     </main>
 </div>
 
+{% for curso in certificados_cursos %}
+    {% if curso.imagen_certificado %}
+    <div style="page-break-before: always; text-align:center; padding:20px;">
+        <h2 style="color:#a3867a;">Certificado: {{ curso.nombrecurso }}</h2>
+        <img src="{{ curso.imagen_certificado.url }}" style="max-width:100%; max-height:800px; object-fit:contain;">
+    </div>
+    {% endif %}
+{% endfor %}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</body>
+</html>
 
 <!-- ===================== PORTADA CERTIFICADOS ===================== -->
 <div style="page-break-before: always; text-align:center; font-size:42px; font-weight:bold; margin-top:120mm;">
