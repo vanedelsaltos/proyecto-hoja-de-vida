@@ -265,6 +265,38 @@ body {
     border-radius: 50%;
 }
 
+
+/* ===================== FIX WEASYPRINT ===================== */
+
+/* Evitar flex en contenedores grandes */
+@media print {
+
+    .cv-container {
+        display: block !important;
+    }
+
+    .sidebar,
+    .main-content {
+        width: 100% !important;
+        display: block !important;
+    }
+
+    /* Evitar que se pierdan secciones completas */
+    section,
+    .section-main,
+    .timeline,
+    .timeline-item {
+        display: block !important;
+        float: none !important;
+    }
+
+    /* Evitar que WeasyPrint oculte contenido */
+    * {
+        overflow: visible !important;
+    }
+}
+
+
 /* ===================== CONFIGURACIÓN PDF ===================== */
 @page {
     size: A4;
