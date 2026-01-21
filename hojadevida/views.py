@@ -440,7 +440,8 @@ def imprimir_hoja_de_vida(request):
     certificados_reconocimientos = reconocimientos.filter(imagen_certificado__isnull=False).exclude(imagen_certificado='')
     certificados_cursos = cursos.filter(imagen_certificado__isnull=False).exclude(imagen_certificado='')
 
-    css_path = os.path.join(settings.STATIC_ROOT, 'css/hoja_vida.css')
+    css_path = os.path.join(settings.STATIC_ROOT, 'css/hoja_de_vida.css')
+
 
     html_string = render_to_string("pdf/hoja_de_vida.html", {
         "perfil": perfil,
@@ -453,7 +454,8 @@ def imprimir_hoja_de_vida(request):
         "certificados_experiencias": certificados_experiencias,
         "certificados_reconocimientos": certificados_reconocimientos,
         "certificados_cursos": certificados_cursos,
-        "css_url": request.build_absolute_uri(settings.STATIC_URL + 'css/hoja_vida.css'),
+        "css_url": request.build_absolute_uri(settings.STATIC_URL + 'css/hoja_de_vida.css'),
+
     })
 
     response = HttpResponse(content_type="application/pdf")
