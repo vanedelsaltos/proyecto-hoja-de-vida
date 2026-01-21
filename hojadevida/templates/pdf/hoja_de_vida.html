@@ -5,105 +5,56 @@
     <meta charset="UTF-8">
     <title>Hoja de Vida - {{ perfil.nombre_completo }}</title>
     <style>
-        /* Estilos Base para evitar errores en PDF */
         @page { size: A4; margin: 0; }
         body { 
-            font-family: 'Helvetica', 'Arial', sans-serif; 
-            color: #333; 
-            line-height: 1.4; 
-            margin: 0; 
-            padding: 0;
-            font-size: 11pt;
+            font-family: 'Helvetica', Arial, sans-serif; 
+            color: #333; line-height: 1.4; margin: 0; padding: 0; font-size: 11pt;
         }
 
         /* Contenedor Principal */
         .cv-container { display: flex; width: 100%; min-height: 297mm; }
 
-        /* Columna Izquierda (Sidebar) */
-        .sidebar { 
-            width: 35%; 
-            background-color: #a3867a; 
-            color: white; 
-            padding: 30px 20px;
-        }
+        /* Lateral Izquierdo (Sidebar) */
+        .sidebar { width: 35%; background-color: #a3867a; color: white; padding: 30px 20px; }
         .foto-container { text-align: center; margin-bottom: 25px; }
-        .foto-perfil { 
-            width: 140px; 
-            height: 140px; 
-            border-radius: 50%; 
-            border: 4px solid white; 
-            object-fit: cover; 
+        .foto-perfil { width: 140px; height: 140px; border-radius: 50%; border: 4px solid white; object-fit: cover; }
+        
+        /* Títulos del Sidebar estilo imagen */
+        .sidebar-header { 
+            background-color: #eee9e6; color: #a3867a; padding: 6px 15px; 
+            font-weight: bold; font-size: 1.1em; margin-top: 20px; border-radius: 2px;
+            text-transform: uppercase;
         }
+        .info-list { list-style: none; padding: 0; margin: 10px 0; }
+        .info-list li { margin-bottom: 10px; font-size: 0.9em; }
+        .info-list li strong { display: block; color: #fff; margin-bottom: 2px; }
 
-        .sidebar-title { 
-            background-color: rgba(238, 233, 230, 0.2); 
-            padding: 8px 12px; 
-            font-size: 1.1em; 
-            text-transform: uppercase; 
-            margin: 20px 0 10px 0;
-            border-radius: 4px;
-        }
-        .info-personal-bullets { list-style: none; padding: 0; margin: 0; }
-        .info-personal-bullets li { margin-bottom: 12px; font-size: 0.95em; }
-        .info-personal-bullets li strong { display: block; margin-bottom: 2px; color: #f0f0f0; }
-
-        /* Contacto con iconos circulares */
-        .contact-item { display: flex; align-items: center; margin-bottom: 15px; }
+        /* Contacto con círculos blancos */
+        .contact-row { display: flex; align-items: center; margin: 15px 0; }
         .icon-circle { 
-            width: 28px; height: 28px; 
-            background: white; border-radius: 50%; 
-            color: #a3867a; text-align: center; 
-            line-height: 28px; margin-right: 12px; 
-            flex-shrink: 0; font-size: 14px;
+            width: 32px; height: 32px; background: white; border-radius: 50%; 
+            color: #a3867a; display: flex; align-items: center; justify-content: center; 
+            margin-right: 12px; flex-shrink: 0; font-size: 16px;
         }
 
         /* Columna Derecha */
         .main-content { width: 65%; padding: 40px 30px; background: white; }
-        h1 { font-size: 2.5em; margin: 0; color: #222; border-bottom: 4px solid #a3867a; display: inline-block; }
-        .bio { margin-top: 25px; }
-        .bio h2 { color: #a3867a; font-size: 1.3em; margin-bottom: 5px; }
-        
-        .main-title { 
-            border-bottom: 2px solid #a3867a; 
-            color: #222; 
-            font-size: 1.2em; 
-            margin-top: 30px; 
-            padding-bottom: 5px; 
-            text-transform: uppercase; 
-        }
+        .header-box { background-color: #f8f1ee; padding: 25px; margin-bottom: 20px; }
+        h1 { font-size: 2.2em; margin: 0; color: #222; border-bottom: 4px solid #a3867a; display: inline-block; }
+        .perfil-sub { font-weight: bold; font-size: 1.3em; color: #333; margin-top: 15px; }
 
-        /* Timeline / Experiencia */
-        .timeline-item { 
-            border-left: 2px solid #a3867a; 
-            padding-left: 20px; 
-            margin-left: 10px; 
-            margin-bottom: 20px; 
-            position: relative; 
-        }
-        .timeline-item::before { 
-            content: ""; 
-            position: absolute; 
-            left: -7px; top: 0; 
-            width: 12px; height: 12px; 
-            background: #a3867a; 
-            border-radius: 50%; 
-        }
-        .puesto, .curso-nombre { font-weight: bold; font-size: 1.1em; color: #a3867a; margin: 0; }
-        .empresa, .lugar, .periodo { font-size: 0.9em; margin: 2px 0; color: #555; }
-        .funciones { font-size: 0.9em; margin-top: 8px; text-align: justify; }
+        /* Timeline y Secciones */
+        .main-title { border-bottom: 2px solid #a3867a; color: #222; font-size: 1.2em; margin-top: 30px; padding-bottom: 5px; text-transform: uppercase; }
+        .timeline-item { border-left: 2px solid #a3867a; padding-left: 20px; margin-left: 10px; margin-bottom: 20px; position: relative; }
+        .timeline-item::before { content: ""; position: absolute; left: -7px; top: 0; width: 12px; height: 12px; background: #a3867a; border-radius: 50%; }
+        
+        .puesto { font-weight: bold; font-size: 1.1em; color: #a3867a; margin: 0; }
+        .empresa-info { font-weight: bold; color: #555; margin: 2px 0; font-size: 0.95em; }
+        .periodo { font-size: 0.85em; color: #777; font-style: italic; }
 
         /* Productos */
-        .producto-fila, .producto-laboral-fila { 
-            display: flex; gap: 15px; margin-top: 20px; 
-            background: #fdfdfd; padding: 15px; border: 1px solid #eee; 
-            page-break-inside: avoid;
-        }
-        .producto-texto { flex: 2; }
-        .producto-imagen { flex: 1; text-align: right; }
-        .producto-imagen img { width: 100%; max-width: 150px; border-radius: 5px; }
-
-        /* Salto de página para certificados */
-        .page-break { page-break-before: always; }
+        .producto-card { display: flex; gap: 15px; background: #fdfdfd; padding: 15px; border: 1px solid #eee; margin-top: 15px; page-break-inside: avoid; }
+        .producto-img { width: 140px; height: auto; border-radius: 4px; }
     </style>
 </head>
 <body>
@@ -111,127 +62,129 @@
 <div class="cv-container">
     <aside class="sidebar">
         <div class="foto-container">
-            {% if perfil.foto_perfil %}
-                <img src="{{ perfil.foto_perfil.url }}" class="foto-perfil">
-            {% endif %}
+            {% if perfil.foto_perfil %}<img src="{{ perfil.foto_perfil.url }}" class="foto-perfil">{% endif %}
         </div>
 
-        {% if perfil %}
-        <section class="sidebar-section">
-            <h2 class="sidebar-title">Información Personal</h2>
-            <ul class="info-personal-bullets">
-                {% if perfil.nombres %}<li><strong>Nombres y Apellidos:</strong> {{ perfil.nombres }} {{ perfil.apellidos }}</li>{% endif %}
-                {% if perfil.nacionalidad %}<li><strong>Nacionalidad:</strong> {{ perfil.nacionalidad }}</li>{% endif %}
-                {% if perfil.fechanacimiento %}<li><strong>Nacimiento:</strong> {{ perfil.fechanacimiento }}</li>{% endif %}
-                {% if perfil.lugarnacimiento %}<li><strong>Lugar:</strong> {{ perfil.lugarnacimiento }}</li>{% endif %}
-                {% if perfil.get_sexo_display %}<li><strong>Sexo:</strong> {{ perfil.get_sexo_display }}</li>{% endif %}
-                {% if perfil.estadocivil %}<li><strong>Estado civil:</strong> {{ perfil.estadocivil }}</li>{% endif %}
-            </ul>
-        </section>
+        <div class="sidebar-header">Información Personal</div>
+        <ul class="info-list">
+            <li><strong>Nombres y Apellidos:</strong> {{ perfil.nombres }} {{ perfil.apellidos }}</li>
+            <li><strong>Nacionalidad:</strong> {{ perfil.nacionalidad }}</li>
+            <li><strong>Nacimiento:</strong> {{ perfil.fechanacimiento }}</li>
+            <li><strong>Lugar:</strong> {{ perfil.lugarnacimiento }}</li>
+            <li><strong>Sexo:</strong> {{ perfil.get_sexo_display }}</li>
+            <li><strong>Estado civil:</strong> {{ perfil.estadocivil }}</li>
+        </ul>
 
-        <section class="sidebar-section">
-            <h2 class="sidebar-title">Contacto</h2>
-            {% if perfil.telefonoconvencional or perfil.telefonofijo %}
-            <div class="contact-item">
-                <div class="icon-circle">📱</div>
-                <div class="contact-text">
-                    <strong>Teléfono:</strong>
-                    {% if perfil.telefonoconvencional %}Móvil: {{ perfil.telefonoconvencional }}{% endif %}
-                    {% if perfil.telefonofijo %}<br>Fijo: {{ perfil.telefonofijo }}{% endif %}
-                </div>
-            </div>
-            {% endif %}
+        <div class="sidebar-header">Contacto</div>
+        <div class="contact-row">
+            <div class="icon-circle">📱</div>
+            <div class="contact-text"><strong>Teléfono:</strong><br>Móvil: {{ perfil.telefonoconvencional }}<br>Fijo: {{ perfil.telefonofijo }}</div>
+        </div>
+        {% if perfil.sitioweb %}
+        <div class="contact-row">
+            <div class="icon-circle">🌐</div>
+            <div class="contact-text"><strong>Web:</strong><br>{{ perfil.sitioweb }}</div>
+        </div>
+        {% endif %}
+        <div class="contact-row">
+            <div class="icon-circle">🆔</div>
+            <div class="contact-text"><strong>Cédula:</strong><br>{{ perfil.numerocedula }}</div>
+        </div>
 
-            {% if perfil.sitioweb %}
-            <div class="contact-item">
-                <div class="icon-circle">🌐</div>
-                <div class="contact-text"><strong>Web:</strong><br>{{ perfil.sitioweb }}</div>
-            </div>
-            {% endif %}
+        <div class="sidebar-header">Dirección</div>
+        <div class="contact-row">
+            <div class="icon-circle">🏠</div>
+            <div class="contact-text"><strong>Domicilio:</strong><br>{{ perfil.direcciondomiciliaria }}</div>
+        </div>
+        {% if perfil.direcciontrabajo %}
+        <div class="contact-row">
+            <div class="icon-circle">🏢</div>
+            <div class="contact-text"><strong>Trabajo:</strong><br>{{ perfil.direcciontrabajo }}</div>
+        </div>
+        {% endif %}
 
-            {% if perfil.numerocedula %}
-            <div class="contact-item">
-                <div class="icon-circle">🆔</div>
-                <div class="contact-text"><strong>Cédula:</strong><br>{{ perfil.numerocedula }}</div>
-            </div>
-            {% endif %}
-        </section>
-
-        <section class="sidebar-section">
-            <h2 class="sidebar-title">Dirección</h2>
-            {% if perfil.direcciondomiciliaria %}
-            <div class="contact-item">
-                <div class="icon-circle">🏠</div>
-                <div class="contact-text"><strong>Domicilio:</strong><br>{{ perfil.direcciondomiciliaria }}</div>
-            </div>
-            {% endif %}
-        </section>
+        {% if perfil.licenciaconducir %}
+        <div class="sidebar-header">Licencias</div>
+        <div class="contact-row">
+            <div class="icon-circle">🚗</div>
+            <div class="contact-text"><strong>Licencia:</strong><br>{{ perfil.licenciaconducir }}</div>
+        </div>
         {% endif %}
     </aside>
 
     <main class="main-content">
-        {% if perfil %}
-        <header class="header-right">
+        <div class="header-box">
             <h1>{{ perfil.nombre_completo|upper }}</h1>
-            {% if perfil.descripcionperfil %}
-            <div class="bio">
-                <h2>Perfil Profesional</h2>
-                <p>{{ perfil.descripcionperfil }}</p>
-            </div>
-            {% endif %}
-        </header>
-        {% endif %}
+            <div class="perfil-sub">Perfil Profesional</div>
+            <p style="margin-top: 10px;">{{ perfil.descripcionperfil }}</p>
+        </div>
 
         {% if experiencias %}
-        <h2 class="main-title">EXPERIENCIA LABORAL</h2>
+        <h2 class="main-title">Experiencia Laboral</h2>
         {% for exp in experiencias %}
         <div class="timeline-item">
-            <h3 class="puesto">{{ exp.cargo_desempenado }}</h3>
-            <p class="empresa"><strong>{{ exp.nombre_empresa }}</strong></p>
-            <p class="periodo">{{ exp.fecha_inicio_gestion }} - {% if exp.fecha_fin_gestion %}{{ exp.fecha_fin_gestion }}{% else %}Actualidad{% endif %}</p>
-            {% if exp.descripcion_funciones %}<p class="funciones">{{ exp.descripcion_funciones }}</p>{% endif %}
+            <p class="puesto">{{ exp.cargo_desempenado }}</p>
+            <p class="empresa-info">{{ exp.nombre_empresa }} | {{ exp.lugar_empresa }}</p>
+            <p class="periodo">Periodo: {{ exp.fecha_inicio_gestion }} - {% if exp.fecha_fin_gestion %}{{ exp.fecha_fin_gestion }}{% else %}Actualidad{% endif %}</p>
+            {% if exp.descripcion_funciones %}<p style="font-size:0.9em; margin-top:5px;">{{ exp.descripcion_funciones }}</p>{% endif %}
         </div>
         {% endfor %}
         {% endif %}
 
         {% if cursos %}
-        <h2 class="main-title">CURSOS REALIZADOS</h2>
+        <h2 class="main-title">Cursos Realizados</h2>
         {% for curso in cursos %}
         <div class="timeline-item">
-            <h3 class="curso-nombre">{{ curso.nombrecurso }}</h3>
-            <p class="empresa">{{ curso.entidadpatrocinadora }} ({{ curso.totalhoras }}h)</p>
+            <p class="puesto">{{ curso.nombrecurso }}</p>
+            <p class="empresa-info">{{ curso.entidadpatrocinadora }} ({{ curso.totalhoras }}h)</p>
             <p class="periodo">{{ curso.fechainicio }} - {{ curso.fechafin }}</p>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {% if reconocimientos %}
+        <h2 class="main-title">Reconocimientos</h2>
+        {% for rec in reconocimientos %}
+        <div class="timeline-item">
+            <p class="puesto">{{ rec.tiporeconocimiento }}</p>
+            <p class="empresa-info">{{ rec.entidadpatrocinadora }}</p>
+            <p class="periodo">{{ rec.fechareconocimiento }}</p>
+            <p style="font-size:0.9em;">{{ rec.descripcionreconocimiento }}</p>
         </div>
         {% endfor %}
         {% endif %}
     </main>
 </div>
 
-{% if productos_academicos %}
 <div style="padding: 20px 40px;">
-    <h2 class="main-title">PRODUCTOS ACADÉMICOS</h2>
+    {% if productos_academicos %}
+    <h2 class="main-title">Productos Académicos</h2>
     {% for prod in productos_academicos %}
-    {% if prod.activar_para_front %}
-    <div class="producto-fila">
-        <div class="producto-texto">
-            <h3>{{ prod.nombrerecurso }}</h3>
-            <p><strong>Tipo:</strong> {{ prod.clasificador }}</p>
+    <div class="producto-card">
+        <div style="flex:2;">
+            <h3 style="margin:0; color:#a3867a;">{{ prod.nombrerecurso }}</h3>
+            <p style="font-size:0.85em; color:#666;"><strong>Tipo:</strong> {{ prod.clasificador }}</p>
             <p>{{ prod.descripcion }}</p>
         </div>
-        {% if prod.imagen %}
-        <div class="producto-imagen"><img src="{{ prod.imagen.url }}"></div>
-        {% endif %}
+        {% if prod.imagen %}<img src="{{ prod.imagen.url }}" class="producto-img">{% endif %}
     </div>
-    {% endif %}
     {% endfor %}
+    {% endif %}
+
+    {% if productos_laborales %}
+    <h2 class="main-title">Productos Laborales</h2>
+    {% for prod in productos_laborales %}
+    <div class="producto-card">
+        <div style="flex:2;">
+            <h3 style="margin:0; color:#a3867a;">{{ prod.nombreproducto }}</h3>
+            <p style="font-size:0.85em; color:#666;"><strong>Tipo:</strong> {{ prod.tipoproducto }} | <strong>Fecha:</strong> {{ prod.fecha_producto }}</p>
+            <p>{{ prod.descripcion }}</p>
+        </div>
+        {% if prod.imagen %}<img src="{{ prod.imagen.url }}" class="producto-img">{% endif %}
+    </div>
+    {% endfor %}
+    {% endif %}
 </div>
-{% endif %}
-
-<div class="page-break" style="text-align:center; padding-top: 100mm;">
-    <h1 style="font-size: 50px; border:none;">CERTIFICADOS</h1>
-</div>
-
-
 
 <!-- ===================== PORTADA CERTIFICADOS ===================== -->
 <div style="page-break-before: always; text-align:center; font-size:42px; font-weight:bold; margin-top:120mm;">
