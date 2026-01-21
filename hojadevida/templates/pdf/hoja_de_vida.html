@@ -4,15 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Hoja de Vida - {{ perfil.nombre_completo }}</title>
-    <link rel="stylesheet" href="{% static 'css/hoja_de_vida.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- BASE para que WeasyPrint resuelva imágenes y CSS -->
+    <base href="{{ css_url|cut:'css/hoja_de_vida.css' }}">
+
+    <!-- CSS PRINCIPAL (ruta absoluta enviada desde views.py) -->
+    <link rel="stylesheet" href="{{ css_url }}">
+
+    <!-- Fuente (WeasyPrint no descarga Google Fonts, se deja como fallback) -->
+    <style>
+        body {
+            font-family: 'Roboto', Arial, Helvetica, sans-serif;
+        }
+    </style>
 </head>
 <body>
 
 
 <!-- ===================== CV PRINCIPAL ===================== -->
 <div class="cv-container">
-
 
 
     <!-- ========== COLUMNA IZQUIERDA ========== -->
@@ -26,8 +36,6 @@
         </div>
 
         {% if perfil %}
-
-
 
         <!-- Información Personal -->
         <section class="sidebar-section">
@@ -63,106 +71,87 @@
                     <strong>Estado civil:</strong><br>{{ perfil.estadocivil }}
                 </li>
             {% endif %}
-        </ul>
-
+            </ul>
         </section>
-
-
-
 
         <!-- Contacto -->
         <section class="sidebar-section">
             <h2 class="sidebar-title">Contacto</h2>
             <ul class="info-personal">
                 {% if perfil.telefonoconvencional or perfil.telefonofijo %}
-                    <li class="contact-item">
-                        <div class="icon-circle">📱</div>
-                        <span>
-                            <strong>Teléfono:</strong><br>
-                            {% if perfil.telefonoconvencional %}
-                                Móvil: {{ perfil.telefonoconvencional }}<br>
-                            {% endif %}
-                            {% if perfil.telefonofijo %}
-                                Fijo: {{ perfil.telefonofijo }}
-                            {% endif %}
-                        </span>
-                    </li>
+                <li class="contact-item">
+                    <div class="icon-circle">📱</div>
+                    <span>
+                        <strong>Teléfono:</strong><br>
+                        {% if perfil.telefonoconvencional %}Móvil: {{ perfil.telefonoconvencional }}<br>{% endif %}
+                        {% if perfil.telefonofijo %}Fijo: {{ perfil.telefonofijo }}{% endif %}
+                    </span>
+                </li>
                 {% endif %}
-                
+
                 {% if perfil.sitioweb %}
-                    <li class="contact-item">
-                        <div class="icon-circle">🌐</div>
-                        <span><strong>Sitio web:</strong><br><a href="{{ perfil.sitioweb }}" target="_blank">{{ perfil.sitioweb }}</a></span>
-                    </li>
+                <li class="contact-item">
+                    <div class="icon-circle">🌐</div>
+                    <span><strong>Sitio web:</strong><br>{{ perfil.sitioweb }}</span>
+                </li>
                 {% endif %}
-                
+
                 {% if perfil.numerocedula %}
-                    <li class="contact-item">
-                        <div class="icon-circle">🪪</div>
-                        <span><strong>Cédula:</strong><br>{{ perfil.numerocedula }}</span>
-                    </li>
+                <li class="contact-item">
+                    <div class="icon-circle">🪪</div>
+                    <span><strong>Cédula:</strong><br>{{ perfil.numerocedula }}</span>
+                </li>
                 {% endif %}
-                
+
                 {% if perfil.email %}
-                    <li class="contact-item">
-                        <div class="icon-circle">✉️</div>
-                        <span><strong>Email:</strong><br><a href="mailto:{{ perfil.email }}">{{ perfil.email }}</a></span>
-                    </li>
+                <li class="contact-item">
+                    <div class="icon-circle">✉️</div>
+                    <span><strong>Email:</strong><br>{{ perfil.email }}</span>
+                </li>
                 {% endif %}
             </ul>
         </section>
-
-
-
 
         <!-- Dirección -->
         <section class="sidebar-section">
             <h2 class="sidebar-title">Dirección</h2>
             <ul class="info-personal">
                 {% if perfil.direcciondomiciliaria %}
-                    <li class="contact-item">
-                        <div class="icon-circle">🏠</div>
-                        <span><strong>Domicilio:</strong><br>{{ perfil.direcciondomiciliaria }}</span>
-                    </li>
+                <li class="contact-item">
+                    <div class="icon-circle">🏠</div>
+                    <span><strong>Domicilio:</strong><br>{{ perfil.direcciondomiciliaria }}</span>
+                </li>
                 {% endif %}
                 {% if perfil.direcciontrabajo %}
-                    <li class="contact-item">
-                        <div class="icon-circle">🏢</div>
-                        <span><strong>Trabajo:</strong><br>{{ perfil.direcciontrabajo }}</span>
-                    </li>
+                <li class="contact-item">
+                    <div class="icon-circle">🏢</div>
+                    <span><strong>Trabajo:</strong><br>{{ perfil.direcciontrabajo }}</span>
+                </li>
                 {% endif %}
             </ul>
         </section>
 
-
-
-        <!-- Licencias y Permisos -->
+        <!-- Licencias -->
         <section class="sidebar-section">
             <h2 class="sidebar-title">Licencias y Permisos</h2>
             <ul class="info-personal">
                 {% if perfil.licenciaconducir %}
-                    <li class="contact-item">
-                        <div class="icon-circle">🚗</div>
-                        <span><strong>Licencia de conducir:</strong><br>{{ perfil.licenciaconducir }}</span>
-                    </li>
+                <li class="contact-item">
+                    <div class="icon-circle">🚗</div>
+                    <span><strong>Licencia:</strong><br>{{ perfil.licenciaconducir }}</span>
+                </li>
                 {% endif %}
             </ul>
         </section>
-
 
         {% endif %}
     </aside>
 
 
-
-
     <!-- ========== COLUMNA DERECHA ========== -->
     <main class="main-content">
+
         {% if perfil %}
-
-
-
-        <!-- NOMBRE Y DESCRIPCIÓN -->
         <header class="header-right">
             <h1>{{ perfil.nombre_completo|upper }}</h1>
             {% if perfil.descripcionperfil %}
@@ -174,220 +163,40 @@
         </header>
         {% endif %}
 
+        {{ block.super }}
 
-
-        <!-- EXPERIENCIA LABORAL -->
-        {% if experiencias %}
-        <section class="section-main">
-            <h2 class="main-title">EXPERIENCIA LABORAL</h2>
-            <div class="timeline">
-                {% for exp in experiencias %}
-                <div class="timeline-item">
-                    <h3 class="puesto">{{ exp.cargo_desempenado }}</h3>
-                    {% if exp.nombre_empresa %}
-                    <p class="empresa"><strong>Empresa/Institución:</strong> {{ exp.nombre_empresa }}</p>
-                    {% endif %}
-                    {% if exp.lugar_empresa %}
-                    <p class="lugar"><strong>Lugar:</strong> {{ exp.lugar_empresa }}</p>
-                    {% endif %}
-                    <p class="periodo">
-                        <strong>Periodo:</strong> {{ exp.fecha_inicio_gestion }} - {% if exp.fecha_fin_gestion %}{{ exp.fecha_fin_gestion }}{% else %}Actualidad{% endif %}
-                    </p>
-                    {% if exp.descripcion_funciones %}
-                    <p class="funciones"><strong>Funciones y responsabilidades:</strong> {{ exp.descripcion_funciones }}</p>
-                    {% endif %}
-                </div>
-                {% endfor %}
-            </div>
-        </section>
-        {% endif %}
-
-
-        
-        <!-- CURSOS REALIZADOS -->
-        {% if cursos %}
-        <section class="section-main">
-            <h2 class="main-title">CURSOS REALIZADOS</h2>
-            <div class="timeline">
-                {% for curso in cursos %}
-                <div class="timeline-item">
-                    <h3 class="curso-nombre">{{ curso.nombrecurso }}</h3>
-                    <p class="curso-fechas">
-                        <strong>Periodo:</strong> {{ curso.fechainicio }} - {% if curso.fechafin %}{{ curso.fechafin }}{% else %}Actualidad{% endif %}
-                    </p>
-                    {% if curso.totalhoras %}
-                    <p class="curso-horas"><strong>Total de horas:</strong> {{ curso.totalhoras }}</p>
-                    {% endif %}
-                    {% if curso.entidadpatrocinadora %}
-                    <p class="curso-entidad"><strong>Entidad impartidora:</strong> {{ curso.entidadpatrocinadora }}</p>
-                    {% endif %}
-                    {% if curso.descripcioncurso %}
-                    <p class="curso-descripcion"><strong>Descripción:</strong> {{ curso.descripcioncurso }}</p>
-                    {% endif %}
-                </div>
-                {% endfor %}
-            </div>
-        </section>
-        {% endif %}
-
-
-
-
-        <!-- ===================== RECONOCIMIENTOS ===================== -->
-        <section class="section-main">
-            <h2 class="main-title">RECONOCIMIENTOS</h2>
-            <div class="timeline">
-                {% for rec in reconocimientos %}
-                <div class="timeline-item">
-                    {% if rec.tiporeconocimiento %}
-                    <h4 class="reconocimiento-tipo">{{ rec.tiporeconocimiento }}</h4>
-                    {% endif %}
-                    {% if rec.descripcionreconocimiento %}
-                    <p class="reconocimiento-descripcion">{{ rec.descripcionreconocimiento }}</p>
-                    {% endif %}
-                    {% if rec.fechareconocimiento %}
-                    <p class="reconocimiento-fecha"><strong>Fecha:</strong> {{ rec.fechareconocimiento }}</p>
-                    {% endif %}
-                    {% if rec.entidadpatrocinadora %}
-                    <p class="reconocimiento-entidad"><strong>Entidad:</strong> {{ rec.entidadpatrocinadora }}</p>
-                    {% endif %}
-                </div>
-                {% endfor %}
-            </div>
-        </section>
-
-
-
-
-
-
-
-<!-- ===================== SEPARADOR COMPLETO ===================== -->
-<div class="separador-completa"></div>
+    </main>
 </div>
-<!-- ===================== PRODUCTOS ACADÉMICOS ===================== -->
-<!-- ===================== PRODUCTOS ACADÉMICOS ===================== -->
-{% if productos_academicos %}
-<section class="productos-academicos">
-
-    <h2 class="main-title">PRODUCTOS ACADÉMICOS</h2>
-
-    {% for prod in productos_academicos %}
-    {% if prod.activar_para_front %}
-    <div class="producto-fila">
-
-        <!-- TEXTO -->
-        <div class="producto-texto">
-            <h3>{{ prod.nombrerecurso }}</h3>
-
-            {% if prod.clasificador %}
-            <p><strong>Tipo:</strong> {{ prod.clasificador }}</p>
-            {% endif %}
-
-            {% if prod.descripcion %}
-            <p>{{ prod.descripcion }}</p>
-            {% endif %}
-        </div>
-
-        <!-- IMAGEN -->
-        {% if prod.imagen %}
-        <div class="producto-imagen">
-            <img src="{{ prod.imagen.url }}" alt="{{ prod.nombrerecurso }}">
-        </div>
-        {% endif %}
-
-    </div>
-    {% endif %}
-    {% endfor %}
-
-</section>
-{% endif %}
 
 
-
-
-
-<!-- ===================== SEPARADOR COMPLETO ===================== -->
-<div class="separador-completa"></div>
-
-<!-- ===================== PRODUCTOS LABORALES ===================== -->
-{% if productos_laborales %}
-<section class="productos-laborales">
-
-    <h2 class="main-title">PRODUCTOS LABORALES</h2>
-
-    {% for prod in productos_laborales %}
-    {% if prod.activar_para_front %}
-    <div class="producto-laboral-fila">
-
-        <!-- TEXTO -->
-        <div class="producto-laboral-texto">
-            <h3>{{ prod.nombreproducto }}</h3>
-
-            {% if prod.tipoproducto %}
-            <p><strong>Tipo:</strong> {{ prod.tipoproducto }}</p>
-            {% endif %}
-
-            {% if prod.fecha_producto %}
-            <p><strong>Fecha:</strong> {{ prod.fecha_producto }}</p>
-            {% endif %}
-
-            {% if prod.descripcion %}
-            <p>{{ prod.descripcion }}</p>
-            {% endif %}
-        </div>
-
-        <!-- IMAGEN -->
-        {% if prod.imagen %}
-        <div class="producto-laboral-imagen">
-            <img src="{{ prod.imagen.url }}" alt="{{ prod.nombreproducto }}">
-        </div>
-        {% endif %}
-
-    </div>
-    {% endif %}
-    {% endfor %}
-
-</section>
-{% endif %}
-
-
-
-
-
-<!-- ===================== PORTADA CERTIFICADOS ===================== -->
+<!-- ===================== CERTIFICADOS ===================== -->
 <div style="page-break-before: always; text-align:center; font-size:42px; font-weight:bold; margin-top:120mm;">
     CERTIFICADOS
 </div>
 
-
-
-<!-- ===================== CERTIFICADOS ===================== -->
 {% for exp in certificados_experiencias %}
-    {% if exp.imagen_certificado %}
-    <div style="page-break-before: always; padding:15mm;">
-        <img src="{{ exp.imagen_certificado.url }}" style="width:100%;height:100%;object-fit:contain;">
-    </div>
-    {% endif %}
+{% if exp.imagen_certificado %}
+<div style="page-break-before: always; padding:15mm;">
+    <img src="{{ exp.imagen_certificado.url }}" style="width:100%;height:100%;object-fit:contain;">
+</div>
+{% endif %}
 {% endfor %}
 
 {% for rec in certificados_reconocimientos %}
-    {% if rec.imagen_certificado %}
-    <div style="page-break-before: always; padding:15mm;">
-        <img src="{{ rec.imagen_certificado.url }}" style="width:100%;height:100%;object-fit:contain;">
-    </div>
-    {% endif %}
+{% if rec.imagen_certificado %}
+<div style="page-break-before: always; padding:15mm;">
+    <img src="{{ rec.imagen_certificado.url }}" style="width:100%;height:100%;object-fit:contain;">
+</div>
+{% endif %}
 {% endfor %}
 
 {% for curso in certificados_cursos %}
-    {% if curso.imagen_certificado %}
-    <div style="page-break-before: always; padding:15mm;">
-        <img src="{{ curso.imagen_certificado.url }}" style="width:100%;height:100%;object-fit:contain;">
-    </div>
-    {% endif %}
+{% if curso.imagen_certificado %}
+<div style="page-break-before: always; padding:15mm;">
+    <img src="{{ curso.imagen_certificado.url }}" style="width:100%;height:100%;object-fit:contain;">
+</div>
+{% endif %}
 {% endfor %}
-
-
 
 </body>
 </html>

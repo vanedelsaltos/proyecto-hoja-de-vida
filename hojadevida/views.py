@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template.loader import render_to_string
-from weasyprint import HTML
+from weasyprint import HTML, CSS
 from django.conf import settings
 import os
 
@@ -413,19 +413,6 @@ def publico(request):
     })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # -------------------------------------------------
 # IMPRIMIR HOJA DE VIDA (PDF)
 # -------------------------------------------------
@@ -453,17 +440,20 @@ def imprimir_hoja_de_vida(request):
     certificados_reconocimientos = reconocimientos.filter(imagen_certificado__isnull=False).exclude(imagen_certificado='')
     certificados_cursos = cursos.filter(imagen_certificado__isnull=False).exclude(imagen_certificado='')
 
+    css_path = os.path.join(settings.STATIC_ROOT, 'css/hoja_vida.css')
+
     html_string = render_to_string("pdf/hoja_de_vida.html", {
         "perfil": perfil,
         "experiencias": experiencias,
         "cursos": cursos,
         "reconocimientos": reconocimientos,
-        "productos_academicos": productos_academicos,  # se muestra solo texto
-        "productos_laborales": productos_laborales,    # se muestra solo texto
+        "productos_academicos": productos_academicos,
+        "productos_laborales": productos_laborales,
         # CERTIFICADOS
         "certificados_experiencias": certificados_experiencias,
         "certificados_reconocimientos": certificados_reconocimientos,
         "certificados_cursos": certificados_cursos,
+        "css_url": request.build_absolute_uri(settings.STATIC_URL + 'css/hoja_vida.css'),
     })
 
     response = HttpResponse(content_type="application/pdf")
@@ -472,9 +462,9 @@ def imprimir_hoja_de_vida(request):
     HTML(
         string=html_string,
         base_url=request.build_absolute_uri('/')
-    ).write_pdf(response)
+    ).write_pdf(
+        response,
+        stylesheets=[CSS(css_path)]
+    )
 
     return response
-
-    
-

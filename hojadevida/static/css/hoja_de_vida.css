@@ -8,9 +8,7 @@
 /* ===================== BODY ===================== */
 body {
     font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
+    background-color: white; /* PDF seguro */
 }
 
 /* ===================== CONTENEDOR PRINCIPAL ===================== */
@@ -19,7 +17,6 @@ body {
     width: 210mm;
     background-color: white;
 }
-
 
 /* ===================== COLUMNA IZQUIERDA ===================== */
 .sidebar {
@@ -47,6 +44,7 @@ body {
     letter-spacing: 1.5px;
 }
 
+/* ===================== LISTAS ===================== */
 .info-personal-bullets {
     list-style: disc;
     padding-left: 25px;
@@ -54,58 +52,42 @@ body {
 }
 
 .info-personal-bullets li {
-    display: list-item;
     margin-bottom: 8px;
     font-size: 0.9rem;
 }
 
 .info-personal-bullets li::marker {
-    font-size: 2em;
+    font-size: 1.2em;
     color: #f5e6e3;
-    font-weight: bold;
 }
 
 .info-personal {
     list-style: none;
-    padding: 0;
-    margin: 0;
 }
 
+/* ===================== CONTACTO ===================== */
 .contact-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 10px;
 }
 
 .icon-circle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background-color: #ffffff;
+    background-color: white;
     color: #D2691E;
-    font-size: 18px;
-    flex-shrink: 0;
+    text-align: center;
+    line-height: 36px;
     margin-right: 10px;
 }
 
-.contact-item span {
-    display: block;
-    margin-top: 5px;
+.contact-item span,
+.contact-item a {
     font-size: 0.9rem;
-    font-family: 'Roboto', sans-serif;
-    line-height: 1.6;
-    color: #ffffff;
-}
-
-.sidebar-section ul.info-personal li span a {
-    color: #ffffff;
+    color: white;
     text-decoration: none;
-    font-size: 0.9rem;
-    font-family: 'Roboto', sans-serif;
-    line-height: 1.6;
 }
 
 /* ===================== COLUMNA DERECHA ===================== */
@@ -116,42 +98,36 @@ body {
 .header-right {
     background-color: #f5e6e3;
     padding: 50px 40px;
-    margin-bottom: 20px;
 }
 
 .header-right h1 {
     font-size: 2.5rem;
     color: #333;
-    font-weight: 700;
 }
 
+/* ===================== SECCIONES ===================== */
 .section-main {
-    padding: 0 40px 10px 40px;  /* menos espacio entre secciones */
+    padding: 0 40px 10px 40px;
     page-break-inside: auto;
 }
 
 .main-title {
     font-size: 1.1rem;
     border-bottom: 2px solid #f5e6e3;
+    margin: 10px 0;
     padding-bottom: 5px;
-    margin: 10px 0;  /* reducido para acercar secciones */
-    color: #444;
     page-break-after: avoid;
 }
-
-
-
-
-
 
 /* ===================== TIMELINE ===================== */
 .timeline-item {
     border-left: 2px solid #b38b82;
     margin-left: 10px;
     padding-left: 20px;
-    position: relative;
     padding-bottom: 15px;
+    position: relative;
 
+    page-break-inside: avoid; /* CLAVE PDF */
 }
 
 .timeline-item::before {
@@ -165,185 +141,52 @@ body {
     border-radius: 50%;
 }
 
-
-/* ===================== ITEMS QUE PUEDEN SALTAR DE PÁGINA ===================== */
-.timeline-item {
-    page-break-inside: avoid; /* evita cortar item */
-    margin-top: 5mm;           /* margen arriba normal */
-}
-
-
-
-
-/* Cargo ocupado → destacado */
-.timeline-item .puesto {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #5a4a4a;
-    margin-bottom: 3px;
-}
-
-/* Empresa, lugar, periodo y funciones → secundarios */
-.timeline-item .empresa,
-.timeline-item .lugar,
-.timeline-item .periodo,
-.timeline-item .funciones {
-    font-size: 0.85rem;
-    color: #777;
-    margin: 2px 0;
-    line-height: 1.4;
-}
-
-/* Cursos → Nombre destacado */
-.timeline-item .curso-nombre {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #5a4a4a;
-    margin-bottom: 3px;
-}
-
-.timeline-item .curso-fechas,
-.timeline-item .curso-horas,
-.timeline-item .curso-entidad,
-.timeline-item .curso-descripcion {
-    font-size: 0.85rem;
-    color: #777;
-    margin: 2px 0;
-    line-height: 1.4;
-}
-
-/* Reconocimientos */
-.timeline-item .reconocimiento-tipo {
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: #5a4a4a;
-    margin-bottom: 3px;
-}
-
-.timeline-item .reconocimiento-descripcion {
-    font-size: 0.95rem;
-    color: #333;
-    margin: 2px 0;
-    line-height: 1.4;
-}
-
-.timeline-item .reconocimiento-fecha,
-.timeline-item .reconocimiento-entidad {
-    font-size: 0.85rem;
-    color: #777;
-    margin: 2px 0;
-    line-height: 1.4;
-}
-
-/* Productos académicos */
+/* ===================== TEXTO TIMELINE ===================== */
+.timeline-item .puesto,
+.timeline-item .curso-nombre,
 .timeline-item .producto-nombre {
-    font-size: 1rem;
     font-weight: bold;
     color: #5a4a4a;
-    margin-bottom: 3px;
 }
 
-.timeline-item .producto-tipo,
-.timeline-item .producto-descripcion,
-.timeline-item .producto-certificado {
+.timeline-item p {
     font-size: 0.85rem;
     color: #777;
-    margin: 2px 0;
     line-height: 1.4;
 }
 
-.timeline-item .producto-imagen {
-    margin: 5px 0 10px 0;
-    text-align: center;
-}
-
-
-
-/* ===================== TIMELINE ITEMS QUE PUEDEN SALTAR DE PÁGINA ===================== */
-.timeline-item {
-    page-break-inside: auto;  /* evita que un item se corte en medio */
-    margin-top: 4mm;           /* pequeño espacio arriba si empieza nueva hoja */
-    padding-top: 2mm;          /* espacio extra al pasar a la siguiente página */
-}
-
-
-
-
-
-/* ===================== SEPARADOR COMPLETO ===================== */
+/* ===================== SEPARADOR ===================== */
 .separador-completa {
-    display: block;
-    width: 210mm;                /* ancho completo de la hoja A4 */
-    height: 2px;                 /* grosor de la línea */
-    background-color: #b38b82;   /* color de la línea */
-    margin-top: 20px;      /* deja espacio arriba si quieres */
-    margin-bottom: 5px;    /* mucho menos espacio debajo */
-    page-break-inside: avoid;    /* no cortar la línea */
+    width: 210mm;
+    height: 2px;
+    background-color: #b38b82;
+    margin: 15px 0;
+    page-break-inside: avoid;
 }
 
-
-
-
-
-/* ===================== CV SECUNDARIO ===================== */
+/* ===================== CV SOLO DERECHA ===================== */
 .cv-container-solo-derecha {
-    display: block;
     width: 100%;
     background-color: white;
-    padding: 5mm 10mm 10mm 10mm; /* margen superior e inferior */
-}
-body {
-    background-color: white;
+    padding: 5mm 10mm;
 }
 
-
-.main-content-solo {
-    width: 100%;
-}
-
-/* =====================  PRODUCTOS ACADÉMICOS ===================== */
 /* ===================== PRODUCTOS ACADÉMICOS ===================== */
-
-
 .productos-academicos {
     width: 100%;
-    padding-left: 15mm;
-    padding-right: 15mm;
-    margin-top: 6mm;
-
+    padding: 0 15mm;
     background-color: white;
-
-
-
-    page-break-before: avoid;
-
-    page-break-inside: auto;   /* CLAVE */
 }
-
-
-.productos-academicos .main-title {
-    page-break-after: avoid;
-}
-
-
-
-
-
-/* Cada producto es una fila independiente */
 
 .producto-fila {
     display: flex;
     gap: 10mm;
     margin-bottom: 10mm;
-    align-items: center;
-
-    position: relative;
     padding-left: 8mm;
+    position: relative;
 
     page-break-inside: avoid;
-    break-inside: avoid;
 }
-
 
 .producto-fila::before {
     content: "";
@@ -353,9 +196,7 @@ body {
     bottom: 0;
     width: 2px;
     background-color: #b38b82;
-    opacity: 0.5;
 }
-
 
 .producto-fila::after {
     content: "";
@@ -368,99 +209,41 @@ body {
     border-radius: 50%;
 }
 
-
-
-
-/* Texto a la izquierda */
+/* TEXTO */
 .producto-texto {
-    flex: 3;   /* 60% aprox */
+    flex: 3;
+    word-break: break-word;
 }
 
+/* IMAGEN */
 .producto-imagen {
-    flex: 2;   /* 40% aprox */
+    flex: 2;
     text-align: center;
 }
 
-
 .producto-imagen img {
     width: 100%;
-    height: auto;
-    display: block;
-}
-
-
-
-
-/* ----------Para la parte de productos académicos - la letra  ----------  */
-/* Título principal */
-.productos-academicos .main-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-bottom: 5mm;
-    color: #222;
-}
-
-/* Nombre del producto */
-.producto-texto h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 2mm;
-    color: #222;
-}
-
-/* Texto normal */
-.producto-texto p {
-    font-size: 0.95rem;
-    line-height: 1.45;
-    margin-bottom: 2mm;
-    color: #444;
-}
-.producto-texto {
-    word-break: break-word;
-    overflow-wrap: anywhere;
-}
-
-.producto-fila:not(:has(.producto-imagen)) .producto-texto {
-    flex: 1 1 100%;
-}
-
-.producto-imagen img {
     max-height: 90mm;
     object-fit: contain;
 }
 
-
-
 /* ===================== PRODUCTOS LABORALES ===================== */
-
 .productos-laborales {
     width: 100%;
-    padding-left: 15mm;
-    padding-right: 15mm;
-    margin-top: 6mm;
+    padding: 0 15mm;
     background-color: white;
-    page-break-inside: auto;
 }
 
-.productos-laborales .main-title {
-    page-break-after: avoid;
-}
-
-/* Cada producto */
 .producto-laboral-fila {
     display: flex;
     gap: 10mm;
     margin-bottom: 10mm;
-    align-items: center;
-    position: relative;
     padding-left: 8mm;
+    position: relative;
 
     page-break-inside: avoid;
-    break-inside: avoid;
 }
 
-/* Línea vertical */
 .producto-laboral-fila::before {
     content: "";
     position: absolute;
@@ -469,10 +252,8 @@ body {
     bottom: 0;
     width: 2px;
     background-color: #b38b82;
-    opacity: 0.5;
 }
 
-/* Punto */
 .producto-laboral-fila::after {
     content: "";
     position: absolute;
@@ -483,42 +264,6 @@ body {
     background-color: #b38b82;
     border-radius: 50%;
 }
-
-/* Texto */
-.producto-laboral-texto {
-    flex: 3;
-}
-
-.producto-laboral-texto h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 2mm;
-    color: #222;
-}
-
-.producto-laboral-texto p {
-    font-size: 0.95rem;
-    line-height: 1.45;
-    margin-bottom: 2mm;
-    color: #444;
-}
-
-/* Imagen */
-.producto-laboral-imagen {
-    flex: 2;
-    text-align: center;
-}
-
-.producto-laboral-imagen img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-
-
-
-
 
 /* ===================== CONFIGURACIÓN PDF ===================== */
 @page {
