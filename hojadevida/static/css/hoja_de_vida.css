@@ -12,11 +12,19 @@ body {
 }
 
 /* ===================== CONTENEDOR PRINCIPAL ===================== */
+
 .cv-container {
-    display: flex;
-    width: 210mm;
-    background-color: white;
+    display: table;
+    width: 100%;
 }
+
+.sidebar,
+.main-content {
+    display: table-cell;
+    vertical-align: top;
+}
+
+
 
 /* ===================== COLUMNA IZQUIERDA ===================== */
 .sidebar {
