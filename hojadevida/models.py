@@ -397,6 +397,13 @@ class Reconocimientos(models.Model):
         verbose_name_plural = "Reconocimientos"
         ordering = ['-fechareconocimiento']
 
+    def clean(self):
+        super().clean()
+        if self.fechareconocimiento > timezone.now().date():
+            raise ValidationError({
+                'fechareconocimiento': "La fecha del reconocimiento no puede ser futura."
+            })
+
     def __str__(self):
         return f"{self.tiporeconocimiento} - {self.fechareconocimiento}"
 
