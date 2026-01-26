@@ -126,7 +126,11 @@ def eliminar_perfil(request, perfil_id):
 @login_required
 def experiencia(request):
     perfil = obtener_perfil_activo()
+    # Mostrar todas las experiencias del perfil, sin importar activar_para_front
     experiencias = ExperienciaLaboral.objects.filter(idperfilconqueestaactivo=perfil)
+    # Si quieres que solo un usuario administrador vea todos los perfiles, puedes hacer algo como:
+    # if request.user.is_superuser:
+    #     experiencias = ExperienciaLaboral.objects.all()
     return render(request, 'experiencia/experiencia_lista.html', {'perfil': perfil, 'experiencias': experiencias})
 
 
