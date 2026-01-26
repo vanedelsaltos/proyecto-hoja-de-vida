@@ -448,7 +448,7 @@ def imprimir_hoja_de_vida(request):
     reconocimientos = Reconocimientos.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
     productos_academicos = ProductosAcademicos.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
     productos_laborales = ProductosLaborales.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
-    # ventas = VentaGarage.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True) # No las queremos
+    ventas = VentaGarage.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True) 
 
     # -------------------------
     # Filtrar solo certificados que tengan imagen

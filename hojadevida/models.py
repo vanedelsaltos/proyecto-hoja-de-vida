@@ -5,6 +5,7 @@ from cloudinary.models import CloudinaryField
 from django.core.exceptions import ValidationError
 from datetime import date
 
+from django.utils import timezone
 
 # ------------------------------------------------------------------------------------------------------------------------------------
 #TABLA DE DATOS PERSONALES 
