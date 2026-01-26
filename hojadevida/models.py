@@ -2,7 +2,8 @@ from django.db import models
 from django.core.validators import MinValueValidator
 from cloudinary.models import CloudinaryField
 
-
+from django.core.exceptions import ValidationError
+from datetime import date
 
 
 # ------------------------------------------------------------------------------------------------------------------------------------
@@ -28,8 +29,8 @@ class DatosPersonales(models.Model):
 
     #ESTO ES LO NUEVO
     es_activo = models.BooleanField(
-    default=False,
-    verbose_name="Perfil activo"
+        default=False,
+        verbose_name="Perfil activo"
     )
 
 
@@ -56,13 +57,10 @@ class DatosPersonales(models.Model):
         null=True
     )
 
-
-
     nacionalidad = models.CharField(
         max_length=50,
         verbose_name="Nacionalidad"
     )
-
 
     lugarnacimiento = models.CharField(
         max_length=60,
@@ -144,10 +142,32 @@ class DatosPersonales(models.Model):
 
     def __str__(self):
         return f"{self.nombre_completo()} ({self.get_perfilactivo_display()})"
-    
+
+    # -----------------------------------------------------------------
+    # Validaciones personalizadas
+    def clean(self):
+        # Validar fecha de nacimiento
+        if self.fechanacimiento:
+            if self.fechanacimiento > date.today():
+                raise ValidationError({'fechanacimiento': "La fecha de nacimiento no puede ser futura"})
+
+        # Validar cédula: solo números y 10 dígitos
+        if self.numerocedula:
+            if not self.numerocedula.isdigit():
+                raise ValidationError({'numerocedula': "La cédula debe contener solo números"})
+            if len(self.numerocedula) != 10:
+                raise ValidationError({'numerocedula': "La cédula debe tener 10 dígitos"})
+
+        # Validar teléfonos: solo números si se ingresan
+        for field in ['telefonoconvencional', 'telefonofijo']:
+            numero = getattr(self, field)
+            if numero and not numero.isdigit():
+                raise ValidationError({field: "El teléfono debe contener solo números"})
+
 
     #ESTO LO QUE HACE ES FORZAR UN SOLO PERFIL ACTIVO
     def save(self, *args, **kwargs):
+        self.full_clean()  # Esto asegura que se apliquen las validaciones antes de guardar
         if self.es_activo:
             DatosPersonales.objects.exclude(pk=self.pk).update(es_activo=False)
         super().save(*args, **kwargs)
