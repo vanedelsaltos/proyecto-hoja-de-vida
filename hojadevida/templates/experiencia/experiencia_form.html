@@ -14,6 +14,12 @@
     <form method="post" enctype="multipart/form-data" class="premium-form">
         {% csrf_token %}
 
+        {% if form.non_field_errors %}
+            <div style="color: red; margin-bottom: 10px;">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             
             <div class="form-column">
@@ -52,16 +58,31 @@
                 <p>
                     <label>Teléfono del contacto</label>
                     {{ form.telefono_contacto_empresarial }}
+                    {% if form.telefono_contacto_empresarial.errors %}
+                        <span style="color: red; font-size: 0.8rem;">
+                            {{ form.telefono_contacto_empresarial.errors|striptags }}
+                        </span>
+                    {% endif %}
                 </p>
 
                 <p>
                     <label>Fecha de inicio</label>
                     {{ form.fecha_inicio_gestion }}
+                    {% if form.fecha_inicio_gestion.errors %}
+                        <span style="color: red; font-size: 0.8rem;">
+                            {{ form.fecha_inicio_gestion.errors|striptags }}
+                        </span>
+                    {% endif %}
                 </p>
 
                 <p>
                     <label>Fecha de finalización</label>
                     {{ form.fecha_fin_gestion }}
+                    {% if form.fecha_fin_gestion.errors %}
+                        <span style="color: red; font-size: 0.8rem;">
+                            {{ form.fecha_fin_gestion.errors|striptags }}
+                        </span>
+                    {% endif %}
                 </p>
             </div>
         </div>
