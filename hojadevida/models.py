@@ -279,6 +279,8 @@ class ExperienciaLaboral(models.Model):
 
     # -----------------------------------------------------------------
     # Validaciones personalizadas
+    # -----------------------------------------------------------------
+    
     def clean(self):
         # Validar que las fechas no sean futuras
         today = date.today()
@@ -291,10 +293,13 @@ class ExperienciaLaboral(models.Model):
         if self.fecha_fin_gestion and self.fecha_fin_gestion < self.fecha_inicio_gestion:
             raise ValidationError({'fecha_fin_gestion': "La fecha de finalización no puede ser anterior a la fecha de inicio"})
 
-        # Validar que teléfono solo tenga números
-        if self.telefono_contacto_empresarial and not self.telefono_contacto_empresarial.isdigit():
-            raise ValidationError({'telefono_contacto_empresarial': "El teléfono debe contener solo números"})
-
+        # Validar que teléfono solo tenga números y máximo 10 dígitos
+        if self.telefono_contacto_empresarial:
+            if not self.telefono_contacto_empresarial.isdigit():
+                raise ValidationError({'telefono_contacto_empresarial': "El teléfono debe contener solo números"})
+            if len(self.telefono_contacto_empresarial) > 10:
+                raise ValidationError({'telefono_contacto_empresarial': "El teléfono no puede tener más de 10 números"})
+                
     def save(self, *args, **kwargs):
         self.full_clean()  # Esto aplica las validaciones antes de guardar
         super().save(*args, **kwargs)
