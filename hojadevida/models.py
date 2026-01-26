@@ -513,6 +513,22 @@ class CursosRealizados(models.Model):
         verbose_name = "Curso realizado"
         verbose_name_plural = "Cursos realizados"
         ordering = ['-fechainicio']
+    
+
+    # ================= VALIDACIÓN DE FECHAS =================
+    def clean(self):
+        super().clean()
+        hoy = timezone.now().date()
+        
+        if self.fechainicio and self.fechainicio > hoy:
+            raise ValidationError({'fechainicio': "La fecha de inicio no puede ser futura."})
+        
+        if self.fechafin and self.fechafin > hoy:
+            raise ValidationError({'fechafin': "La fecha de finalización no puede ser futura."})
+        
+        if self.fechainicio and self.fechafin and self.fechafin < self.fechainicio:
+            raise ValidationError({'fechafin': "La fecha de finalización no puede ser anterior a la fecha de inicio."})
+
 
     def __str__(self):
         return self.nombrecurso

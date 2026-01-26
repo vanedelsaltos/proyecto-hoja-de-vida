@@ -464,6 +464,7 @@ def imprimir_hoja_de_vida(request):
         "reconocimientos": reconocimientos,
         "productos_academicos": productos_academicos,  # se muestra solo texto
         "productos_laborales": productos_laborales,    # se muestra solo texto
+        "venta_garage": ventas,
         # CERTIFICADOS
         "certificados_experiencias": certificados_experiencias,
         "certificados_reconocimientos": certificados_reconocimientos,

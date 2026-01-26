@@ -473,11 +473,16 @@
     transform: translateY(-3px);
 }
 
+
 .curso-title {
     font-size: 1.5rem;
     font-weight: 700;
     color: #333;
     margin: 0;
+
+    word-wrap: break-word;      /* Rompe palabras largas si es necesario */
+    word-break: break-word;     /* Asegura quiebre de palabra */
+    overflow-wrap: break-word;  /* Compatibilidad adicional */
 }
 
 .curso-period {
@@ -526,10 +531,15 @@
     height: fit-content;
 }
 
+
 .descripcion-content {
     color: #666;
     line-height: 1.6;
     font-size: 1rem;
+
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 /* Responsivo */
