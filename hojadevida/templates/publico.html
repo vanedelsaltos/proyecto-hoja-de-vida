@@ -29,6 +29,9 @@
     </div>
 </div>
 
+<!-- =======================
+     DATOS PERSONALES
+======================= -->
 <div id="datos" class="tab-content">
     <div class="resume-grid">
         
@@ -52,9 +55,20 @@
                 {% if perfil.telefonoconvencional or perfil.telefonofijo %}
                 <div class="contact-item">
                     <span class="icon">📱</span>
-                    <p><strong>Teléfono</strong><br>{{ perfil.telefonoconvencional|default:perfil.telefonofijo }}</p>
+                    <p><strong>Teléfono</strong><br>
+                        {% if perfil.telefonoconvencional %}
+                            {{ perfil.telefonoconvencional }}
+                        {% endif %}
+                        {% if perfil.telefonoconvencional and perfil.telefonofijo %}
+                            <br>
+                        {% endif %}
+                        {% if perfil.telefonofijo %}
+                            {{ perfil.telefonofijo }}
+                        {% endif %}
+                    </p>
                 </div>
                 {% endif %}
+
 
                 {% if perfil.sitioweb %}
                 <div class="contact-item">
