@@ -21,69 +21,67 @@
 
     {% if experiencias %}
     <div class="experience-stack" style="display: flex; flex-direction: column; gap: 25px;">
-        {% if exp.activar_para_front %}
-        
-        <div class="info-card" style="border-left: 5px solid var(--accent-soft); margin-bottom: 0;">
-            
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 15px;">
-                <div style="flex: 1; min-width: 250px;">
-                    <h3 style="margin: 0; font-size: 1.4rem; color: var(--accent-dark); font-weight: 800;">
-                        {{ exp.cargo_desempenado }}
-                    </h3>
-                    
-                    {% if exp.nombre_empresa %}
-                        <p style="margin: 8px 0; font-weight: 700; color: var(--accent-soft); font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
-                            <span>🏢</span> {{ exp.nombre_empresa }}
+        {% for exp in experiencias %}
+            <div class="info-card" style="border-left: 5px solid var(--accent-soft); margin-bottom: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 15px;">
+                    <div style="flex: 1; min-width: 250px;">
+                        <h3 style="margin: 0; font-size: 1.4rem; color: var(--accent-dark); font-weight: 800;">
+                            {{ exp.cargo_desempenado }}
+                        </h3>
+                        
+                        {% if exp.nombre_empresa %}
+                            <p style="margin: 8px 0; font-weight: 700; color: var(--accent-soft); font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+                                <span>🏢</span> {{ exp.nombre_empresa }}
+                            </p>
+                        {% endif %}
+                    </div>
+
+                    <div style="text-align: right; min-width: 150px;">
+                        {% if exp.fecha_inicio_gestion or exp.fecha_fin_gestion %}
+                            <span style="background: #fdfaf9; padding: 8px 16px; border-radius: 50px; border: 1px solid var(--border-light); font-size: 0.85rem; font-weight: 700; color: var(--accent-dark); display: inline-block;">
+                                🗓️ {% if exp.fecha_inicio_gestion %}{{ exp.fecha_inicio_gestion }}{% endif %}
+                                {% if exp.fecha_fin_gestion %} - {{ exp.fecha_fin_gestion }}{% else %} - Actual{% endif %}
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid var(--border-light); margin: 20px 0;">
+
+                <div class="exp-details-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                    {% if exp.lugar_empresa %}
+                        <div class="info-tag"><strong>📍 Lugar:</strong> {{ exp.lugar_empresa }}</div>
+                    {% endif %}
+
+                    {% if exp.email_empresa %}
+                        <div class="info-tag"><strong>✉️ Email:</strong> {{ exp.email_empresa }}</div>
+                    {% endif %}
+
+                    {% if exp.nombre_contacto_empresarial %}
+                        <div class="info-tag"><strong>👤 Contacto:</strong> {{ exp.nombre_contacto_empresarial }}</div>
+                    {% endif %}
+
+                    {% if exp.telefono_contacto_empresarial %}
+                        <div class="info-tag"><strong>📞 Teléfono:</strong> {{ exp.telefono_contacto_empresarial }}</div>
+                    {% endif %}
+                </div>
+
+                {% if exp.descripcion_funciones %}
+                    <div style="background: #fffcfb; padding: 20px; border-radius: 15px; margin-top: 15px; border: 1px solid var(--border-light);">
+                        <p style="margin: 0; font-size: 0.95rem; line-height: 1.7; color: #5a4a4a;">
+                            <strong style="color: var(--accent-dark); display: block; margin-bottom: 5px;">Funciones Principales:</strong> 
+                            {{ exp.descripcion_funciones }}
                         </p>
-                    {% endif %}
-                </div>
+                    </div>
+                {% endif %}
 
-                <div style="text-align: right; min-width: 150px;">
-                    {% if exp.fecha_inicio_gestion or exp.fecha_fin_gestion %}
-                        <span style="background: #fdfaf9; padding: 8px 16px; border-radius: 50px; border: 1px solid var(--border-light); font-size: 0.85rem; font-weight: 700; color: var(--accent-dark); display: inline-block;">
-                            🗓️ {% if exp.fecha_inicio_gestion %}{{ exp.fecha_inicio_gestion }}{% endif %}
-                               {% if exp.fecha_fin_gestion %} - {{ exp.fecha_fin_gestion }}{% else %} - Actual{% endif %}
-                        </span>
-                    {% endif %}
+                <div style="margin-top: 25px; display: flex; gap: 12px; justify-content: flex-end; border-top: 1px solid var(--border-light); padding-top: 20px;">
+                    <a href="{% url 'editar_experiencia' exp.id %}" class="btn-sm-action edit">✎ Editar</a>
+                    <a href="{% url 'eliminar_experiencia' exp.id %}" class="btn-sm-action delete">🗑 Eliminar</a>
                 </div>
             </div>
-
-            <hr style="border: 0; border-top: 1px solid var(--border-light); margin: 20px 0;">
-
-            <div class="exp-details-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px;">
-                {% if exp.lugar_empresa %}
-                    <div class="info-tag"><strong>📍 Lugar:</strong> {{ exp.lugar_empresa }}</div>
-                {% endif %}
-
-                {% if exp.email_empresa %}
-                    <div class="info-tag"><strong>✉️ Email:</strong> {{ exp.email_empresa }}</div>
-                {% endif %}
-
-                {% if exp.nombre_contacto_empresarial %}
-                    <div class="info-tag"><strong>👤 Contacto:</strong> {{ exp.nombre_contacto_empresarial }}</div>
-                {% endif %}
-
-                {% if exp.telefono_contacto_empresarial %}
-                    <div class="info-tag"><strong>📞 Teléfono:</strong> {{ exp.telefono_contacto_empresarial }}</div>
-                {% endif %}
-            </div>
-
-            {% if exp.descripcion_funciones %}
-                <div style="background: #fffcfb; padding: 20px; border-radius: 15px; margin-top: 15px; border: 1px solid var(--border-light);">
-                    <p style="margin: 0; font-size: 0.95rem; line-height: 1.7; color: #5a4a4a;">
-                        <strong style="color: var(--accent-dark); display: block; margin-bottom: 5px;">Funciones Principales:</strong> 
-                        {{ exp.descripcion_funciones }}
-                    </p>
-                </div>
-            {% endif %}
-
-            <div style="margin-top: 25px; display: flex; gap: 12px; justify-content: flex-end; border-top: 1px solid var(--border-light); padding-top: 20px;">
-                <a href="{% url 'editar_experiencia' exp.id %}" class="btn-sm-action edit">✎ Editar</a>
-                <a href="{% url 'eliminar_experiencia' exp.id %}" class="btn-sm-action delete">🗑 Eliminar</a>
-            </div>
-        </div>
-        {% endif %}
         {% endfor %}
+
     </div>
     {% else %}
         <div style="text-align: center; padding: 60px; color: #999; border: 1px dashed var(--border-light); border-radius: 20px;">
