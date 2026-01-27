@@ -1093,3 +1093,10 @@ SECCIÓN PRODUCTOS ACADÉMICOS
     margin-top: 6px;
 }
 
+.producto-imagen img {
+    max-width: 100%;
+    max-height: 70mm; /* Esto evita que fotos verticales como la planta rompan el diseño */
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
