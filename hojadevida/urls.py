@@ -73,15 +73,6 @@ urlpatterns = [
 
 
 
-
-    # Seleccionar secciones para PDF
-    path(
-        'hoja_de_vida/seleccionar_secciones/',
-        views.seleccionar_secciones_pdf,
-        name='seleccionar_secciones_pdf'
-    ),
-
-
     #Para imprimir hoja de vida
     path(
         'hoja_de_vida/imprimir/',
