@@ -1,0 +1,161 @@
+/* ============================================================
+   VARIABLES PREMIUM - DISEÑO UNIFICADO
+   ============================================================ */
+:root {
+    --bg-admin: #fdfaf9;    
+    --accent-dark: #41312e; 
+    --accent-soft: #b38b82; 
+    --white: #ffffff;
+    --text-main: #333333;
+    --border-light: #f5e6e3;
+    --shadow-premium: 0 10px 30px rgba(65, 49, 46, 0.08); /* Sombra más suave */
+    --radius-admin: 20px;
+}
+
+/* ============================================================
+   ESTRUCTURA BASE
+   ============================================================ */
+body.admin-body {
+    margin: 0;
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-admin);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header-admin {
+    background: var(--white);
+    padding: 15px 0;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.02);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.brand h1 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 0;
+    color: var(--accent-dark);
+}
+
+.main-wrapper {
+    flex-grow: 1;
+    padding: 40px 20px; /* Más espacio arriba y abajo */
+}
+
+.content-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* ============================================================
+   COMPONENTES DE CONTENIDO (BLOQUES DE INFORMACIÓN)
+   ============================================================ */
+
+/* Este es el contenedor principal de cada página */
+.section-box {
+    background: var(--white);
+    padding: 40px; /* Espacio generoso para que nada esté pegado al borde */
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-admin);
+    box-shadow: var(--shadow-premium);
+    margin-bottom: 30px;
+}
+
+/* ESTILO PARA LOS RECUADROS DE INFORMACIÓN INDIVIDUAL */
+/* Úsalo en tus plantillas como <div class="info-card"> ... </div> */
+.info-card {
+    background: #fff;
+    border: 1px solid var(--border-light);
+    border-radius: 15px; /* Bordes redondeados */
+    padding: 25px;       /* Espacio interno para el texto */
+    margin-bottom: 20px; /* Separación entre recuadros */
+    transition: transform 0.2s ease;
+}
+
+.info-card:last-child {
+    margin-bottom: 0; /* El último no necesita espacio abajo */
+}
+
+h2.decorative {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--accent-dark);
+    margin-bottom: 25px;
+    background: none !important;
+    padding: 0 !important;
+}
+
+/* ============================================================
+   NAVEGACIÓN SECUNDARIA
+   ============================================================ */
+.sub-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-light);
+}
+
+.nav-link {
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--accent-soft);
+    padding: 10px 20px;
+    border-radius: 12px; 
+    background: #fffcfb;
+    border: 1px solid #f5e6e3;
+    transition: all 0.3s ease;
+}
+
+.nav-link.active {
+    background: var(--accent-soft);
+    color: white;
+    border-color: var(--accent-soft);
+}
+
+/* ============================================================
+   TABLAS Y LISTAS (Si usas tablas para la info)
+   ============================================================ */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 15px; /* Espacio ENTRE filas */
+}
+
+th {
+    color: var(--accent-soft);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    padding: 0 20px;
+}
+
+td {
+    background: white;
+    padding: 20px;
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+}
+
+/* Redondear esquinas de las filas */
+td:first-child {
+    border-left: 1px solid var(--border-light);
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+td:last-child {
+    border-right: 1px solid var(--border-light);
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}

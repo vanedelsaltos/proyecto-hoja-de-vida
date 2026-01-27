@@ -1,0 +1,1095 @@
+/* Color de fondo del recuadro (Cambiando el verde por Crema) */
+.intro-container {
+    background-color: #f5e6e3; /* Crema de tu paleta */
+    border: 2px solid #b38b82; /* Borde Rosa Viejo/Terracota */
+    border-radius: 30px;       /* Bordes redondeados */
+    padding: 50px;
+    text-align: center;
+    box-shadow: 8px 8px 0px rgba(179, 139, 130, 0.1); /* Sombra suave */
+}
+
+/* Color del título principal */
+.intro-title {
+    font-size: 2.5rem;
+    color: #5a4a4a; /* Marrón Grisáceo */
+    font-weight: 700;
+}
+
+/* El separador debajo del título */
+.intro-separator {
+    width: 80px;
+    height: 3px;
+    background-color: #b38b82; /* Terracota */
+    margin: 15px auto;
+}
+
+/* Texto de descripción */
+.intro-subtitle {
+    color: #777777; /* Gris Medio */
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+#main-title {
+    color: #333;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase; /* Para que se vea más formal */
+    letter-spacing: 1px;
+}
+
+/* ===== BOTONES DE LA SECCIÓN INICIO ===== */
+
+/* Botón Imprimir (Color Terracota Intenso) */
+.btn-pdf {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #b3422d; /* Terracota oscuro sugerido */
+    color: white !important;
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-pdf:hover {
+    background-color: #8b2f1d; /* Un tono más oscuro al pasar el mouse */
+    transform: translateY(-2px); /* Efecto de levante */
+}
+
+/* Botón Ver Más (Color Crema/Canela) */
+.btn-vermas {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #e2a08a; /* Un tono canela suave que combina con el rosa */
+    color: #5a4a4a; /* Texto marrón grisáceo para mejor lectura */
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.btn-vermas:hover {
+    background-color: #d48b73;
+    border-color: #b38b82;
+}
+
+
+
+/* ===========================
+   DATOS PERSONALES - Publico
+=========================== */
+/* Layout de la Hoja de Vida */
+.resume-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 40px;
+    align-items: start;
+    margin-top: 20px;
+}
+
+/* Sidebar Interno (El cuadro rosa/crema) */
+.resume-sidebar {
+    background-color: #f5e6e3; /* Crema suave */
+    padding: 30px 20px;
+    border-radius: 20px;
+    border: 1px solid #b38b82;
+}
+
+/* FOTO DE PERFIL REDONDA */
+.perfil-foto-cv {
+    width: 150px;
+    height: 150px;
+    border-radius: 100%; /* Esto la hace completamente circular */
+    object-fit: cover;
+    margin: 0 auto 20px auto;
+    display: block;
+    border: 5px solid white; /* Borde blanco para que resalte */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.section-title-sm {
+    color: #5a4a4a;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #b38b82;
+    display: inline-block;
+}
+
+.contact-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 18px;
+    align-items: flex-start;
+}
+
+.contact-item .icon { font-size: 1.2rem; }
+.contact-item p { 
+    font-size: 0.9rem; 
+    margin: 0; 
+    color: #5a4a4a;
+    line-height: 1.3;
+}
+
+/* Contenido Principal (Lado derecho) */
+.cv-name {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* La Burbuja que te gusta */
+.perfil-tag-bubble {
+    display: inline-block;
+    background-color: #b38b82; /* Terracota */
+    color: white;
+    padding: 6px 18px;
+    border-radius: 50px; /* Forma de píldora */
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+.cv-section { margin-bottom: 35px; }
+
+.cv-section-title {
+    font-size: 1.4rem;
+    color: #b38b82;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.cv-text {
+    color: #5a4a4a;
+    line-height: 1.7;
+    font-size: 1.1rem;
+}
+
+.cv-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.cv-info-grid p { margin: 0; color: #5a4a4a; }
+.cv-info-grid .full-row { grid-column: span 2; }
+
+.cv-link {
+    color: #b38b82;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.cv-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsivo para móviles */
+@media (max-width: 768px) {
+    .resume-grid { grid-template-columns: 1fr; }
+    .cv-name { font-size: 2rem; }
+}
+
+
+
+
+
+/*-- =======================
+     EXPERIENCIA LABORAL
+======================= --*/
+
+/* =========================================
+   SECCIÓN: EXPERIENCIA LABORAL (Timeline)
+   ========================================= */
+
+/* Contenedor principal con la línea vertical */
+.timeline-container {
+    position: relative;
+    padding-left: 30px;
+    border-left: 2px solid #f0f0f0;
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
+/* Bloque individual de cada experiencia */
+.exp-block {
+    position: relative;
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 35px;
+    border: 1px solid #eee;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    transition: all 0.3s ease;
+}
+
+.exp-block:hover {
+    transform: translateX(5px);
+    border-color: #b38b82;
+}
+
+/* El punto de la línea de tiempo */
+.timeline-dot {
+    position: absolute;
+    left: -41px; /* Ajuste para quedar sobre la línea */
+    top: 28px;
+    width: 20px;
+    height: 20px;
+    background-color: #b38b82; /* Terracota */
+    border: 4px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px #f5e6e3;
+}
+
+/* Cabecera: Cargo y Fecha */
+.header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.exp-cargo-title {
+    font-size: 1.4rem;
+    color: #333;
+    font-weight: 700;
+    margin: 0;
+}
+
+.exp-period strong {
+    color: #b3422d; /* El mismo terracota fuerte */
+    margin-right: 5px;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+.exp-company {
+    color: #b38b82;
+    font-size: 1.05rem;
+    margin: 8px 0 20px 0;
+}
+
+/* CUERPO: Control de Layout Dinámico */
+
+/* Caso 1: Con referencias (Grid 2 columnas) */
+.exp-body-grid {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 30px;
+    border-top: 1px solid #f5f5f5;
+    padding-top: 20px;
+}
+
+/* Caso 2: Sin referencias (Ancho completo) */
+.exp-body-full {
+    display: block;
+    border-top: 1px solid #f5f5f5;
+    padding-top: 20px;
+}
+
+/* Estilos de contenido */
+.body-title {
+    font-weight: 700;
+    color: #5a4a4a;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.funciones-content {
+    color: #666;
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+/* Tarjeta de Referencia Laboral (Derecha) */
+.exp-contacto-card {
+    background-color: #fcf8f7; /* Un tono casi blanco/crema */
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px dashed #d6b7b0;
+    height: fit-content;
+}
+
+.contact-subtitle {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #b38b82;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.contact-data p {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: #5a4a4a;
+    line-height: 1.4;
+}
+
+.cv-link-small {
+    color: #b3422d;
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.cv-link-small:hover {
+    text-decoration: underline;
+}
+
+/* Botones y Enlaces */
+.btn-cert {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 10px 18px;
+    background: #5a4a4a;
+    color: white !important;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.btn-cert:hover {
+    background: #333;
+}
+
+.btn-web-small {
+    display: block;
+    text-align: center;
+    margin-top: 12px;
+    padding: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1.5px solid #b38b82;
+    color: #b38b82;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.btn-web-small:hover {
+    background-color: #b38b82;
+    color: white !important;
+}
+
+/* Estado vacío */
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+    background: #fdfdfd;
+    border-radius: 20px;
+    border: 2px dashed #eee;
+}
+
+/* Responsivo para móviles */
+@media (max-width: 850px) {
+    .exp-body-grid {
+        grid-template-columns: 1fr;
+    }
+    .exp-contacto-card {
+        margin-top: 10px;
+    }
+    .header-main {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+
+.exp-block {
+    position: relative;
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 35px;
+    
+    /* LINEA CLAVE 1: El Borde */
+    /* Cambiamos el color suave por uno más presente (Terracota claro) */
+    border: 2px solid #e5d1cd; 
+
+    /* LINEA CLAVE 2: La Sombra (Shadow) */
+    /* Añadimos una sombra un poco más profunda para dar volumen */
+    box-shadow: 0 10px 20px rgba(179, 139, 130, 0.1); 
+    
+    transition: all 0.3s ease;
+}
+
+/* Efecto cuando pasas el mouse para que resalte aún más */
+.exp-block:hover {
+    transform: translateX(8px);
+    border-color: #b38b82; /* Se vuelve más oscuro al señalarlo */
+    box-shadow: 0 15px 30px rgba(179, 139, 130, 0.15);
+}
+
+/* LINEA CLAVE 3: El Separador Interno */
+/* Para que la parte de arriba se diferencie de las funciones */
+.exp-body-grid, .exp-body-full {
+    border-top: 2px solid #f5e6e3; /* Línea divisoria más gruesa y colorida */
+    padding-top: 20px;
+    margin-top: 5px;
+}
+
+
+
+
+
+/*----------------------
+--- SECCIÓN CURSOS -----
+------------------------*/
+.courses-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.curso-block {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    border: 2px solid #e5d1cd; /* Borde definido como pediste */
+    box-shadow: 0 10px 20px rgba(179, 139, 130, 0.08);
+    transition: all 0.3s ease;
+}
+
+.curso-block:hover {
+    border-color: #b38b82;
+    transform: translateY(-3px);
+}
+
+
+.curso-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+
+    word-wrap: break-word;      /* Rompe palabras largas si es necesario */
+    word-break: break-word;     /* Asegura quiebre de palabra */
+    overflow-wrap: break-word;  /* Compatibilidad adicional */
+}
+
+.curso-period {
+    background: #f5e6e3;
+    color: #b3422d;
+    padding: 8px 15px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.curso-meta {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.meta-item {
+    font-size: 0.95rem;
+    color: #b38b82;
+}
+
+/* Layouts */
+.curso-body-grid {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 30px;
+    border-top: 2px solid #f5e6e3;
+    padding-top: 20px;
+}
+
+.curso-body-full {
+    display: block;
+    border-top: 2px solid #f5e6e3;
+    padding-top: 20px;
+}
+
+/* Tarjeta lateral de contacto */
+.curso-contacto-card {
+    background-color: #fcf8f7;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px dashed #d6b7b0;
+    height: fit-content;
+}
+
+
+.descripcion-content {
+    color: #666;
+    line-height: 1.6;
+    font-size: 1rem;
+
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Responsivo */
+@media (max-width: 850px) {
+    .curso-body-grid { grid-template-columns: 1fr; }
+    .header-main { flex-direction: column; align-items: flex-start; gap: 10px; }
+}
+
+
+
+/*---------------------
+ SECCIÓN RECONOCIMIENTOS
+ ------------------------- */
+.recon-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.recon-block {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    border: 2px solid #e5d1cd; /* Borde reforzado */
+    box-shadow: 0 10px 25px rgba(182, 66, 42, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Pequeño detalle decorativo lateral */
+.recon-block::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background-color: #b38b82;
+}
+
+.recon-block:hover {
+    border-color: #b38b82;
+    transform: translateY(-4px);
+}
+
+.recon-header-main {
+    margin-bottom: 20px;
+}
+
+.header-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.recon-type-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.recon-date-badge {
+    background-color: #fcf1ee;
+    color: #b6422a;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid #f5e6e3;
+}
+
+.recon-entity-name {
+    color: #8b5e54;
+    font-size: 1.1rem;
+}
+
+/* Grids Dinámicos */
+.recon-body-grid {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 30px;
+    border-top: 2px solid #f5e6e3;
+    padding-top: 20px;
+}
+
+.recon-body-full {
+    display: block;
+    border-top: 2px solid #f5e6e3;
+    padding-top: 20px;
+}
+
+.recon-text {
+    color: #5a4a4a;
+    line-height: 1.7;
+    font-size: 1.05rem;
+}
+
+/* Tarjeta de contacto */
+.recon-contacto-card {
+    background-color: #fffaf9;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px dashed #b38b82;
+    align-self: start;
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+    .recon-body-grid { grid-template-columns: 1fr; }
+    .header-info { flex-direction: column; align-items: flex-start; }
+}
+
+
+
+
+
+
+
+
+
+/* ----------------------
+SECCIÓN PRODUCTOS ACADÉMICOS 
+-----------------------------------*/
+/* Contenedor: Estable y centrado para no afectar al menú */
+.prod-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    max-width: 1100px; /* Mantiene la simetría con el resto del CV */
+    margin: 25px auto;
+    box-sizing: border-box;
+    padding: 0 10px; /* Pequeño respiro en los bordes */
+}
+
+/* Tarjeta Premium: Formato Horizontal (Toda la hoja) */
+.prod-card-premium {
+    display: flex;
+    background: #ffffff;
+    border-radius: 24px;
+    border: 2px solid #e5d1cd;
+    overflow: hidden;
+    box-shadow: 0 12px 35px rgba(179, 139, 130, 0.1);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    min-height: 280px;
+    width: 100%; /* Obliga a ocupar el ancho de la grid */
+}
+
+.prod-card-premium:hover {
+    transform: translateY(-8px);
+    border-color: #b38b82;
+    box-shadow: 0 20px 45px rgba(179, 139, 130, 0.2);
+}
+
+/* Área Visual: Imagen a la izquierda */
+.prod-visual {
+    width: 320px;
+    min-width: 320px;
+    background: #fdfaf9; /* Fondo crema suave */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    border-right: 2px solid #f5e6e3;
+    cursor: zoom-in;
+}
+
+.prod-visual img {
+    max-width: 100%;
+    max-height: 250px;
+    object-fit: contain; /* No recorta la imagen, la muestra completa */
+    border-radius: 12px;
+    transition: transform 0.5s ease;
+}
+
+.prod-card-premium:hover .prod-visual img {
+    transform: scale(1.05);
+}
+
+/* Overlay de la imagen */
+.prod-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(179, 139, 130, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.3s;
+    color: white;
+    font-weight: 600;
+    backdrop-filter: blur(3px);
+}
+
+.prod-visual:hover .prod-overlay {
+    opacity: 1;
+}
+
+/* Detalles y Texto (Lado derecho) */
+.prod-details {
+    padding: 30px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* Evita desbordes de texto */
+}
+
+.prod-category-tag {
+    display: inline-block;
+    align-self: flex-start;
+    background: linear-gradient(135deg, #f5e6e3 0%, #ecd6d1 100%);
+    color: #b3422d;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.prod-title-text {
+    font-size: 1.6rem;
+    color: #2d2d2d;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.prod-divider {
+    height: 3px;
+    width: 50px;
+    background: #b38b82;
+    margin: 20px 0;
+    border-radius: 3px;
+}
+
+.prod-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #b38b82;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.prod-description-scroll {
+    color: #555;
+    line-height: 1.7;
+    font-size: 1rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Mantenimiento del Menú de Navegación */
+.tabs-nav-container { 
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* Sombra ligera para separarlo del contenido */
+}
+
+/* Mobile Responsive: Se vuelve vertical en pantallas pequeñas */
+@media (max-width: 900px) {
+    .prod-card-premium {
+        flex-direction: column;
+    }
+    .prod-visual {
+        width: 100%;
+        min-width: 100%;
+        height: 250px;
+        border-right: none;
+        border-bottom: 2px solid #f5e6e3;
+    }
+}
+
+
+
+
+
+
+/* =========================================
+   NUEVA SECCIÓN PRODUCTOS LABORALES (FLUIDA)
+   ========================================= */
+
+.lab-item-modern {
+    background: white;
+    padding: 40px;
+    border-radius: 30px;
+    margin-bottom: 40px;
+    border-left: 8px solid #b38b82; /* Franja lateral de color */
+    box-shadow: 0 15px 40px rgba(179, 139, 130, 0.1);
+    transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.lab-item-modern:hover {
+    transform: translateX(10px);
+    box-shadow: 0 20px 50px rgba(179, 139, 130, 0.15);
+}
+
+/* Cabecera superior */
+.lab-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.lab-type-tag {
+    background: #f5e6e3;
+    color: #b3422d;
+    padding: 6px 15px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.lab-main-title {
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: 800;
+    margin: 10px 0 0 0;
+    line-height: 1.2;
+}
+
+/* Caja de fecha */
+.lab-date-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fdfaf9;
+    padding: 10px 18px;
+    border-radius: 15px;
+    border: 1px solid #f5e6e3;
+}
+
+.date-text {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #b38b82;
+}
+
+/* Cuerpo de descripción */
+.lab-content-body {
+    border-top: 1px solid #f5e6e3;
+    padding-top: 25px;
+}
+
+.lab-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #b38b82;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.lab-text {
+    color: #5a4a4a;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    text-align: justify;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .lab-item-modern {
+        padding: 25px;
+        border-left-width: 5px;
+    }
+    .lab-header-flex {
+        flex-direction: column;
+    }
+    .lab-main-title {
+        font-size: 1.4rem;
+    }
+}
+
+
+
+
+
+
+/* =========================================
+   SECCIÓN VENTA GARAGE (CATÁLOGO)
+   ========================================= */
+/* Estilo unificado para Productos Académicos y Venta de Garage */
+.prod-card-premium {
+    display: flex;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border: 1px solid #f0f0f0;
+    height: 280px; /* Altura fija para uniformidad */
+}
+
+.prod-visual {
+    width: 35%;
+    position: relative;
+    overflow: hidden;
+}
+
+.prod-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.prod-card-premium:hover .prod-visual img {
+    transform: scale(1.1);
+}
+
+.prod-details {
+    width: 65%;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.prod-category-tag {
+    background: #fdf2f0;
+    color: #d88370;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.prod-title-text {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 10px;
+}
+
+.prod-divider {
+    height: 2px;
+    background: linear-gradient(to right, #d88370, #f7fafc);
+    margin-bottom: 15px;
+}
+
+.prod-description-scroll {
+    overflow-y: auto;
+    max-height: 120px;
+    font-size: 0.95rem;
+    color: #4a5568;
+    line-height: 1.6;
+    padding-right: 10px;
+}
+
+/* Scrollbar fina para la descripción */
+.prod-description-scroll::-webkit-scrollbar { width: 4px; }
+.prod-description-scroll::-webkit-scrollbar-thumb { background: #cbd5e0; border-radius: 10px; }
+
+
+
+.prod-description-scroll {
+    /* 1. Define una altura máxima para que el texto no empuje el resto de la tarjeta */
+    max-height: 120px; 
+    
+    /* 2. Activa el scroll vertical solo cuando el texto supera la altura anterior */
+    overflow-y: auto; 
+    
+    /* 3. Evita que el texto se salga por los lados */
+    overflow-x: hidden; 
+    
+    /* 4. Estética del texto */
+    font-size: 0.95rem;
+    color: #4a5568;
+    line-height: 1.6;
+    padding-right: 10px; /* Espacio para que el texto no toque la barrita de scroll */
+    
+    /* 5. Romper palabras muy largas (como links) para que no ensanchen la caja */
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+/* Personalización de la barrita de scroll para que se vea moderna */
+.prod-description-scroll::-webkit-scrollbar {
+    width: 4px;
+}
+.prod-description-scroll::-webkit-scrollbar-thumb {
+    background: #d88370; /* Color terracota como tu menú */
+    border-radius: 10px;
+}
+.prod-description-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+
+@media (max-width: 768px) {
+    .prod-card-premium {
+        height: auto; /* Permite que la tarjeta crezca en móviles */
+        flex-direction: column;
+    }
+    .prod-description-scroll {
+        max-height: none; /* Quita el límite de altura en móviles */
+        overflow-y: visible; 
+    }
+}
+
+
+/* =========================
+   ESTADOS VENTA GARAGE
+   ========================= */
+
+.estado {
+    padding: 3px 10px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.estado-bueno {
+    background-color: #e0f7e9;
+    color: #2d7a46;
+    border: 1px solid #b8e6c9;
+}
+
+.estado-regular {
+    background-color: #fff6e5;
+    color: #b57d2a;
+    border: 1px solid #ffe8b3;
+}
+
+/* Fecha publicación */
+.prod-fecha {
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 6px;
+}
+
