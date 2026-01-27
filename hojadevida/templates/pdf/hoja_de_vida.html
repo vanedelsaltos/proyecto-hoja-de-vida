@@ -353,6 +353,47 @@
 
 
 
+<!-- ===================== SEPARADOR COMPLETO ===================== -->
+<div class="separador-completa"></div>
+
+<!-- ===================== VENTA GARAGE ===================== -->
+{% if ventas %}
+<section class="venta-garage">
+    <h2 class="main-title">VENTA DE GARAGE</h2>
+
+    {% for item in ventas %}
+        <div class="producto-venta-fila">
+
+            <!-- TEXTO -->
+            <div class="producto-venta-texto">
+                <h3>{{ item.nombreproducto }}</h3>
+
+                <p>
+                    <strong>Publicado:</strong>
+                    {{ item.fecha_publicacion|date:"d/m/Y" }}
+                </p>
+
+                <p><strong>Estado:</strong> {{ item.estadoproducto }}</p>
+
+                {% if item.descripcion %}
+                <p>{{ item.descripcion }}</p>
+                {% endif %}
+
+                <p><strong>Valor:</strong> ${{ item.valordelbien }}</p>
+            </div>
+
+            <!-- IMAGEN -->
+            {% if item.imagen %}
+            <div class="producto-venta-imagen">
+                <img src="{{ item.imagen.url }}" alt="{{ item.nombreproducto }}">
+            </div>
+            {% endif %}
+
+        </div>
+    {% endfor %}
+</section>
+{% endif %}
+
 
 
 <!-- ===================== PORTADA CERTIFICADOS ===================== -->
