@@ -515,9 +515,6 @@ def imprimir_hoja_de_vida(request):
 # -------------------------------------------------
 # SELECCIONAR SECCIONES PARA PDF
 # -------------------------------------------------
-# -------------------------------------------------
-# SELECCIONAR SECCIONES PARA PDF
-# -------------------------------------------------
 @login_required
 def seleccionar_secciones_pdf(request):
     """
