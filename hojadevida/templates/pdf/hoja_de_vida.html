@@ -76,7 +76,7 @@
             <ul class="info-personal">
                 {% if perfil.telefonoconvencional or perfil.telefonofijo %}
                     <li class="contact-item">
-                        <div class="icon-circle">●</div>
+                        <div class="icon-circle">📱</div>
                         <span>
                             <strong>Teléfono:</strong><br>
                             {% if perfil.telefonoconvencional %}
@@ -91,21 +91,21 @@
                 
                 {% if perfil.sitioweb %}
                     <li class="contact-item">
-                        <div class="icon-circle">●</div>
+                        <div class="icon-circle">🌐</div>
                         <span><strong>Sitio web:</strong><br><a href="{{ perfil.sitioweb }}" target="_blank">{{ perfil.sitioweb }}</a></span>
                     </li>
                 {% endif %}
                 
                 {% if perfil.numerocedula %}
                     <li class="contact-item">
-                        <div class="icon-circle">●</div>
+                        <div class="icon-circle">🪪</div>
                         <span><strong>Cédula:</strong><br>{{ perfil.numerocedula }}</span>
                     </li>
                 {% endif %}
                 
                 {% if perfil.email %}
                     <li class="contact-item">
-                        <div class="icon-circle">●</div>
+                        <div class="icon-circle">✉️</div>
                         <span><strong>Email:</strong><br><a href="mailto:{{ perfil.email }}">{{ perfil.email }}</a></span>
                     </li>
                 {% endif %}
@@ -121,13 +121,13 @@
             <ul class="info-personal">
                 {% if perfil.direcciondomiciliaria %}
                     <li class="contact-item">
-                        <div class="icon-circle">➤</div>
+                        <div class="icon-circle">🏠</div>
                         <span><strong>Domicilio:</strong><br>{{ perfil.direcciondomiciliaria }}</span>
                     </li>
                 {% endif %}
                 {% if perfil.direcciontrabajo %}
                     <li class="contact-item">
-                        <div class="icon-circle">●</div>
+                        <div class="icon-circle">🏢</div>
                         <span><strong>Trabajo:</strong><br>{{ perfil.direcciontrabajo }}</span>
                     </li>
                 {% endif %}
@@ -142,7 +142,7 @@
             <ul class="info-personal">
                 {% if perfil.licenciaconducir %}
                     <li class="contact-item">
-                        <div class="icon-circle">●</div>
+                        <div class="icon-circle">🚗</div>
                         <span><strong>Licencia de conducir:</strong><br>{{ perfil.licenciaconducir }}</span>
                     </li>
                 {% endif %}
@@ -256,6 +256,8 @@
                 {% endfor %}
             </div>
         </section>
+        {% endif %}
+
 
 
 
