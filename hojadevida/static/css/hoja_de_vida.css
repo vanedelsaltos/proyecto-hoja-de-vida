@@ -516,29 +516,28 @@ body {
 }
 
 
-/* ===================== VENTA DE GARAGE (Estilo igual a Productos) ===================== */
+/* ===================== VENTA DE GARAGE (ESTILO FINAL) ===================== */
 
 .venta-garage {
     width: 100%;
     padding-left: 15mm;
     padding-right: 15mm;
-    margin-top: 6mm;
-    background-color: white;
-    page-break-inside: auto;
+    margin-top: 10mm;
 }
 
-/* Contenedor de cada producto (Alineación Flexbox) */
+/* Forzamos que el contenido sea una fila horizontal */
 .producto-venta-fila {
-    display: flex;
+    display: flex !important; /* !important asegura que nada lo bloquee */
+    flex-direction: row;
     gap: 10mm;
-    margin-bottom: 10mm;
-    align-items: center; /* Centra verticalmente imagen y texto */
+    margin-bottom: 15mm;
+    align-items: flex-start; /* Alinea el texto al inicio de la foto */
     position: relative;
     padding-left: 8mm;
-    page-break-inside: avoid; /* No corta el producto entre páginas */
+    page-break-inside: avoid;
 }
 
-/* La línea vertical lateral */
+/* La línea lateral y el punto */
 .producto-venta-fila::before {
     content: "";
     position: absolute;
@@ -550,55 +549,54 @@ body {
     opacity: 0.5;
 }
 
-/* El punto decorativo en la línea */
 .producto-venta-fila::after {
     content: "";
     position: absolute;
-    left: 2mm;
-    top: 8mm;
-    width: 8px;
-    height: 8px;
+    left: 1.2mm; /* Ajuste para centrar bien el punto */
+    top: 5mm;
+    width: 10px;
+    height: 10px;
     background-color: #b38b82;
     border-radius: 50%;
 }
 
-/* Configuración de anchos (60% Texto, 40% Imagen) */
+/* AJUSTE DE COLUMNAS */
 .producto-venta-texto {
-    flex: 3;
-    word-break: break-word;
+    flex: 1.5; /* El texto toma un poco más de espacio */
+    padding-top: 2mm;
 }
 
 .producto-venta-imagen {
-    flex: 2;
-    text-align: center;
+    flex: 1; /* La imagen toma menos espacio horizontal */
+    text-align: right;
 }
 
+/* CONTROL DE IMÁGENES MUY ALTAS (como la de la planta) */
 .producto-venta-imagen img {
-    width: 100%;
-    max-height: 80mm; /* Controla que la imagen no sea gigante */
+    max-width: 60mm;  /* No permite que sea muy ancha */
+    max-height: 60mm; /* NO permite que sea muy alta */
+    width: auto;
     height: auto;
+    object-fit: contain; /* Mantiene la proporción sin estirar */
+    border-radius: 4px;
     display: block;
-    object-fit: contain;
+    margin-left: auto; /* Empuja la imagen a la derecha */
 }
 
-/* Estilos de Tipografía para coincidir con el resto */
+/* Tipografía de los productos de venta */
 .producto-venta-texto h3 {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: bold;
-    margin-bottom: 2mm;
+    margin-bottom: 3mm;
     color: #222;
+    text-transform: none;
 }
 
 .producto-venta-texto p {
-    font-size: 0.95rem;
-    line-height: 1.45;
+    font-size: 0.9rem;
+    line-height: 1.4;
     margin-bottom: 2mm;
     color: #444;
-}
-
-/* Opcional: Estilo resaltado para el Valor */
-.producto-venta-texto p strong {
-    color: #222;
 }
 
 
