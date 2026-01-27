@@ -599,6 +599,28 @@ body {
     color: #444;
 }
 
+.cv-container {
+    display: flex;
+    align-items: flex-start; /* para que el main se alinee al top del sidebar */
+}
+
+.sidebar {
+    width: 30%; /* tamaño fijo para sidebar */
+}
+
+.main-content {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Esta clase asegura que las secciones suban si hay espacios vacíos */
+.first-page-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* espacio entre secciones */
+}
+
 
 
 /* ===================== CONFIGURACIÓN PDF ===================== */
