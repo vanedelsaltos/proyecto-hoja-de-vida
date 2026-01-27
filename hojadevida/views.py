@@ -405,6 +405,7 @@ def publico(request):
     productos_academicos = ProductosAcademicos.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
     productos_laborales = ProductosLaborales.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
     ventas = VentaGarage.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
+
     
 
     return render(request, 'publico.html', {
@@ -452,6 +453,7 @@ def imprimir_hoja_de_vida(request):
     ventas = VentaGarage.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
 
 
+
     # -------------------------
     # Filtrar solo certificados que tengan imagen
     # -------------------------
@@ -466,7 +468,7 @@ def imprimir_hoja_de_vida(request):
         "reconocimientos": reconocimientos,
         "productos_academicos": productos_academicos,  # se muestra solo texto
         "productos_laborales": productos_laborales,    # se muestra solo texto
-        "ventas": ventas
+        "ventas": ventas,
         # CERTIFICADOS
         "certificados_experiencias": certificados_experiencias,
         "certificados_reconocimientos": certificados_reconocimientos,
