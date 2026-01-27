@@ -2,7 +2,8 @@
 {% block content %}
 <div style="padding: 20px; max-width: 500px; margin: auto; background: #f5f5f5; border-radius: 10px;">
     <h2>Seleccionar Secciones para PDF</h2>
-    <form method="get" action="{% url 'imprimir_hoja_de_vida' %}">
+    <form method="get" action="{% url 'seleccionar_secciones_pdf' %}">
+
         <div>
             <input type="checkbox" id="experiencia" name="experiencia" checked>
             <label for="experiencia">Incluir Experiencia</label>
@@ -30,7 +31,8 @@
 
         <div style="margin-top: 20px;">
             <a href="{% url 'publico' %}" style="margin-right: 10px;">Cancelar</a>
-            <button type="submit">Generar PDF</button>
+            <button type="submit" name="generar_pdf">Generar PDF</button>
+
         </div>
     </form>
 </div>

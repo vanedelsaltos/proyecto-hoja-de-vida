@@ -515,6 +515,10 @@ def imprimir_hoja_de_vida(request):
 # -------------------------------------------------
 # SELECCIONAR SECCIONES PARA PDF
 # -------------------------------------------------
+# -------------------------------------------------
+# SELECCIONAR SECCIONES PARA PDF
+# -------------------------------------------------
+@login_required
 def seleccionar_secciones_pdf(request):
     """
     Muestra un formulario con checkboxes para que el usuario
@@ -525,4 +529,19 @@ def seleccionar_secciones_pdf(request):
     if not perfil:
         return HttpResponse("No hay perfil activo para generar el PDF.")
 
+    if request.method == 'GET' and 'generar_pdf' in request.GET:
+        # Recoger las secciones marcadas
+        params = {
+            'experiencia': 'on' if request.GET.get('experiencia') == 'on' else '',
+            'cursos': 'on' if request.GET.get('cursos') == 'on' else '',
+            'reconocimientos': 'on' if request.GET.get('reconocimientos') == 'on' else '',
+            'productos_academicos': 'on' if request.GET.get('productos_academicos') == 'on' else '',
+            'productos_laborales': 'on' if request.GET.get('productos_laborales') == 'on' else '',
+            'ventas': 'on' if request.GET.get('ventas') == 'on' else '',
+        }
+        # Construir la URL con parámetros GET
+        query_string = "&".join([f"{k}={v}" for k, v in params.items() if v])
+        return redirect(f"{reverse('imprimir_hoja_de_vida')}?{query_string}")
+
+    # Mostrar formulario de selección
     return render(request, "pdf/seleccionar_secciones.html", {"perfil": perfil})
