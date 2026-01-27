@@ -475,7 +475,21 @@
                         <div class="prod-divider"></div>
 
                         <div class="prod-body">
-                            <p class="prod-label">Estado: <strong>{{ v.estadoproducto|default:"Disponible" }}</strong></p>
+                            <p class="prod-label">
+                                Estado:
+                                <strong class="estado 
+                                    {% if v.estadoproducto == 'Bueno' %}estado-bueno
+                                    {% elif v.estadoproducto == 'Regular' %}estado-regular
+                                    {% endif %}
+                                ">
+                                    {{ v.estadoproducto|default:"Disponible" }}
+                                </strong>
+                            </p>
+
+                            <p class="prod-fecha">
+                                Publicado: {{ v.fecha_publicacion|date:"d M Y" }}
+                            </p>
+
                             <div class="prod-description-scroll">
                                 {{ v.descripcion|linebreaksbr }}
                             </div>
