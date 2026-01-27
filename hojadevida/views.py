@@ -451,12 +451,14 @@ def imprimir_hoja_de_vida(request):
     # Obtener qué secciones incluir desde GET
     # -------------------------
     # Si request.GET está vacío, incluimos TODO
-    incluir_experiencia = request.GET.get('experiencia', 'on') == 'on'
-    incluir_cursos = request.GET.get('cursos', 'on') == 'on'
-    incluir_reconocimientos = request.GET.get('reconocimientos', 'on') == 'on'
-    incluir_productos_academicos = request.GET.get('productos_academicos', 'on') == 'on'
-    incluir_productos_laborales = request.GET.get('productos_laborales', 'on') == 'on'
-    incluir_ventas = request.GET.get('ventas', 'on') == 'on'
+    # Sin valor por defecto: si no está marcado, no se incluye
+    incluir_experiencia = request.GET.get('experiencia') == 'on'
+    incluir_cursos = request.GET.get('cursos') == 'on'
+    incluir_reconocimientos = request.GET.get('reconocimientos') == 'on'
+    incluir_productos_academicos = request.GET.get('productos_academicos') == 'on'
+    incluir_productos_laborales = request.GET.get('productos_laborales') == 'on'
+    incluir_ventas = request.GET.get('ventas') == 'on'
+
 
     # -------------------------
     # Filtrar los datos según selección
