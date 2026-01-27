@@ -473,6 +473,7 @@ def imprimir_hoja_de_vida(request):
         "certificados_experiencias": certificados_experiencias,
         "certificados_reconocimientos": certificados_reconocimientos,
         "certificados_cursos": certificados_cursos,
+        "STATIC_URL": request.build_absolute_uri(settings.STATIC_URL),
     })
 
     response = HttpResponse(content_type="application/pdf")
@@ -482,6 +483,8 @@ def imprimir_hoja_de_vida(request):
         string=html_string,
         base_url=request.build_absolute_uri('/')
     ).write_pdf(response)
+
+
 
     return response
 
