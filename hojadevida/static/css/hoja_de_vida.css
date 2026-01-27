@@ -527,16 +527,15 @@ body {
     page-break-inside: auto;
 }
 
-/* Cada producto como una fila con flexbox */
+/* Contenedor de cada producto (Alineación Flexbox) */
 .producto-venta-fila {
     display: flex;
     gap: 10mm;
     margin-bottom: 10mm;
-    align-items: center;
+    align-items: center; /* Centra verticalmente imagen y texto */
     position: relative;
     padding-left: 8mm;
-    page-break-inside: avoid;
-    break-inside: avoid;
+    page-break-inside: avoid; /* No corta el producto entre páginas */
 }
 
 /* La línea vertical lateral */
@@ -551,7 +550,7 @@ body {
     opacity: 0.5;
 }
 
-/* El punto decorativo */
+/* El punto decorativo en la línea */
 .producto-venta-fila::after {
     content: "";
     position: absolute;
@@ -563,11 +562,10 @@ body {
     border-radius: 50%;
 }
 
-/* Distribución de texto (60%) e imagen (40%) */
+/* Configuración de anchos (60% Texto, 40% Imagen) */
 .producto-venta-texto {
     flex: 3;
     word-break: break-word;
-    overflow-wrap: anywhere;
 }
 
 .producto-venta-imagen {
@@ -577,16 +575,16 @@ body {
 
 .producto-venta-imagen img {
     width: 100%;
-    max-height: 90mm;
+    max-height: 80mm; /* Controla que la imagen no sea gigante */
     height: auto;
     display: block;
     object-fit: contain;
 }
 
-/* Estilos de tipografía para Venta de Garage */
+/* Estilos de Tipografía para coincidir con el resto */
 .producto-venta-texto h3 {
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: bold;
     margin-bottom: 2mm;
     color: #222;
 }
@@ -596,6 +594,11 @@ body {
     line-height: 1.45;
     margin-bottom: 2mm;
     color: #444;
+}
+
+/* Opcional: Estilo resaltado para el Valor */
+.producto-venta-texto p strong {
+    color: #222;
 }
 
 
