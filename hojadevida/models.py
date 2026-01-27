@@ -593,7 +593,6 @@ class ProductosAcademicos(models.Model):
 
 # ------------------------------------------------------------------------------------------------------------------------------------
 # Tabla de Productos Laborales
-
 class ProductosLaborales(models.Model):
 
     # Relación con DatosPersonales
@@ -626,7 +625,6 @@ class ProductosLaborales(models.Model):
         verbose_name="Descripción"
     )
 
-
     activar_para_front = models.BooleanField(
         default=True,
         verbose_name="Mostrar en la página"
@@ -635,10 +633,18 @@ class ProductosLaborales(models.Model):
     class Meta:
         verbose_name = "Producto laboral"
         verbose_name_plural = "Productos laborales"
+        ordering = ['-fecha_producto']  # Ordenamiento: más reciente primero
+
+    def clean(self):
+        super().clean()
+        if self.fecha_producto > timezone.now().date():
+            raise ValidationError({
+                'fecha_producto': "La fecha del producto no puede ser futura."
+            })
 
     def __str__(self):
         return self.nombreproducto or "Producto laboral"
-    
+
 
 
 # ------------------------------------------------------------------
@@ -675,8 +681,6 @@ class VentaGarage(models.Model):
         verbose_name="Descripción"
     )
 
-
-
     valordelbien = models.DecimalField(
         max_digits=5,
         decimal_places=2,
@@ -691,16 +695,21 @@ class VentaGarage(models.Model):
         verbose_name="Imagen del producto"
     )
 
-
     activar_para_front = models.BooleanField(
         default=True,
         verbose_name="Mostrar en la página"
     )
 
+    # ================= FECHA DE PUBLICACIÓN =================
+    fecha_publicacion = models.DateField(
+        auto_now_add=True,
+        verbose_name="Fecha de publicación"
+    )
 
     class Meta:
         verbose_name = "Venta de garage"
         verbose_name_plural = "Venta de garage"
+        ordering = ['-fecha_publicacion']  # Los más recientes primero
 
     def __str__(self):
         return self.nombreproducto or "Venta Garage"
