@@ -2,9 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template.loader import render_to_string
-from weasyprint import HTML
+from weasyprint import HTML, CSS
 from django.conf import settings
 import os
+
+
+
 
 from .forms import (
     DatosPersonalesForm,
@@ -479,10 +482,17 @@ def imprimir_hoja_de_vida(request):
     response = HttpResponse(content_type="application/pdf")
     response["Content-Disposition"] = 'inline; filename="hoja_de_vida.pdf"'
 
+
+    css_path = os.path.join(settings.STATIC_ROOT, 'css', 'hoja_de_vida.css')
+
     HTML(
         string=html_string,
         base_url=request.build_absolute_uri('/')
-    ).write_pdf(response)
+    ).write_pdf(
+        response,
+        stylesheets=[CSS(filename=css_path)]
+    )
+
 
 
 
