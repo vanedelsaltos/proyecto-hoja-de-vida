@@ -20,11 +20,16 @@
         {% endif %}
 
         <div class="intro-buttons" style="margin-top: 1.5rem;">
-            <a href="{% url 'imprimir_hoja_de_vida' %}" target="_blank" class="btn-pdf">
-                🖨 Imprimir Hoja de Vida
-            </a>
-            <a href="#datos" class="btn-vermas" onclick="mostrarTab('datos')">Ver más</a>
-        </div>
+        <!-- Antes -->
+        <!-- <a href="{% url 'imprimir_hoja_de_vida' %}" target="_blank" class="btn-pdf">🖨 Imprimir Hoja de Vida</a> -->
+
+        <!-- Ahora -->
+        <a href="{% url 'seleccionar_secciones_pdf' %}" target="_blank" class="btn-pdf">
+            🖨 Generar PDF
+        </a>
+        <a href="#datos" class="btn-vermas" onclick="mostrarTab('datos')">Ver más</a>
+    </div>
+
 
     </div>
 </div>

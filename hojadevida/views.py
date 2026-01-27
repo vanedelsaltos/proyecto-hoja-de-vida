@@ -434,36 +434,50 @@ def publico(request):
 
 
 
-
 # -------------------------------------------------
 # IMPRIMIR HOJA DE VIDA (PDF)
 # -------------------------------------------------
 def imprimir_hoja_de_vida(request):
     """
-    Genera el PDF con TODA la información
-    que aparece en la página pública, dejando
-    los certificados al final.
+    Genera el PDF con la información seleccionada
+    por el usuario en el formulario de secciones.
+    Si no se selecciona nada, se generan todas las secciones.
     """
     perfil = obtener_perfil_activo()
     if not perfil:
         return HttpResponse("No hay perfil activo para generar el PDF.")
 
-    experiencias = ExperienciaLaboral.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
-    cursos = CursosRealizados.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
-    reconocimientos = Reconocimientos.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
-    productos_academicos = ProductosAcademicos.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
-    productos_laborales = ProductosLaborales.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
-    ventas = VentaGarage.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
+    # -------------------------
+    # Obtener qué secciones incluir desde GET
+    # -------------------------
+    # Si request.GET está vacío, incluimos TODO
+    incluir_experiencia = request.GET.get('experiencia', 'on') == 'on'
+    incluir_cursos = request.GET.get('cursos', 'on') == 'on'
+    incluir_reconocimientos = request.GET.get('reconocimientos', 'on') == 'on'
+    incluir_productos_academicos = request.GET.get('productos_academicos', 'on') == 'on'
+    incluir_productos_laborales = request.GET.get('productos_laborales', 'on') == 'on'
+    incluir_ventas = request.GET.get('ventas', 'on') == 'on'
 
-
+    # -------------------------
+    # Filtrar los datos según selección
+    # -------------------------
+    experiencias = ExperienciaLaboral.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True) if incluir_experiencia else []
+    cursos = CursosRealizados.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True) if incluir_cursos else []
+    reconocimientos = Reconocimientos.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True) if incluir_reconocimientos else []
+    productos_academicos = ProductosAcademicos.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True) if incluir_productos_academicos else []
+    productos_laborales = ProductosLaborales.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True) if incluir_productos_laborales else []
+    ventas = VentaGarage.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True) if incluir_ventas else []
 
     # -------------------------
     # Filtrar solo certificados que tengan imagen
     # -------------------------
-    certificados_experiencias = experiencias.filter(imagen_certificado__isnull=False).exclude(imagen_certificado='')
-    certificados_reconocimientos = reconocimientos.filter(imagen_certificado__isnull=False).exclude(imagen_certificado='')
-    certificados_cursos = cursos.filter(imagen_certificado__isnull=False).exclude(imagen_certificado='')
+    certificados_experiencias = experiencias.filter(imagen_certificado__isnull=False).exclude(imagen_certificado='') if incluir_experiencia else []
+    certificados_reconocimientos = reconocimientos.filter(imagen_certificado__isnull=False).exclude(imagen_certificado='') if incluir_reconocimientos else []
+    certificados_cursos = cursos.filter(imagen_certificado__isnull=False).exclude(imagen_certificado='') if incluir_cursos else []
 
+    # -------------------------
+    # Renderizar HTML del PDF
+    # -------------------------
     html_string = render_to_string("pdf/hoja_de_vida.html", {
         "perfil": perfil,
         "experiencias": experiencias,
@@ -479,9 +493,11 @@ def imprimir_hoja_de_vida(request):
         "STATIC_URL": request.build_absolute_uri(settings.STATIC_URL),
     })
 
+    # -------------------------
+    # Generar PDF
+    # -------------------------
     response = HttpResponse(content_type="application/pdf")
     response["Content-Disposition"] = 'inline; filename="hoja_de_vida.pdf"'
-
 
     css_path = os.path.join(settings.STATIC_ROOT, 'css', 'hoja_de_vida.css')
 
@@ -493,10 +509,20 @@ def imprimir_hoja_de_vida(request):
         stylesheets=[CSS(filename=css_path)]
     )
 
-
-
-
     return response
 
-    
 
+# -------------------------------------------------
+# SELECCIONAR SECCIONES PARA PDF
+# -------------------------------------------------
+def seleccionar_secciones_pdf(request):
+    """
+    Muestra un formulario con checkboxes para que el usuario
+    seleccione qué secciones incluir en el PDF.
+    Al enviar, redirige a imprimir_hoja_de_vida con los parámetros GET.
+    """
+    perfil = obtener_perfil_activo()
+    if not perfil:
+        return HttpResponse("No hay perfil activo para generar el PDF.")
+
+    return render(request, "pdf/seleccionar_secciones.html", {"perfil": perfil})
