@@ -6,9 +6,15 @@
     <title>Hoja de Vida - {{ perfil.nombre_completo }}</title>
     <link rel="stylesheet" href="{{ STATIC_URL }}css/hoja_de_vida.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Ajuste para que si el contenedor está vacío no ocupe espacio */
+        .cv-container { display: flex; min-height: auto; }
+        .main-content { flex: 1; }
+    </style>
 </head>
 <body>
 
+{% if perfil or experiencias or cursos or reconocimientos %}
 <div class="cv-container">
     <aside class="sidebar">
         <div class="foto-container">
@@ -29,9 +35,6 @@
             {% endif %}
             {% if perfil.fechanacimiento %}
                 <li><strong>Fecha de nacimiento:</strong><br>{{ perfil.fechanacimiento }}</li>
-            {% endif %}
-            {% if perfil.lugarnacimiento %}
-                <li><strong>Lugar de nacimiento:</strong><br>{{ perfil.lugarnacimiento }}</li>
             {% endif %}
             {% if perfil.sexo %}
                 <li><strong>Sexo:</strong><br>{{ perfil.get_sexo_display }}</li>
@@ -55,52 +58,10 @@
                         </span>
                     </li>
                 {% endif %}
-                {% if perfil.sitioweb %}
-                    <li class="contact-item">
-                        <div class="icon-circle">🌐</div>
-                        <span><strong>Sitio web:</strong><br><a href="{{ perfil.sitioweb }}" target="_blank">{{ perfil.sitioweb }}</a></span>
-                    </li>
-                {% endif %}
-                {% if perfil.numerocedula %}
-                    <li class="contact-item">
-                        <div class="icon-circle">🪪</div>
-                        <span><strong>Cédula:</strong><br>{{ perfil.numerocedula }}</span>
-                    </li>
-                {% endif %}
                 {% if perfil.email %}
                     <li class="contact-item">
                         <div class="icon-circle">✉️</div>
                         <span><strong>Email:</strong><br><a href="mailto:{{ perfil.email }}">{{ perfil.email }}</a></span>
-                    </li>
-                {% endif %}
-            </ul>
-        </section>
-
-        <section class="sidebar-section">
-            <h2 class="sidebar-title">Dirección</h2>
-            <ul class="info-personal">
-                {% if perfil.direcciondomiciliaria %}
-                    <li class="contact-item">
-                        <div class="icon-circle">🏠</div>
-                        <span><strong>Domicilio:</strong><br>{{ perfil.direcciondomiciliaria }}</span>
-                    </li>
-                {% endif %}
-                {% if perfil.direcciontrabajo %}
-                    <li class="contact-item">
-                        <div class="icon-circle">🏢</div>
-                        <span><strong>Trabajo:</strong><br>{{ perfil.direcciontrabajo }}</span>
-                    </li>
-                {% endif %}
-            </ul>
-        </section>
-
-        <section class="sidebar-section">
-            <h2 class="sidebar-title">Licencias y Permisos</h2>
-            <ul class="info-personal">
-                {% if perfil.licenciaconducir %}
-                    <li class="contact-item">
-                        <div class="icon-circle">🚗</div>
-                        <span><strong>Licencia de conducir:</strong><br>{{ perfil.licenciaconducir }}</span>
                     </li>
                 {% endif %}
             </ul>
@@ -128,18 +89,8 @@
                 {% for exp in experiencias %}
                 <div class="timeline-item">
                     <h3 class="puesto">{{ exp.cargo_desempenado }}</h3>
-                    {% if exp.nombre_empresa %}
-                    <p class="empresa"><strong>Empresa/Institución:</strong> {{ exp.nombre_empresa }}</p>
-                    {% endif %}
-                    {% if exp.lugar_empresa %}
-                    <p class="lugar"><strong>Lugar:</strong> {{ exp.lugar_empresa }}</p>
-                    {% endif %}
-                    <p class="periodo">
-                        <strong>Periodo:</strong> {{ exp.fecha_inicio_gestion }} - {% if exp.fecha_fin_gestion %}{{ exp.fecha_fin_gestion }}{% else %}Actualidad{% endif %}
-                    </p>
-                    {% if exp.descripcion_funciones %}
-                    <p class="funciones"><strong>Funciones y responsabilidades:</strong> {{ exp.descripcion_funciones }}</p>
-                    {% endif %}
+                    <p class="periodo">{{ exp.fecha_inicio_gestion }} - {% if exp.fecha_fin_gestion %}{{ exp.fecha_fin_gestion }}{% else %}Actualidad{% endif %}</p>
+                    {% if exp.descripcion_funciones %}<p>{{ exp.descripcion_funciones }}</p>{% endif %}
                 </div>
                 {% endfor %}
             </div>
@@ -153,18 +104,7 @@
                 {% for curso in cursos %}
                 <div class="timeline-item">
                     <h3 class="curso-nombre">{{ curso.nombrecurso }}</h3>
-                    <p class="curso-fechas">
-                        <strong>Periodo:</strong> {{ curso.fechainicio }} - {% if curso.fechafin %}{{ curso.fechafin }}{% else %}Actualidad{% endif %}
-                    </p>
-                    {% if curso.totalhoras %}
-                    <p class="curso-horas"><strong>Total de horas:</strong> {{ curso.totalhoras }}</p>
-                    {% endif %}
-                    {% if curso.entidadpatrocinadora %}
-                    <p class="curso-entidad"><strong>Entidad impartidora:</strong> {{ curso.entidadpatrocinadora }}</p>
-                    {% endif %}
-                    {% if curso.descripcioncurso %}
-                    <p class="curso-descripcion"><strong>Descripción:</strong> {{ curso.descripcioncurso }}</p>
-                    {% endif %}
+                    <p>{{ curso.fechainicio }} - {{ curso.fechafin }}</p>
                 </div>
                 {% endfor %}
             </div>
@@ -177,17 +117,18 @@
             <div class="timeline">
                 {% for rec in reconocimientos %}
                 <div class="timeline-item">
-                    {% if rec.tiporeconocimiento %}<h4 class="reconocimiento-tipo">{{ rec.tiporeconocimiento }}</h4>{% endif %}
-                    {% if rec.descripcionreconocimiento %}<p class="reconocimiento-descripcion">{{ rec.descripcionreconocimiento }}</p>{% endif %}
-                    {% if rec.fechareconocimiento %}<p class="reconocimiento-fecha"><strong>Fecha:</strong> {{ rec.fechareconocimiento }}</p>{% endif %}
-                    {% if rec.entidadpatrocinadora %}<p class="reconocimiento-entidad"><strong>Entidad:</strong> {{ rec.entidadpatrocinadora }}</p>{% endif %}
+                    <h4 class="reconocimiento-tipo">{{ rec.tiporeconocimiento }}</h4>
+                    <p>{{ rec.descripcionreconocimiento }}</p>
                 </div>
                 {% endfor %}
             </div>
         </section>
         {% endif %}
     </main>
-</div> <div class="extra-content-wrapper">
+</div>
+{% endif %}
+
+<div class="extra-content-wrapper">
     {% if productos_academicos %}
     <div class="separador-completa"></div>
     <section class="productos-academicos">
@@ -197,12 +138,9 @@
         <div class="producto-fila">
             <div class="producto-texto">
                 <h3>{{ prod.nombrerecurso }}</h3>
-                {% if prod.clasificador %}<p><strong>Tipo:</strong> {{ prod.clasificador }}</p>{% endif %}
                 {% if prod.descripcion %}<p>{{ prod.descripcion }}</p>{% endif %}
             </div>
-            {% if prod.imagen %}
-            <div class="producto-imagen"><img src="{{ prod.imagen.url }}" alt="{{ prod.nombrerecurso }}"></div>
-            {% endif %}
+            {% if prod.imagen %}<div class="producto-imagen"><img src="{{ prod.imagen.url }}"></div>{% endif %}
         </div>
         {% endif %}
         {% endfor %}
@@ -218,60 +156,15 @@
         <div class="producto-laboral-fila">
             <div class="producto-laboral-texto">
                 <h3>{{ prod.nombreproducto }}</h3>
-                {% if prod.tipoproducto %}<p><strong>Tipo:</strong> {{ prod.tipoproducto }}</p>{% endif %}
-                {% if prod.fecha_producto %}<p><strong>Fecha:</strong> {{ prod.fecha_producto }}</p>{% endif %}
-                {% if prod.descripcion %}<p>{{ prod.descripcion }}</p>{% endif %}
+                <p>{{ prod.descripcion }}</p>
             </div>
-            {% if prod.imagen %}
-            <div class="producto-laboral-imagen"><img src="{{ prod.imagen.url }}" alt="{{ prod.nombreproducto }}"></div>
-            {% endif %}
+            {% if prod.imagen %}<div class="producto-laboral-imagen"><img src="{{ prod.imagen.url }}"></div>{% endif %}
         </div>
         {% endif %}
         {% endfor %}
     </section>
     {% endif %}
-
-    {% if ventas %}
-    <div class="separador-completa"></div>
-    <section class="productos-academicos"> 
-        <h2 class="main-title">VENTA DE GARAGE</h2>
-        {% for item in ventas %}
-            <div class="producto-fila"> 
-                <div class="producto-texto">
-                    <h3>{{ item.nombreproducto }}</h3>
-                    <p><strong>Publicado:</strong> {{ item.fecha_publicacion|date:"d/m/Y" }}</p>
-                    <p><strong>Estado:</strong> {{ item.estadoproducto }}</p>
-                    {% if item.descripcion %}<p>{{ item.descripcion }}</p>{% endif %}
-                    <p><strong>Valor:</strong> ${{ item.valordelbien }}</p>
-                </div>
-                {% if item.imagen %}
-                <div class="producto-imagen"><img src="{{ item.imagen.url }}" alt="{{ item.nombreproducto }}"></div>
-                {% endif %}
-            </div>
-        {% endfor %}
-    </section>
-    {% endif %}
 </div>
-
-<div style="page-break-before: always; text-align:center; font-size:42px; font-weight:bold; margin-top:120mm;">
-    CERTIFICADOS
-</div>
-
-{% for exp in certificados_experiencias %}
-    {% if exp.imagen_certificado %}
-    <div style="page-break-before: always; padding:15mm;">
-        <img src="{{ exp.imagen_certificado.url }}" style="width:100%;height:100%;object-fit:contain;">
-    </div>
-    {% endif %}
-{% endfor %}
-
-{% for rec in certificados_reconocimientos %}
-    {% if rec.imagen_certificado %}
-    <div style="page-break-before: always; padding:15mm;">
-        <img src="{{ rec.imagen_certificado.url }}" style="width:100%;height:100%;object-fit:contain;">
-    </div>
-    {% endif %}
-{% endfor %}
 
 {% for curso in certificados_cursos %}
     {% if curso.imagen_certificado %}
