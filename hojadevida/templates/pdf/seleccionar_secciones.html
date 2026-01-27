@@ -31,8 +31,8 @@
 
         <div style="margin-top: 20px;">
             <a href="{% url 'publico' %}" style="margin-right: 10px;">Cancelar</a>
-            <button type="submit" name="generar_pdf">Generar PDF</button>
-
+            <!-- Cambio mínimo: eliminé name="generar_pdf" porque no se usa en la vista -->
+            <button type="submit">Generar PDF</button>
         </div>
     </form>
 </div>
