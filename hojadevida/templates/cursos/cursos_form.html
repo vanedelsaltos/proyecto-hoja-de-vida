@@ -87,6 +87,32 @@
     .premium-form a:hover {
         color: var(--accent-dark) !important;
     }
+
+    /* ========================= */
+    /* MENSAJES DE ERROR FORM */
+    /* ========================= */
+
+    .premium-form .errorlist {
+        color: #c62828;           /* rojo elegante */
+        font-size: 0.78rem;
+        list-style: none;
+        padding-left: 6px;
+        margin-top: 4px;
+        font-weight: 600;
+    }
+
+    .premium-form .errorlist li {
+        margin-top: 2px;
+    }
+
+    /* Resaltar el campo cuando hay error */
+    .premium-form .errorlist + input,
+    .premium-form .errorlist + select,
+    .premium-form .errorlist + textarea {
+        border-color: #c62828;
+        background: #fff5f5;
+    }
+
 </style>
 
 {% endblock %}

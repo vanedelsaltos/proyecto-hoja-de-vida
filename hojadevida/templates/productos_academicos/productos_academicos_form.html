@@ -90,6 +90,33 @@
         color: var(--accent-dark) !important;
         transform: translateX(-3px);
     }
+
+
+    /* ========================= */
+    /* MENSAJES DE ERROR FORM */
+    /* ========================= */
+
+    .premium-form .errorlist {
+        color: #d32f2f;                 /* rojo elegante */
+        font-size: 0.78rem;
+        list-style: none;
+        padding-left: 5px;
+        margin-top: 4px;
+        font-weight: 600;
+    }
+
+    .premium-form .errorlist li {
+        margin-top: 2px;
+    }
+
+    /* Resaltar el input cuando hay error */
+    .premium-form .errorlist + input,
+    .premium-form .errorlist + select,
+    .premium-form .errorlist + textarea {
+        border-color: #d32f2f;
+        background: #fff5f5;
+    }
+
 </style>
 
 {% endblock %}
