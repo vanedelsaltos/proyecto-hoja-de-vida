@@ -138,33 +138,84 @@
             display: inline-block;
         }
 
-        /* Esto es lo nuevo */
+        /* Modal */
         .modal {
             position: fixed;
             z-index: 1000;
             left: 0; top: 0;
             width: 100%; height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.6);
             display: flex;
             align-items: center;
             justify-content: center;
+            background-color: rgba(0,0,0,0.6);
         }
 
+        /* Contenido del modal */
         .modal-content {
             background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 400px;
+            padding: 30px 25px;
+            border-radius: 15px;
+            max-width: 450px;
             width: 90%;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            text-align: center;
         }
 
+        /* Cerrar modal */
         .modal-close {
             float: right;
             font-size: 1.5rem;
             cursor: pointer;
+            color: #888;
+            transition: color 0.2s;
         }
+        .modal-close:hover {
+            color: #000;
+        }
+
+        /* Checkbox container */
+        .modal-content div {
+            margin-bottom: 12px;
+            text-align: left;
+            font-weight: 500;
+        }
+
+        /* Botones */
+        .modal-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 0.7rem 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        /* Cancelar */
+        .modal-buttons .btn-cancelar {
+            background-color: #aaa;
+            color: white;
+        }
+        .modal-buttons .btn-cancelar:hover {
+            background-color: #888;
+        }
+
+        /* Generar */
+        .modal-buttons button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .modal-buttons button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
         
 
         
@@ -230,7 +281,7 @@
 <div id="modal-secciones-pdf" class="modal" style="display:none;">
     <div class="modal-content">
         <span class="modal-close">&times;</span>
-        <h2>Seleccionar Secciones para PDF</h2>
+        <h2 style="margin-bottom: 20px;">Seleccionar Secciones para PDF</h2>
         <form id="form-secciones-pdf">
             <div>
                 <input type="checkbox" id="experiencia" name="experiencia" checked>
@@ -256,13 +307,15 @@
                 <input type="checkbox" id="ventas" name="ventas" checked>
                 <label for="ventas">Incluir Venta Garage</label>
             </div>
-            <div style="margin-top: 20px;">
+
+            <div class="modal-buttons">
                 <button type="button" class="btn-cancelar">Cancelar</button>
                 <button type="submit">Generar PDF</button>
             </div>
         </form>
     </div>
 </div>
+
 
 
 
