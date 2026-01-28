@@ -447,8 +447,8 @@ class Reconocimientos(models.Model):
 
 
 # ------------------------------------------------------------------------------------------------------------------------------------
-#Tabla Cursos Realizados
 
+# Tabla Cursos Realizados
 class CursosRealizados(models.Model):
 
     # ================= RELACIÓN CON PERFIL =================
@@ -471,8 +471,6 @@ class CursosRealizados(models.Model):
         verbose_name="Fecha de inicio"
     )
 
-
-
     fechafin = models.DateField(
         null=True,
         blank=True,
@@ -485,8 +483,6 @@ class CursosRealizados(models.Model):
         validators=[MinValueValidator(1)],
         verbose_name="Total de horas"
     )
-
-
 
     descripcioncurso = models.TextField(
         blank=True,
@@ -527,48 +523,43 @@ class CursosRealizados(models.Model):
     )
 
     imagen_certificado = CloudinaryField(
-    'Imagen del certificado', 
+        'Imagen del certificado',
         resource_type='image',
         folder='certificados/cursos',
         blank=True,
         null=True
     )
 
-
-
-    
-        # ================= VISIBILIDAD =================
+    # ================= VISIBILIDAD =================
     activar_para_front = models.BooleanField(
         default=True,
         verbose_name="Mostrar en la página web"
     )
-
 
     # ================= CONFIGURACIÓN =================
     class Meta:
         verbose_name = "Curso realizado"
         verbose_name_plural = "Cursos realizados"
         ordering = ['-fechainicio']
-    
 
-    # ================= VALIDACIÓN DE FECHAS =================
+    # ================= VALIDACIONES =================
     def clean(self):
         super().clean()
 
-        # Validar que la fecha de inicio no sea futura
+        # Fecha inicio no futura
         if self.fechainicio and self.fechainicio > timezone.now().date():
             raise ValidationError({
                 'fechainicio': "La fecha de inicio no puede ser futura."
             })
 
-        # Validar que la fecha de fin no sea anterior a la de inicio
+        # Fecha fin no anterior a inicio
         if self.fechainicio and self.fechafin:
             if self.fechafin < self.fechainicio:
                 raise ValidationError({
                     'fechafin': "La fecha de finalización no puede ser anterior a la fecha de inicio."
                 })
 
-        # Validar teléfono del contacto
+        # Teléfono válido
         if self.telefonocontactoauspicia:
             if not self.telefonocontactoauspicia.isdigit():
                 raise ValidationError({
@@ -578,7 +569,6 @@ class CursosRealizados(models.Model):
                 raise ValidationError({
                     'telefonocontactoauspicia': "El teléfono debe tener exactamente 10 dígitos"
                 })
-
 
 
 # ------------------------------------------------------------------------------------------------------------------------------------
