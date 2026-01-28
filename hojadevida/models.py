@@ -324,8 +324,9 @@ class ExperienciaLaboral(models.Model):
 
 
 # ------------------------------------------------------------------------------------------------------------------------------------
-#Tabla de Reconocimientos
 
+
+# Tabla de Reconocimientos
 class Reconocimientos(models.Model):
 
     # ================= RELACIÓN =================
@@ -391,18 +392,15 @@ class Reconocimientos(models.Model):
         null=True
     )
 
-
     imagen_certificado = CloudinaryField(
-        'Imagen del certificado', 
-        resource_type='image', 
+        'Imagen del certificado',
+        resource_type='image',
         folder='certificados/reconocimientos',
-        blank=True, 
-        null=True 
+        blank=True,
+        null=True
     )
 
-
-
-        # ================= VISIBILIDAD =================
+    # ================= VISIBILIDAD =================
     activar_para_front = models.BooleanField(
         default=True,
         verbose_name="Mostrar en la página web"
@@ -414,15 +412,27 @@ class Reconocimientos(models.Model):
         verbose_name_plural = "Reconocimientos"
         ordering = ['-fechareconocimiento']
 
+    # ================= VALIDACIONES =================
     def clean(self):
-        super().clean()
-        if self.fechareconocimiento > timezone.now().date():
+        today = date.today()
+
+        # Fecha no futura
+        if self.fechareconocimiento and self.fechareconocimiento > today:
             raise ValidationError({
                 'fechareconocimiento': "La fecha del reconocimiento no puede ser futura."
             })
 
-    def __str__(self):
-        return f"{self.tiporeconocimiento} - {self.fechareconocimiento}"
+        # Teléfono válido
+        if self.telefonocontactoauspicia:
+            if not self.telefonocontactoauspicia.isdigit():
+                raise ValidationError({
+                    'telefonocontactoauspicia': "El teléfono debe contener solo números"
+                })
+            if len(self.telefonocontactoauspicia) != 10:
+                raise ValidationError({
+                    'telefonocontactoauspicia': "El teléfono debe tener exactamente 10 dígitos"
+                })
+
 
 
 
