@@ -185,6 +185,11 @@ def reconocimientos_lista(request):
 @login_required
 def crear_reconocimiento(request):
     perfil = obtener_perfil_activo()
+
+    # 👉 ESTO ES LO QUE FALTABA
+    if not perfil:
+        return redirect('crear_perfil')
+
     if request.method == 'POST':
         form = ReconocimientosForm(request.POST, request.FILES)
         if form.is_valid():
@@ -194,7 +199,13 @@ def crear_reconocimiento(request):
             return redirect('reconocimientos_lista')
     else:
         form = ReconocimientosForm()
-    return render(request, 'reconocimientos/reconocimientos_form.html', {'form': form, 'perfil': perfil})
+
+    return render(
+        request,
+        'reconocimientos/reconocimientos_form.html',
+        {'form': form, 'perfil': perfil}
+    )
+
 
 
 @login_required
