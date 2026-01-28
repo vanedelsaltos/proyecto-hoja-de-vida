@@ -535,13 +535,20 @@ class CursosRealizados(models.Model):
     def clean(self):
         super().clean()
 
-        # Validar fecha de reconocimiento
-        if self.fechareconocimiento > timezone.now().date():
+        # Validar que la fecha de inicio no sea futura
+        if self.fechainicio and self.fechainicio > timezone.now().date():
             raise ValidationError({
-                'fechareconocimiento': "La fecha del reconocimiento no puede ser futura."
+                'fechainicio': "La fecha de inicio no puede ser futura."
             })
 
-        # Validar teléfono del contacto que auspicia
+        # Validar que la fecha de fin no sea anterior a la de inicio
+        if self.fechainicio and self.fechafin:
+            if self.fechafin < self.fechainicio:
+                raise ValidationError({
+                    'fechafin': "La fecha de finalización no puede ser anterior a la fecha de inicio."
+                })
+
+        # Validar teléfono del contacto
         if self.telefonocontactoauspicia:
             if not self.telefonocontactoauspicia.isdigit():
                 raise ValidationError({
