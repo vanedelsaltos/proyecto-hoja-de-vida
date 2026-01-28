@@ -669,11 +669,13 @@ class ProductosLaborales(models.Model):
     class Meta:
         verbose_name = "Producto laboral"
         verbose_name_plural = "Productos laborales"
-        ordering = ['-fecha_producto']  # Ordenamiento: más reciente primero
+        ordering = ['-fecha_producto']
 
     def clean(self):
         super().clean()
-        if self.fecha_producto > timezone.now().date():
+
+        # ✔️ Validar SOLO si la fecha existe
+        if self.fecha_producto and self.fecha_producto > timezone.now().date():
             raise ValidationError({
                 'fecha_producto': "La fecha del producto no puede ser futura."
             })
