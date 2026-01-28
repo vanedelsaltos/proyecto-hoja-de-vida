@@ -191,8 +191,8 @@ class DatosPersonales(models.Model):
         
     
 # ------------------------------------------------------------------------------------------------------------------------------------
-#tabla de experiencia laboral
 
+# tabla de experiencia laboral
 class ExperienciaLaboral(models.Model):
 
     idperfilconqueestaactivo = models.ForeignKey(
@@ -273,11 +273,11 @@ class ExperienciaLaboral(models.Model):
     )
 
     imagen_certificado = CloudinaryField(
-        'Imagen del certificado', 
-        resource_type='image', 
+        'Imagen del certificado',
+        resource_type='image',
         folder='certificados/experiencia',
-        blank=True, 
-        null=True 
+        blank=True,
+        null=True
     )
 
     # ================= VISIBILIDAD =================
@@ -294,37 +294,47 @@ class ExperienciaLaboral(models.Model):
     def __str__(self):
         return f"{self.cargo_desempenado} - {self.nombre_empresa}"
 
-    # -----------------------------------------------------------------
-    # Validaciones personalizadas
-    # -----------------------------------------------------------------
-    
+    # ================= VALIDACIONES =================
     def clean(self):
-        # Validar que las fechas no sean futuras
         today = date.today()
-        if self.fecha_inicio_gestion > today:
-            raise ValidationError({'fecha_inicio_gestion': "La fecha de inicio no puede ser futura"})
+
+        # Fecha inicio no futura
+        if self.fecha_inicio_gestion and self.fecha_inicio_gestion > today:
+            raise ValidationError({
+                'fecha_inicio_gestion': "La fecha de inicio no puede ser futura"
+            })
+
+        # Fecha fin no futura
         if self.fecha_fin_gestion and self.fecha_fin_gestion > today:
-            raise ValidationError({'fecha_fin_gestion': "La fecha de finalización no puede ser futura"})
+            raise ValidationError({
+                'fecha_fin_gestion': "La fecha de finalización no puede ser futura"
+            })
 
-        # Validar que fecha_fin no sea anterior a fecha_inicio
-        if self.fecha_fin_gestion and self.fecha_fin_gestion < self.fecha_inicio_gestion:
-            raise ValidationError({'fecha_fin_gestion': "La fecha de finalización no puede ser anterior a la fecha de inicio"})
+        # Fecha fin >= fecha inicio
+        if self.fecha_inicio_gestion and self.fecha_fin_gestion:
+            if self.fecha_fin_gestion < self.fecha_inicio_gestion:
+                raise ValidationError({
+                    'fecha_fin_gestion': "La fecha de finalización no puede ser anterior a la fecha de inicio"
+                })
 
-        # Validar que teléfono solo tenga números y máximo 10 dígitos
+        # Teléfono válido
         if self.telefono_contacto_empresarial:
             if not self.telefono_contacto_empresarial.isdigit():
-                raise ValidationError({'telefono_contacto_empresarial': "El teléfono debe contener solo números"})
+                raise ValidationError({
+                    'telefono_contacto_empresarial': "El teléfono debe contener solo números"
+                })
             if len(self.telefono_contacto_empresarial) > 10:
-                raise ValidationError({'telefono_contacto_empresarial': "El teléfono no puede tener más de 10 números"})
-                
+                raise ValidationError({
+                    'telefono_contacto_empresarial': "El teléfono no puede tener más de 10 números"
+                })
+
     def save(self, *args, **kwargs):
-        self.full_clean()  # Esto aplica las validaciones antes de guardar
+        self.full_clean()
         super().save(*args, **kwargs)
 
 
 
 # ------------------------------------------------------------------------------------------------------------------------------------
-
 
 # Tabla de Reconocimientos
 class Reconocimientos(models.Model):
