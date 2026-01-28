@@ -7,6 +7,7 @@ from datetime import date
 
 from django.utils import timezone
 
+
 # ------------------------------------------------------------------------------------------------------------------------------------
 #TABLA DE DATOS PERSONALES 
 
@@ -160,10 +161,25 @@ class DatosPersonales(models.Model):
                 raise ValidationError({'numerocedula': "La cédula debe tener 10 dígitos"})
 
         # Validar teléfonos: solo números si se ingresan
-        for field in ['telefonoconvencional', 'telefonofijo']:
-            numero = getattr(self, field)
-            if numero and not numero.isdigit():
-                raise ValidationError({field: "El teléfono debe contener solo números"})
+        # Validar teléfonos
+        # Teléfono convencional: solo números
+        if self.telefonoconvencional:
+            if not self.telefonoconvencional.isdigit():
+                raise ValidationError({
+                    'telefonoconvencional': "El teléfono convencional debe contener solo números"
+                })
+
+        # Teléfono fijo: solo números y exactamente 10 dígitos
+        if self.telefonofijo:
+            if not self.telefonofijo.isdigit():
+                raise ValidationError({
+                    'telefonofijo': "El teléfono fijo debe contener solo números"
+                })
+            if len(self.telefonofijo) != 10:
+                raise ValidationError({
+                    'telefonofijo': "El teléfono fijo debe tener exactamente 10 dígitos"
+                })
+
 
 
     #ESTO LO QUE HACE ES FORZAR UN SOLO PERFIL ACTIVO
