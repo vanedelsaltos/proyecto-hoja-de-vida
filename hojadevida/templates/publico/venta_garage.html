@@ -1,0 +1,61 @@
+{% extends "base/base_publico.html" %}
+
+{% block content %}
+<!-- =======================
+     VENTA GARAGE
+======================= -->
+
+<div class="prod-grid"> 
+    {% if ventas %}
+        {% for v in ventas %}
+            <div class="prod-card-premium">
+                
+                {% if v.imagen %}
+                <div class="prod-visual">
+                    <a href="{{ v.imagen.url }}" target="_blank">
+                        <img src="{{ v.imagen.url }}" alt="{{ v.nombreproducto }}">
+                        <div class="prod-overlay">
+                            <span>Click para ampliar</span>
+                        </div>
+                    </a>
+                </div>
+                {% endif %}
+
+                <div class="prod-details">
+                    <div class="prod-header-row">
+                        <span class="prod-category-tag">${{ v.valordelbien }}</span>
+                        <h3 class="prod-title-text">{{ v.nombreproducto|title }}</h3>
+                    </div>
+
+                    <div class="prod-divider"></div>
+
+                    <div class="prod-body">
+                        <p class="prod-label">
+                            Estado:
+                            <strong class="estado 
+                                {% if v.estadoproducto == 'Bueno' %}estado-bueno
+                                {% elif v.estadoproducto == 'Regular' %}estado-regular
+                                {% endif %}"
+                            >
+                                {{ v.estadoproducto|default:"Disponible" }}
+                            </strong>
+                        </p>
+
+                        <p class="prod-fecha">
+                            Publicado: {{ v.fecha_publicacion|date:"d M Y" }}
+                        </p>
+
+                        <div class="prod-description-scroll">
+                            {{ v.descripcion|linebreaksbr }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">
+            <p>No hay productos registrados en la venta de garage actualmente.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

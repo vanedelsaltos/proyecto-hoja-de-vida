@@ -1,0 +1,49 @@
+{% extends "base/base_publico.html" %}
+
+{% block content %}
+
+<!-- =======================
+     PRODUCTOS ACADÉMICOS
+======================= -->
+
+<div class="prod-grid">
+    {% if productos_academicos %}
+        {% for p in productos_academicos %}
+            <div class="prod-card-premium">
+                
+                {% if p.imagen %}
+                <div class="prod-visual">
+                    <!-- Aquí envolvemos la imagen con un enlace -->
+                    <a href="{{ p.imagen.url }}" target="_blank">
+                        <img src="{{ p.imagen.url }}" alt="{{ p.nombrerecurso }}">
+                        <div class="prod-overlay">
+                            <span>Click para ampliar</span>
+                        </div>
+                    </a>
+                </div>
+                {% endif %}
+
+                <div class="prod-details">
+                    <div class="prod-header-row">
+                        <span class="prod-category-tag">{{ p.clasificador }}</span>
+                        <h3 class="prod-title-text">{{ p.nombrerecurso|title }}</h3>
+                    </div>
+
+                    <div class="prod-divider"></div>
+
+                    <div class="prod-body">
+                        <p class="prod-label">Descripción:</p>
+                        <div class="prod-description-scroll">
+                            {{ p.descripcion|linebreaksbr }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">
+            <p>No hay productos académicos registrados aún.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

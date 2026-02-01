@@ -1,0 +1,65 @@
+{% extends "base/base_publico.html" %}
+
+{% block content %}
+<!-- =======================
+     RECONOCIMIENTOS
+======================= -->
+
+<div class="recon-container">
+    {% if reconocimientos %}
+        {% for r in reconocimientos %}
+            <div class="recon-block">
+                
+                <div class="recon-header-main">
+                    <div class="header-info">
+                        <h3 class="recon-type-title">𖤐 {{ r.tiporeconocimiento|title }}</h3>
+                        <span class="recon-date-badge">
+                            𝄜 {{ r.fechareconocimiento|date:"j \d\e F \d\e Y" }}
+                        </span>
+                    </div>
+                    {% if r.entidadpatrocinadora %}
+                        <p class="recon-entity-name"><strong>Otorgado por:</strong> {{ r.entidadpatrocinadora }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="{% if r.nombrecontactoauspicia or r.telefonocontactoauspicia %}recon-body-grid{% else %}recon-body-full{% endif %}">
+                    
+                    <div class="recon-info-main">
+                        <p class="body-title">Detalles del Reconocimiento</p>
+                        <div class="recon-text">
+                            {{ r.descripcionreconocimiento|linebreaks }}
+                        </div>
+
+                        {% if r.certificado %}
+                            <div class="certificado-wrapper">
+                                <a href="{{ r.certificado.url }}" target="_blank" class="btn-cert">
+                                    <span>👁</span> Ver Certificado 
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    {% if r.nombrecontactoauspicia or r.telefonocontactoauspicia %}
+                    <div class="recon-contacto-card">
+                        <p class="contact-subtitle">Referencia de Validación</p>
+                        <div class="contact-data">
+                            {% if r.nombrecontactoauspicia %}
+                                <p><strong>Contacto:</strong> {{ r.nombrecontactoauspicia }}</p>
+                            {% endif %}
+                            {% if r.telefonocontactoauspicia %}
+                                <p><strong>Teléfono:</strong> {{ r.telefonocontactoauspicia }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">
+            <p>No hay reconocimientos registrados en tu perfil aún.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

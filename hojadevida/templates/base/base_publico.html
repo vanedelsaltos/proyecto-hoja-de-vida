@@ -80,9 +80,6 @@
         .main-content::-webkit-scrollbar { width: 6px; }
         .main-content::-webkit-scrollbar-thumb { background: #e5e5e5; border-radius: 10px; }
 
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-
         .btn-pdf {
             display: inline-block;
             padding: 0.75rem 1.25rem;
@@ -106,19 +103,14 @@
             transition: background 0.3s;
         }
 
-
-
-        /* Añade esto dentro de tus <style> */
-
         .sidebar nav {
-            overflow-y: auto; /* Permite scroll si hay muchos botones */
+            overflow-y: auto; 
             overflow-x: hidden;
             padding-right: 5px;
             display: flex;
             flex-direction: column;
         }
 
-        /* Estilo para que la barra de scroll sea bonita y minimalista */
         .sidebar nav::-webkit-scrollbar {
             width: 4px;
         }
@@ -129,8 +121,8 @@
         }
 
         .nav-link {
-            flex-shrink: 0; /* Evita que los botones se aplasten */
-            white-space: nowrap; /* Evita que el texto salte de línea */
+            flex-shrink: 0;
+            white-space: nowrap;
         }
         
         .icon {
@@ -138,7 +130,6 @@
             display: inline-block;
         }
 
-        /* Modal */
         .modal {
             position: fixed;
             z-index: 1000;
@@ -150,7 +141,6 @@
             background-color: rgba(0,0,0,0.6);
         }
 
-        /* Contenido del modal */
         .modal-content {
             background-color: #fff;
             padding: 30px 25px;
@@ -161,7 +151,6 @@
             text-align: center;
         }
 
-        /* Cerrar modal */
         .modal-close {
             float: right;
             font-size: 1.5rem;
@@ -169,18 +158,14 @@
             color: #888;
             transition: color 0.2s;
         }
-        .modal-close:hover {
-            color: #000;
-        }
+        .modal-close:hover { color: #000; }
 
-        /* Checkbox container */
         .modal-content div {
             margin-bottom: 12px;
             text-align: left;
             font-weight: 500;
         }
 
-        /* Botones */
         .modal-buttons {
             display: flex;
             justify-content: space-between;
@@ -198,7 +183,6 @@
             transition: background 0.3s;
         }
 
-        /* Cancelar */
         .modal-buttons .btn-cancelar {
             background-color: #e64f4f;
             color: white;
@@ -207,7 +191,6 @@
             background-color: #e64f4f;
         }
 
-        /* Generar */
         .modal-buttons button[type="submit"] {
             background-color: #99d174;
             color: white;
@@ -215,10 +198,6 @@
         .modal-buttons button[type="submit"]:hover {
             background-color: #99d174;
         }
-
-        
-
-        
 
     </style>
 </head>
@@ -244,14 +223,14 @@
         </div>
 
         <nav class="flex-grow">
-            <a class="nav-link active" onclick="mostrarTab('inicio')">Inicio</a>
-            <a class="nav-link" onclick="mostrarTab('datos')">Datos personales</a>
-            <a class="nav-link" onclick="mostrarTab('experiencia')">Experiencia</a>
-            <a class="nav-link" onclick="mostrarTab('cursos')">Cursos</a>
-            <a class="nav-link" onclick="mostrarTab('reconocimientos')">Reconocimientos</a>
-            <a class="nav-link" onclick="mostrarTab('prod_acad')">Productos académicos</a>
-            <a class="nav-link" onclick="mostrarTab('prod_lab')">Productos laborales</a>
-            <a class="nav-link" onclick="mostrarTab('venta')">Venta garage</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'publico_inicio' %}active{% endif %}" href="{% url 'publico_inicio' %}">Inicio</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'publico_datos' %}active{% endif %}" href="{% url 'publico_datos' %}">Datos personales</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'publico_experiencia' %}active{% endif %}" href="{% url 'publico_experiencia' %}">Experiencia</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'publico_cursos' %}active{% endif %}" href="{% url 'publico_cursos' %}">Cursos</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'publico_reconocimientos' %}active{% endif %}" href="{% url 'publico_reconocimientos' %}">Reconocimientos</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'publico_productos_academicos' %}active{% endif %}" href="{% url 'publico_productos_academicos' %}">Productos académicos</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'publico_productos_laborales' %}active{% endif %}" href="{% url 'publico_productos_laborales' %}">Productos laborales</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'publico_venta_garage' %}active{% endif %}" href="{% url 'publico_venta_garage' %}">Venta garage</a>
         </nav>
 
         <div class="mt-auto pt-4 border-t border-gray-100 flex justify-center">
@@ -274,8 +253,6 @@
     </main>
 
 </div>
-
-
 
 <!-- Modal para selección de secciones -->
 <div id="modal-secciones-pdf" class="modal" style="display:none;">
@@ -316,41 +293,7 @@
     </div>
 </div>
 
-
-
-
 {% block extra_js %}
-<script>
-function mostrarTab(tabId) {
-    // 1. Ocultar todas las pestañas y activar la seleccionada
-    document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
-    const targetTab = document.getElementById(tabId);
-    if(targetTab) targetTab.classList.add('active');
-
-    // 2. Actualizar sidebar activo
-    document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-    const link = Array.from(document.querySelectorAll('.nav-link')).find(l => l.getAttribute('onclick')?.includes(tabId));
-    if(link) link.classList.add('active');
-
-    // 3. CAMBIAR EL TÍTULO DINÁMICAMENTE
-    const tituloPrincipal = document.getElementById('main-title');
-    const nombresTitulos = {
-        'inicio': 'Inicio',
-        'datos': 'Datos Personales',
-        'experiencia': 'Experiencia',
-        'cursos': 'Cursos',
-        'reconocimientos': 'Reconocimientos',
-        'prod_acad': 'Productos Académicos',
-        'prod_lab': 'Productos Laborales',
-        'venta': 'Venta Garage'
-    };
-
-    if (nombresTitulos[tabId]) {
-        tituloPrincipal.innerText = nombresTitulos[tabId];
-    }
-}
-</script>
-
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const modal = document.getElementById("modal-secciones-pdf");
@@ -390,9 +333,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
-
 {% endblock %}
-
 
 </body>
 </html>

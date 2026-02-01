@@ -1,0 +1,76 @@
+{% extends "base/base_publico.html" %}
+
+{% block content %}
+<!-- =======================
+     CURSOS REALIZADOS
+======================= -->
+
+<div class="courses-container">
+    {% for c in cursos %}
+    <div class="curso-block">
+        
+        <div class="curso-header">
+            <div class="header-main">
+                <h3 class="curso-title">{{ c.nombrecurso|title }}</h3>
+                <span class="curso-period">
+                    <strong>Periodo:</strong> 
+                    {{ c.fechainicio|date:"j \d\e F \d\e Y" }} - 
+                    {% if c.fechafin %}{{ c.fechafin|date:"j \d\e F \d\e Y" }}{% else %}Actualidad{% endif %}
+                </span>
+            </div>
+            
+            <div class="curso-meta">
+                {% if c.totalhoras %}
+                    <span class="meta-item">⏱ <strong>Duración:</strong> {{ c.totalhoras }} horas</span>
+                {% endif %}
+                {% if c.entidadpatrocinadora %}
+                    <span class="meta-item">🏛 <strong>Institución:</strong> {{ c.entidadpatrocinadora }}</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="{% if c.nombrecontactoauspicia or c.telefonocontactoauspicia or c.emailempresapatrocinadora %}curso-body-grid{% else %}curso-body-full{% endif %}">
+            
+            <div class="curso-info-main">
+                {% if c.descripcioncurso %}
+                    <p class="body-title">Descripción del curso</p>
+                    <div class="descripcion-content">
+                        {{ c.descripcioncurso|linebreaks }}
+                    </div>
+                {% endif %}
+
+                {% if c.certificado %}
+                    <div class="certificado-wrapper">
+                        <a href="{{ c.certificado.url }}" target="_blank" class="btn-cert">
+                            <span>👁</span> Ver Certificado
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+
+            {% if c.nombrecontactoauspicia or c.telefonocontactoauspicia or c.emailempresapatrocinadora %}
+            <div class="curso-contacto-card">
+                <p class="contact-subtitle">Contacto de la Entidad</p>
+                <div class="contact-data">
+                    {% if c.nombrecontactoauspicia %}
+                        <p><strong>Responsable:</strong> {{ c.nombrecontactoauspicia }}</p>
+                    {% endif %}
+                    {% if c.telefonocontactoauspicia %}
+                        <p><strong>Teléfono:</strong> {{ c.telefonocontactoauspicia }}</p>
+                    {% endif %}
+                    {% if c.emailempresapatrocinadora %}
+                        <p><strong>Email:</strong> <a href="mailto:{{ c.emailempresapatrocinadora }}" class="cv-link-small">{{ c.emailempresapatrocinadora }}</a></p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+    {% empty %}
+    <div class="empty-state">
+        <p>No hay cursos registrados aún.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

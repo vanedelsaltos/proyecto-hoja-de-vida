@@ -6,7 +6,17 @@ urlpatterns = [
     path('', views.home, name='home'),               # ← inicio público
 
     # pública-------------------------------------------------------------------------------
-    path('publico/', views.publico, name='publico'),# ← ver hoja de vida
+    # ver hoja de vida
+    path('publico/inicio/', views.publico_inicio, name='publico_inicio'),
+    path('publico/inicio/', views.publico_inicio, name='publico'),  # ← línea agregada para home.html
+    path('publico/datos/', views.publico_datos, name='publico_datos'),
+    path('publico/experiencia/', views.publico_experiencia, name='publico_experiencia'),
+    path('publico/cursos/', views.publico_cursos, name='publico_cursos'),
+    path('publico/reconocimientos/', views.publico_reconocimientos, name='publico_reconocimientos'),
+    path('publico/productos_academicos/', views.publico_productos_academicos, name='publico_productos_academicos'),
+    path('publico/productos_laborales/', views.publico_productos_laborales, name='publico_productos_laborales'),
+    path('publico/venta_garage/', views.publico_venta_garage, name='publico_venta_garage'),
+
 
     # admin---------------------------------------------------------------------------------
     path('inicio/', views.inicio, name='inicio_admin'), # ← admin privado
@@ -20,8 +30,6 @@ urlpatterns = [
     path('datos/eliminar/<int:perfil_id>/', views.eliminar_perfil, name='eliminar_perfil'),
 
     #----------------------------------------------------------------------------------------
-
-
 
 
     #experiencia laboral---------------------------------------------------------------------
@@ -82,7 +90,3 @@ urlpatterns = [
 
 
 ]
-
-
-
-    

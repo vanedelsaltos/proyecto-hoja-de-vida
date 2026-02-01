@@ -1,0 +1,46 @@
+{% extends "base/base_publico.html" %}
+
+{% block content %}
+<!-- =======================
+     PRODUCTOS LABORALES
+======================= -->
+
+<div class="prod-grid">
+    {% if productos_laborales %}
+        {% for p in productos_laborales %}
+            <div class="lab-item-modern">
+                
+                <div class="lab-header-flex">
+                    <div class="lab-title-group">
+                        <span class="lab-type-tag">{{ p.tipoproducto|default:"Producto Laboral" }}</span>
+                        <h3 class="lab-main-title">{{ p.nombreproducto }}</h3>
+                    </div>
+                    
+                    {% if p.fecha_producto %}
+                    <div class="lab-date-box">
+                        <span class="icon">𝄜</span>
+                        <span class="date-text">{{ p.fecha_producto|date:"F, Y" }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                {% if p.descripcion %}
+                <div class="lab-content-body">
+                    <div class="lab-desc-container">
+                        <p class="lab-label">Descripción del Proyecto / Producto</p>
+                        <div class="lab-text">
+                            {{ p.descripcion|linebreaksbr }}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">
+            <p>No hay productos laborales registrados aún.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

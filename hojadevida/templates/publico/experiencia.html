@@ -1,0 +1,81 @@
+{% extends "base/base_publico.html" %}
+
+{% block content %}
+
+<!-- =======================
+     EXPERIENCIA LABORAL
+======================= -->
+<div class="timeline-container">
+    {% for e in experiencias %}
+        <div class="exp-block">
+            <div class="timeline-dot"></div>
+
+            <div class="exp-header">
+                <div class="header-main">
+                    <h3 class="exp-cargo-title">{{ e.cargo_desempenado|title }}</h3>
+                    <span class="exp-period">
+                        <strong>Tiempo en el cargo:</strong> 
+                        {{ e.fecha_inicio_gestion|date:"j \d\e F \d\e Y" }} - 
+                        {% if e.fecha_fin_gestion %}
+                            {{ e.fecha_fin_gestion|date:"j \d\e F \d\e Y" }}
+                        {% else %}
+                            Actualidad
+                        {% endif %}
+                    </span>
+                </div>
+                
+                <p class="exp-company"><strong>⏺ Empresa:</strong> {{ e.nombre_empresa|default:"No especificada" }} | {{ e.lugar_empresa }}</p>
+                
+            </div>
+
+            <div class="{% if e.nombre_contacto_empresarial or e.telefono_contacto_empresarial or e.email_empresa or e.sitio_web_empresa %}exp-body-grid{% else %}exp-body-full{% endif %}">
+                
+                <div class="exp-info-main">
+                    {% if e.descripcion_funciones %}
+                        <p class="body-title">Funciones y Responsabilidades</p>
+                        <div class="funciones-content">
+                            {{ e.descripcion_funciones|linebreaks }}
+                        </div>
+                    {% endif %}
+
+                    {% if e.certificado %}
+                        <div class="certificado-wrapper">
+                            <a href="{{ e.certificado.url }}" target="_blank" class="btn-cert">
+                                <span>📄</span> Ver Certificado Laboral
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+
+                {% if e.nombre_contacto_empresarial or e.telefono_contacto_empresarial or e.email_empresa or e.sitio_web_empresa %}
+                <div class="exp-contacto-card">
+                    <p class="contact-subtitle">Referencia Laboral</p>
+                    <div class="contact-data">
+                        {% if e.nombre_contacto_empresarial %}
+                            <p><strong>Persona:</strong> {{ e.nombre_contacto_empresarial }}</p>
+                        {% endif %}
+                        {% if e.telefono_contacto_empresarial %}
+                            <p><strong>Teléfono:</strong> {{ e.telefono_contacto_empresarial }}</p>
+                        {% endif %}
+                        {% if e.email_empresa %}
+                            <p><strong>Email:</strong> <a href="mailto:{{ e.email_empresa }}" class="cv-link-small">{{ e.email_empresa }}</a></p>
+                        {% endif %}
+                        
+                        {% if e.sitio_web_empresa %}
+                            <a href="{{ e.sitio_web_empresa }}" target="_blank" class="btn-web-small">
+                                <span class="icon">🌐</span> Web Empresa
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    {% empty %}
+        <div class="empty-state">
+            <p>No hay experiencia registrada aún.</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

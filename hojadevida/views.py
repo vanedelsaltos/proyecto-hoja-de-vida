@@ -65,14 +65,17 @@ def datos_personales(request):
     perfil = obtener_perfil_activo()
     if not perfil:
         return render(request, 'error.html', {'mensaje': 'No hay un perfil activo'})
-    return render(request, 'datospersonales.html', {'perfil': perfil})
+    return render(request, 'perfil_y_datospersonales/datospersonales.html', {'perfil': perfil})
+
+
 
 
 # LISTA DE PERFILES
 @login_required
 def lista_perfiles(request):
     perfiles = DatosPersonales.objects.all().order_by('-es_activo')
-    return render(request, 'lista_perfiles.html', {'perfiles': perfiles})
+    return render(request, 'perfil_y_datospersonales/lista_perfiles.html', {'perfiles': perfiles})
+
 
 
 # ACTIVAR PERFIL
@@ -94,7 +97,7 @@ def crear_perfil(request):
             return redirect('lista_perfiles')
     else:
         form = DatosPersonalesForm()
-    return render(request, 'form_datos_personales.html', {'form': form, 'accion': 'Crear'})
+    return render(request, 'perfil_y_datospersonales/form_datos_personales.html', {'form': form, 'accion': 'Crear'})
 
 
 # EDITAR PERFIL
@@ -411,26 +414,44 @@ def eliminar_venta_garage(request, venta_id):
 # -------------------------------------------------
 # PÁGINA PÚBLICA (SIN LOGIN)
 # -------------------------------------------------
-def publico(request):
+def publico_inicio(request):
+    perfil = obtener_perfil_activo()
+    return render(request, 'publico/inicio.html', {'perfil': perfil})
+
+def publico_datos(request):
+    perfil = obtener_perfil_activo()
+    return render(request, 'publico/datos.html', {'perfil': perfil})
+
+def publico_experiencia(request):
     perfil = obtener_perfil_activo()
     experiencias = ExperienciaLaboral.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
+    return render(request, 'publico/experiencia.html', {'perfil': perfil, 'experiencias': experiencias})
+
+def publico_cursos(request):
+    perfil = obtener_perfil_activo()
     cursos = CursosRealizados.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
+    return render(request, 'publico/cursos.html', {'perfil': perfil, 'cursos': cursos})
+
+def publico_reconocimientos(request):
+    perfil = obtener_perfil_activo()
     reconocimientos = Reconocimientos.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
+    return render(request, 'publico/reconocimientos.html', {'perfil': perfil, 'reconocimientos': reconocimientos})
+
+def publico_productos_academicos(request):
+    perfil = obtener_perfil_activo()
     productos_academicos = ProductosAcademicos.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
+    return render(request, 'publico/productos_academicos.html', {'perfil': perfil, 'productos_academicos': productos_academicos})
+
+def publico_productos_laborales(request):
+    perfil = obtener_perfil_activo()
     productos_laborales = ProductosLaborales.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
+    return render(request, 'publico/productos_laborales.html', {'perfil': perfil, 'productos_laborales': productos_laborales})
+
+def publico_venta_garage(request):
+    perfil = obtener_perfil_activo()
     ventas = VentaGarage.objects.filter(idperfilconqueestaactivo=perfil, activar_para_front=True)
+    return render(request, 'publico/venta_garage.html', {'perfil': perfil, 'ventas': ventas})
 
-    
-
-    return render(request, 'publico.html', {
-        'perfil': perfil,
-        'experiencias': experiencias,
-        'cursos': cursos,
-        'reconocimientos': reconocimientos,
-        'productos_academicos': productos_academicos,
-        'productos_laborales': productos_laborales,
-        'ventas': ventas,
-    })
 
 
 

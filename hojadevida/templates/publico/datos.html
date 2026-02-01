@@ -1,0 +1,89 @@
+{% extends "base/base_publico.html" %}
+
+{% block content %}
+<!-- =======================
+     DATOS PERSONALES
+======================= -->
+<div class="resume-grid">
+    
+    <aside class="resume-sidebar">
+        {% if perfil.foto_perfil %}
+            <div class="perfil-foto-container">
+                <img src="{{ perfil.foto_perfil.url }}" alt="Foto de perfil" class="perfil-foto-cv">
+            </div>
+        {% endif %}
+
+        <h2 class="section-title-sm">Contacto</h2>
+        
+        <div class="contact-box">
+            {% if perfil.lugarnacimiento %}
+            <div class="contact-item">
+                <span class="icon">📍</span>
+                <p><strong>Ubicación</strong><br>{{ perfil.lugarnacimiento }}</p>
+            </div>
+            {% endif %}
+
+            {% if perfil.telefonoconvencional or perfil.telefonofijo %}
+            <div class="contact-item">
+                <span class="icon">📱</span>
+                <p><strong>Teléfono</strong><br>
+                    {% if perfil.telefonoconvencional %}
+                        {{ perfil.telefonoconvencional }}
+                    {% endif %}
+                    {% if perfil.telefonoconvencional and perfil.telefonofijo %}
+                        <br>
+                    {% endif %}
+                    {% if perfil.telefonofijo %}
+                        {{ perfil.telefonofijo }}
+                    {% endif %}
+                </p>
+            </div>
+            {% endif %}
+
+
+            {% if perfil.sitioweb %}
+            <div class="contact-item">
+                <span class="icon">🌐</span>
+                <p><strong>Sitio Web</strong><br><a href="{{ perfil.sitioweb }}" target="_blank" class="cv-link">Visitar sitio</a></p>
+            </div>
+            {% endif %}
+
+            <div class="contact-item">
+                <span class="icon">🪪</span>
+                <p><strong>Identificación</strong><br>{{ perfil.numerocedula }}</p>
+            </div>
+
+            <div class="contact-item">
+                <span class="icon">🚗</span>
+                <p><strong>Licencia</strong><br>{{ perfil.licenciaconducir|default:"No dispone" }}</p>
+            </div>
+        </div>
+    </aside>
+
+    <main class="resume-main">
+        <h1 class="cv-name">{{ perfil.nombres }} {{ perfil.apellidos }}</h1>
+        
+        <span class="perfil-tag-bubble">{{ perfil.get_perfilactivo_display }}</span>
+
+        <div class="cv-section" style="margin-top: 20px;">
+            <div class="cv-text">
+                {{ perfil.descripcionperfil|linebreaks|default:"Persona apasionada y enfocada en el desarrollo profesional." }}
+            </div>
+        </div>
+
+        <div class="cv-section">
+            <h3 class="cv-section-title">Detalles Personales</h3>
+            <div class="cv-info-grid">
+                <p><strong>Nacionalidad:</strong> {{ perfil.nacionalidad }}</p>
+                <p><strong>Nacimiento:</strong> {{ perfil.fechanacimiento|date:"d M, Y" }}</p>
+                <p><strong>Estado Civil:</strong> {{ perfil.estadocivil }}</p>
+                <p><strong>Sexo:</strong> {{ perfil.get_sexo_display }}</p>
+                <p class="full-row"><strong>Dirección domiciliaria:</strong> {{ perfil.direcciondomiciliaria }}</p>
+                {% if perfil.direcciontrabajo %}
+                <p class="full-row"><strong>Dirección de trabajo:</strong> {{ perfil.direcciontrabajo }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}

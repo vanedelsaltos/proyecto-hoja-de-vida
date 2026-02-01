@@ -1,0 +1,28 @@
+{% extends "base/base_publico.html" %}
+
+{% block content %}
+
+<!-- =======================
+     PESTAÑA DE INICIO
+======================= -->
+<div class="intro-container">
+    
+    <h1 class="intro-title">Bienvenido/a</h1>
+    <div class="intro-separator"></div>
+
+    {% if perfil.texto_inicio %}
+        <p class="intro-subtitle">{{ perfil.texto_inicio|linebreaks }}</p>
+    {% else %}
+        <p class="intro-subtitle">
+            Explora mi experiencia profesional, cursos y proyectos en esta hoja de vida digital.
+        </p>
+    {% endif %}
+
+    <div class="intro-buttons" style="margin-top: 1.5rem;">
+        <a href="{% url 'imprimir_hoja_de_vida' %}" class="btn-pdf" target="_blank">🖨 Generar PDF</a>
+
+        <a href="{% url 'publico_datos' %}" class="btn-vermas">Ver más</a>
+    </div>    
+</div>
+
+{% endblock %}
