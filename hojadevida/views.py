@@ -6,9 +6,6 @@ from weasyprint import HTML, CSS
 from django.conf import settings
 import os
 
-
-
-
 from .forms import (
     DatosPersonalesForm,
     ExperienciaLaboralForm,
@@ -111,7 +108,7 @@ def editar_perfil(request, perfil_id):
             return redirect('lista_perfiles')
     else:
         form = DatosPersonalesForm(instance=perfil)
-    return render(request, 'form_datos_personales.html', {'form': form, 'accion': 'Guardar cambios'})
+    return render(request, 'perfil_y_datospersonales/form_datos_personales.html', {'form': form, 'accion': 'Guardar cambios'})
 
 
 # ELIMINAR PERFIL
@@ -189,7 +186,6 @@ def reconocimientos_lista(request):
 def crear_reconocimiento(request):
     perfil = obtener_perfil_activo()
 
-    # 👉 ESTO ES LO QUE FALTABA
     if not perfil:
         return redirect('crear_perfil')
 

@@ -7,8 +7,7 @@ urlpatterns = [
 
     # pública-------------------------------------------------------------------------------
     # ver hoja de vida
-    path('publico/inicio/', views.publico_inicio, name='publico_inicio'),
-    path('publico/inicio/', views.publico_inicio, name='publico'),  # ← línea agregada para home.html
+    path('publico/inicio/', views.publico_inicio, name='publico_inicio'), 
     path('publico/datos/', views.publico_datos, name='publico_datos'),
     path('publico/experiencia/', views.publico_experiencia, name='publico_experiencia'),
     path('publico/cursos/', views.publico_cursos, name='publico_cursos'),
