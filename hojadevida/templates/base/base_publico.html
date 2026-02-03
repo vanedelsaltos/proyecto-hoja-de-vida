@@ -244,9 +244,10 @@
     </aside>
 
     <main class="main-content">
-        <header class="flex justify-between items-center mb-10">
-            <h2 id="main-title" class="text-4xl font-bold text-gray-900">Inicio</h2>
-        </header>
+        <h2 id="main-title" class="text-4xl font-bold text-gray-900">
+            {% block main_title %}Inicio{% endblock %}
+        </h2>
+
 
         {% block content %}
         {% endblock %}
